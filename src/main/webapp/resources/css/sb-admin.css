@@ -1,0 +1,467 @@
+/*!
+ * Start Bootstrap - SB Admin Bootstrap Admin Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Global Styles */
+
+body {
+    margin-top: 100px;
+    background-color: #222;
+}
+
+@media(min-width:768px) {
+    body {
+        margin-top: 50px;
+    }
+}
+
+/* Top Navigation */
+
+.top-nav {
+    padding: 0 15px;
+}
+
+.top-nav>li {
+    display: inline-block;
+    float: left;
+}
+
+.top-nav>li>a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 20px;
+    color: #999;
+}
+
+.top-nav>li>a:hover,
+.top-nav>li>a:focus,
+.top-nav>.open>a,
+.top-nav>.open>a:hover,
+.top-nav>.open>a:focus {
+    color: #fff;
+    background-color: #000;
+}
+
+.top-nav>.open>.dropdown-menu {
+    float: left;
+    position: absolute;
+    margin-top: 0;
+    border: 1px solid rgba(0,0,0,.15);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    background-color: #fff;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+.top-nav>.open>.dropdown-menu>li>a {
+    white-space: normal;
+}
+
+ul.message-dropdown {
+    padding: 0;
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+li.message-preview {
+    width: 275px;
+    border-bottom: 1px solid rgba(0,0,0,.15);
+}
+
+li.message-preview>a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+li.message-footer {
+    margin: 5px 0;
+}
+
+ul.alert-dropdown {
+    width: 200px;
+}
+
+/* Flot Chart Containers */
+
+.flot-chart {
+    display: block;
+    height: 400px;
+}
+
+.flot-chart-content {
+    width: 100%;
+    height: 100%;
+}
+
+/* Custom Colored Panels */
+
+.huge {
+    font-size: 40px;
+}
+
+.panel-green {
+    border-color: #5cb85c;
+}
+
+.panel-green > .panel-heading {
+    border-color: #5cb85c;
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+.panel-green > a {
+    color: #5cb85c;
+}
+
+.panel-green > a:hover {
+    color: #3d8b3d;
+}
+
+.panel-gray {
+    border-color: #777777;
+}
+
+.panel-gray > .panel-heading {
+    border-color: #777777;
+    color: #fff;
+    background-color: #777777;
+}
+
+.panel-gray > a {
+    color: #777777;
+}
+
+.panel-gray > a:hover {
+    color: #464646;
+}
+
+.panel-blue {
+    border-color: #5bc0de;
+}
+
+.panel-blue > .panel-heading {
+    border-color: #5bc0de;
+    color: #fff;
+    background-color: #5bc0de;
+}
+
+.panel-blue > a {
+    color: #5bc0de;
+}
+
+.panel-blue > a:hover {
+    color: #2392b1;
+}
+
+.panel-red {
+    border-color: #d9534f;
+}
+
+.panel-red > .panel-heading {
+    border-color: #d9534f;
+    color: #fff;
+    background-color: #d9534f;
+}
+
+.panel-red > a {
+    color: #d9534f;
+}
+
+.panel-red > a:hover {
+    color: #b52b27;
+}
+
+.panel-yellow {
+    border-color: #f0ad4e;
+}
+
+.panel-yellow > .panel-heading {
+    border-color: #f0ad4e;
+    color: #fff;
+    background-color: #f0ad4e;
+}
+
+.panel-yellow > a {
+    color: #f0ad4e;
+}
+
+.panel-yellow > a:hover {
+    color: #df8a13;
+}
+
+textarea {
+   resize: vertical;
+}
+
+.panel-heading {
+    cursor: pointer;
+}
+
+/* CSS Method for adding Font Awesome Chevron Icons */
+.panel-chevron-heading:after {
+    /* seta para baixo quando o painel est� "opening" */
+    font-family:'FontAwesome';
+    content:"\f13a";
+    float: right;
+    color: inherit;
+}
+
+.panel-chevron-heading.collapsed:after {
+    /* seta para direita quando o painel est� "collapsed" */
+    content:"\f138";
+}
+
+.background-radius {
+	background:#E8E8E8;
+	min-height: 318px;
+    margin-bottom: 10px;
+	border-radius:6px;
+}
+
+.btn-mini {
+	display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.btn-mini:hover {
+	color: #2e6da4;
+}
+
+/* form-required
+* marcador para campos obrigat�rios
+*/
+.form-required>label:first-child:after, label.form-required:first-child:after,
+	span.form-required:first-child:after {
+	content: '*';
+	margin-left: 0.15em;
+	color: #D40000;
+}
+
+.btn-modal{
+	width: 97px;
+	height: 34px;
+}
+
+/*UI-MESSAGES*/
+
+#messagesReturn {
+	max-width: 700px;
+	background: none!important;
+	z-index: 9999999!important;
+}
+
+#messagesReturn .ui-dialog-content {
+	margin: 1px!important;
+}
+
+#messagesReturn .ui-messages-info-icon,
+#messagesReturn .ui-messages-warn-icon,
+#messagesReturn .ui-messages-error-icon {
+	margin-top: 2px;
+	font-size: 17px;
+	background: none;
+	font-family:'FontAwesome';
+    content:"\f057";
+	font-style: normal;
+	font-weight: normal;
+	speak: none;
+	display: inline-block;
+	text-decoration: inherit;
+	width: 1em;
+	text-align: center;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1em;
+}
+#messagesReturn .ui-messages-error-icon:before {
+	content: '\f057';
+}
+#messagesReturn .ui-messages-info-icon:before {
+	content: '\f058';
+}
+#messagesReturn .ui-messages-warn-icon:before {
+	content: '\e84e';
+}
+#messagesReturn .ui-messages-error-icon:before {
+	content: '\f057';
+}
+
+#messagesReturn #close-error-msg {
+	margin: 10px;
+	color: inherit;
+	opacity: 0.3;
+}
+#messagesReturn #close-error-msg:hover {
+	opacity: 0.9;
+}
+
+#messagesReturn .ui-messages-info-summary,
+#messagesReturn .ui-messages-warn-summary,
+#messagesReturn .ui-messages-error-summary,
+#messagesReturn .ui-messages-fatal-summary,
+#messagesReturn .ui-message-info-summary,
+#messagesReturn .ui-message-warn-summary,
+#messagesReturn .ui-message-error-summary,
+#messagesReturn .ui-message-fatal-summary {
+	margin-left: 0;
+	font-weight: normal;
+}
+
+/*MESSAGES*/
+.has-message.ui-dialog.ui-widget-content {
+	border: none;
+	-moz-box-shadow: none!important;
+	-webkit-box-shadow: none!important;
+	box-shadow: none!important;
+}
+.has-message.ui-dialog .ui-dialog-content {
+	padding: 0;
+	border: none;
+}
+.has-message.ui-shadow {
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.has-message.ui-dialog .ui-dialog-titlebar-close,
+.has-message.ui-dialog .ui-dialog-titlebar-minimize,
+.has-message.ui-dialog .ui-dialog-titlebar-maximize {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 99;
+}
+.has-message .ui-messages-info,
+.has-message .ui-messages-warn,
+.has-message .ui-messages-error,
+.has-message .ui-messages-fatal {
+	margin: 0;
+	padding: 15px;
+}
+.ui-messages-info, .ui-message-info {
+	background-color: #effdee;
+	border-color: #c5dec5;
+	color: #537653;
+}
+.ui-messages-info-icon {
+	background: url("/siscom-w/resources/core/images/icon-checked-16x16.png") no-repeat 6px 6px;
+}
+.scw-icon-cancel:before { 
+    font-family: 'FontAwesome';
+    content: "\f00d";
+    text-decoration: none
+}
+
+/* CLOSE DIALOG ERROR
+ * Fecha a modal com mensagem de erro
+ */
+#close-error-msg { text-decoration: none; }
+
+.ui-dialog {
+	z-index: 1071 !important;
+}
+
+.dialog-absolute {
+	position: fixed !important;
+}
+
+.ui-dialog.ui-widget-content .ui-dialog-titlebar {
+	font-family: inherit !important;
+    font-weight: 500 !important;
+    background-color: #428bca !important;
+    color:#fff !important;
+}
+
+.ui-dialog.ui-widget-content .ui-dialog-title {
+    font-size: 18px !important;
+}
+
+.ui-confirm-dialog {z-index: 1072 !important;}
+
+.ui-inputfield {
+	width: 80%;
+    height: 32px;
+}
+.ui-datepicker-trigger{
+	margin-top: 5px;
+	margin-bottom: 10px;
+    height: 32px;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+}
+
+#ui-datepicker-div{ 
+    z-index:99999999 !important; 
+}
+
+.hasDatepicker {
+	margin-top: 5px;
+	margin-bottom: 10px;
+    height: 32px;
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-right: none !important;
+}
+
+.ui-widget {
+    font-family: "Arial",Helvetica,Helvetica Neue,sans-serif !important;
+}
+
+.datepicker {
+	margin-top: 55px;
+}
+
+.ui-button-text-icon-left .ui-button-text {
+    padding: .45em 1em .45em 2.1em !important;
+}
+
+.legenda h1 {
+	color: #777777;
+	font-size: 15px;
+	font-weight: bold;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.legenda hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}	
+	
+.legenda .label {
+	font-size: 11px;
+	font-weight: bold;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.legenda .descricao {
+	font-size: small;
+	margin-left: 10px;
+}
+
+.modal-absolute {
+	top: -150px !important;
+	position: absolute !important;
+}

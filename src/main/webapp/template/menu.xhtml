@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<script>
+		$("#menu-toggle").click(function(e) {
+	        e.preventDefault();
+	        $("#wrapper").toggleClass("active");
+		});
+	</script>
+	
+	<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+	<li><a href="#{request.contextPath}/paginas/index.jsf?faces-redirect=true">
+		<i class="fa fa-dashboard"></i>&nbsp; Dashboard</a></li>
+<!-- 	<li><a href="#{request.contextPath}/paginas/indicadores/indicadores.jsf?faces-redirect=true"> -->
+<!-- 		<i class="fa fa-bar-chart-o"></i>&nbsp; Indicadores</a></li> -->
+	<li><a href="#{request.contextPath}/paginas/documentos/documentos.jsf?faces-redirect=true">
+		<i class="fa fa-file-text"></i>&nbsp; Documentos</a></li>
+	<li><a href="#{request.contextPath}/paginas/sac/sac.jsf?faces-redirect=true">
+		<i class="fa fa-bullhorn"></i>&nbsp; SAC</a></li>
+	<li><a href="#{request.contextPath}/paginas/analisecritica/analiseCritica.jsf?faces-redirect=true">
+		<i class="fa fa-line-chart"></i>&nbsp; Análise Crítica</a></li>
+<!-- 	<li><a href="#{request.contextPath}/paginas/auditoria/auditoria.jsf?faces-redirect=true"> -->
+<!-- 		<i class="fa fa-check-square-o"></i>&nbsp; Auditoria Interna</a></li> -->
+<!-- 	<li><a href="#{request.contextPath}/paginas/naoconformidades/naoConformidades.jsf?faces-redirect=true"> -->
+<!-- 		<i class="fa fa-tag"></i>&nbsp; Não Conformidade</a></li> -->
+<!-- 	<li><a href="#{request.contextPath}/paginas/planodemelhoria/planoDeMelhoria.jsf?faces-redirect=true"> -->
+<!-- 		<i class="fa fa-pencil-square-o"></i>&nbsp; Plano de Melhoria</a></li>	 -->
+<!-- 	<li><a href="#{request.contextPath}/paginas/fornecedores/fornecedores.jsf?faces-redirect=true"> -->
+<!-- 		<i class="fa fa-cube"></i>&nbsp; Produtos e Fornecedores</a></li> -->
+<!-- 	<li><a href="#{request.contextPath}/paginas/calibracao/calibracao.jsf?faces-redirect=true"> -->
+<!-- 		<i class="fa fa-gears"></i>&nbsp; Calibração</a></li>			 -->
+<!-- 	<li><a href="#{request.contextPath}/paginas/rh/rh.jsf?faces-redirect=true" class="rh"> -->
+<!-- 		<i class="fa fa-group"></i>&nbsp; RH</a></li> -->
+	<ui:fragment rendered="#{request.isUserInRole('ROLE_ADMIN')}">
+		<li><a href="#{request.contextPath}/paginas/configuracoes/configuracoes.jsf?faces-redirect=true">
+			<i class="fa fa-cog"></i>&nbsp; Configurações</a></li>
+	</ui:fragment>
+<!-- 	<li> -->
+<!--         <a href="javascript:;" data-toggle="collapse" data-target="#configuracoes"><i class="fa fa-cog"></i>&nbsp; Configurações <i class="fa fa-fw fa-caret-down"></i></a> -->
+<!--         <ul id="configuracoes" class="collapse"> -->
+<!--             <li> -->
+<!--                 <a href="#{request.contextPath}/paginas/rh/rh.jsf?faces-redirect=true" class="rh"> -->
+<!-- 				<i class="fa fa-caret-right"></i>&nbsp; Empresa</a> -->
+<!--             </li> -->
+<!--             <li> -->
+<!--                 <a href="#{request.contextPath}/paginas/rh/rh.jsf?faces-redirect=true" class="rh"> -->
+<!-- 				<i class="fa fa-caret-right"></i>&nbsp; Unidade</a> -->
+<!--             </li> -->
+<!--             <li> -->
+<!--                 <a href="#{request.contextPath}/paginas/rh/rh.jsf?faces-redirect=true" class="rh"> -->
+<!-- 				<i class="fa fa-caret-right"></i>&nbsp; Usuários</a> -->
+<!--             </li> -->
+<!--             <li> -->
+<!--                 <a href="#{request.contextPath}/paginas/rh/rh.jsf?faces-redirect=true" class="rh"> -->
+<!-- 				<i class="fa fa-caret-right"></i>&nbsp; Níveis de Usuários</a> -->
+<!--             </li> -->
+<!--         </ul> -->
+<!--     </li> -->
+    
+	<!-- /.navbar-collapse -->
+	
+</ui:composition>
+	

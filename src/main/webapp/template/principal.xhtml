@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
+<h:head>
+<link rel="shortcut icon" href="#{resource['img/favicon.ico']}" type="image/x-icon" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+    
+	<!-- load javascript -->
+	<ui:include src="_js.template.xhtml" />
+	<!-- load css -->
+	<ui:include src="_css.template.xhtml"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+	<script>
+	function colocaFocoErro(){
+		$( "input, select" ).each(function() {
+			if($( this ).hasClass('has-error')){
+				$( this ).focus();
+				return false;
+			}
+		});
+	}
+	</script>
+	<title>
+        <ui:insert name="title">
+            Qualyes
+        </ui:insert>
+    </title>      
+</h:head>
+<h:body>
+	<!-- Header -->
+    <div id="header" class="row">
+    	<ui:insert name="header" >
+	    	<ui:include src="header.xhtml" />
+    	</ui:insert>
+    </div>
+    <!-- /Header -->
+
+	<div id="wrapper">
+		<div id="sidebar-wrapper">
+			<ul id="sidebar" class="sidebar-nav">
+				<ui:include src="menu.xhtml" />
+			</ul>
+		</div>
+	
+		<div id="page-content-wrapper">
+			<!-- Keep all page content within the page-content inset div! -->
+				<div class="row">
+					<div class="col-lg-12">
+						<ui:insert name="conteudo">
+							<ui:include src="/paginas/dashboard/dashboard.xhtml" />
+						</ui:insert>
+					</div>
+				</div>
+		</div>
+		
+        <p:outputPanel autoUpdate="true">
+            <p:dialog widgetVar="messagesModal" modal="true" visible="true" id="messagesReturn"
+            	 showHeader="false" rendered="#{not empty facesContext.messageList}" resizable="false"
+            	 styleClass="has-message" closeOnEscape="true" onHide="colocaFocoErro();" responsive="true">
+            	<a id="close-error-msg" class="scw-icon-cancel pull-right" onclick="PF('messagesModal').hide();"></a>
+                <p:messages id="messages" globalOnly="false" severity="info, error, warn" escape="false"/>
+            </p:dialog>
+        </p:outputPanel>
+		
+	</div>	
+</h:body>
+</html>
