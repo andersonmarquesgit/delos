@@ -1,0 +1,158 @@
+.row{
+    margin-left:0px;
+    margin-right:0px;
+}
+
+#wrapper {
+    padding-left: 0;
+    transition: all .4s ease 0s;
+    height: 100%
+}
+
+#sidebar-wrapper {
+    margin-left: -225px;
+    left: 0;
+    width: 225px;
+    background: #222;
+    position: absolute;
+    height: 100%;
+    transition: all .4s ease 0s;
+}
+
+.sidebar-nav {
+    display: block;
+    float: left;
+    width: 225px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#page-content-wrapper {
+    padding-left: 0;
+    margin-left: 0;
+    width: 100%;
+    min-height: 1200px;
+    min-width: 300px;
+    background: #fff;
+}
+#wrapper.active {
+    padding-left: 225px;
+}
+#wrapper.active #sidebar-wrapper {
+    left: 225px;
+}
+
+#sidebar_menu li a, .sidebar-nav li a {
+    color: #999;
+    display: block;
+    float: left;
+    text-decoration: none;
+    width: 225px;
+    background: #252525;
+    border-top: 1px solid #373737;
+    border-bottom: 1px solid #1A1A1A;
+    -webkit-transition: background .5s;
+    -moz-transition: background .5s;
+    -o-transition: background .5s;
+    -ms-transition: background .5s;
+    transition: background .5s;
+}
+
+.sidebar-nav li ul li a {
+    margin-left: -40px;
+    border: 0;
+    background: #2e2e2e;
+}
+
+.sidebar-nav li ul {
+	list-style-type: none;
+}
+
+#sidebar_menu li a:hover {
+	border-left:none;
+}
+
+.sidebar_name {
+    padding-top: 25px;
+    color: #fff;
+    opacity: .7;
+}
+
+.sidebar-nav li {
+  line-height: 46px;
+  text-indent: 10px;
+}
+
+.sidebar-nav li a {
+  color: #999999;
+  display: block;
+  text-decoration: none;
+}
+
+.sidebar-nav li a:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.2);
+  border-left: 3px solid #62a738;
+  text-decoration: none;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-brand {
+  float:left;	
+
+}
+
+.sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-brand a:hover {
+  color: #fff;
+  background: none;
+}
+
+#main_icon
+{
+	margin-top:12px;
+	margin-left:18px;	
+}
+
+.sub_icon
+{
+   float:right;
+   padding-right: 65px;
+   padding-top:10px;
+}
+.content-header {
+  height: 65px;
+  line-height: 65px;
+}
+
+.content-header h1 {
+  margin: 0;
+  margin-left: 20px;
+  line-height: 65px;
+  display: inline-block;
+}
+
+@media (max-width:767px) {
+    #wrapper {
+    padding-left: 0;
+    transition: all .4s ease 0s;
+	}
+	#sidebar-wrapper {
+	    left: 0;
+	}
+	#wrapper.active {
+	    padding-left: 225px;
+	}
+	#wrapper.active #sidebar-wrapper {
+	    left: 225px;
+	    width: 225px;
+	    transition: all .4s ease 0s;
+	}
+}
