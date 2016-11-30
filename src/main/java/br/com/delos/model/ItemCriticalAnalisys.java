@@ -24,12 +24,12 @@ public class ItemCriticalAnalisys {
 	private Item item;
 	
 	@ManyToOne
-	@JoinColumn(name="fk_resultado")
-	private Result resultado;
+	@JoinColumn(name="fk_result")
+	private Result result;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "fk_secao_analise_critica")
-	private SectionCriticalAnalisys secaoAnaliseCritica;
+	@JoinColumn(name = "fk_section_critical_analisys")
+	private SectionCriticalAnalisys sectionCriticalAnalisys;
 
 	public Long getId() {
 		return id;
@@ -47,20 +47,21 @@ public class ItemCriticalAnalisys {
 		this.item = item;
 	}
 
-	public Result getResultado() {
-		return resultado;
+	public Result getResult() {
+		return result;
 	}
 
-	public void setResultado(Result resultado) {
-		this.resultado = resultado;
+	public void setResult(Result result) {
+		this.result = result;
 	}
 
-	public SectionCriticalAnalisys getSecaoAnaliseCritica() {
-		return secaoAnaliseCritica;
+	public SectionCriticalAnalisys getSectionCriticalAnalisys() {
+		return sectionCriticalAnalisys;
 	}
 
-	public void setSecaoAnaliseCritica(SectionCriticalAnalisys secaoAnaliseCritica) {
-		this.secaoAnaliseCritica = secaoAnaliseCritica;
+	public void setSectionCriticalAnalisys(
+			SectionCriticalAnalisys sectionCriticalAnalisys) {
+		this.sectionCriticalAnalisys = sectionCriticalAnalisys;
 	}
 
 }
