@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+<h:body>
+	<ui:composition template="/template/principal.xhtml">
+		<ui:define name="conteudo">
+			<div class="container-fluid">
+			<h:form id="formAnaliseCritica">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="page-header">Análise Crítica</h1>
+						<ol class="breadcrumb">
+							<li><i class="fa fa-dashboard"></i> <a href="#{request.contextPath}/paginas/index.jsf?faces-redirect=true">Dashboard</a>
+							</li>
+							<li class="active"><i class="fa fa-line-chart"></i> Análise Crítica</li>
+						</ol>
+						<p:commandButton id="btAdicionarAnaliseCritica" styleClass="btn btn-labeled btn-primary" 
+							value="#{labels.nova_analise_critica}" 
+							action="#{analiseCriticaController.redirectNovaAnaliseCritica}"
+							icon="fa fa-plus" />
+						
+						<div class="table-responsive">
+						   <p:dataTable id="dataTableAnaliseCritica" widgetVar="dataTableAnaliseCritica" tableStyleClass="table table-striped table-hover small table-bordered table-hover" 
+						   		value="#{analiseCriticaController.analises}" var="analiseCritica" reflow="true"
+						   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" 
+						   		pageLinks="10" rows="10" rowsPerPageTemplate="10,20,50" paginatorPosition="bottom"
+						   		style="text-align: center;" emptyMessage="#{labels.empty_message_analises}">
+						   		
+						   		<p:column headerText="#{labels.analise_critica_numero}" width="20%">
+						         	<h:outputText value="#{analiseCritica.numero}" />
+						      	</p:column>
+						      	<p:column headerText="Data de Inclusão" width="20%">
+						         	<h:outputText value="#{analiseCritica.dataInclusao}">
+						         		<f:convertDateTime pattern="dd/MM/yyyy hh:mm"/>
+	         						</h:outputText>
+						      	</p:column>
+						      	<p:column headerText="#{labels.analise_critica_conclusao}">
+						         	<h:outputText value="#{analiseCritica.conclusaoGeral}" />
+						      	</p:column>
+						   	</p:dataTable>
+						</div>   		
+							
+					</div>
+				</div>
+			</h:form>	
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+
+

@@ -41,7 +41,7 @@ public class SectionCriticalAnalisys {
 	private String comments;
 	
 	@OneToOne
-	private Section secao;
+	private Section section;
 
 	public List<ItemCriticalAnalisys> getItemsCriticalAnalisys() {
 		return itemsCriticalAnalisys;
@@ -84,12 +84,12 @@ public class SectionCriticalAnalisys {
 		this.comments = comments;
 	}
 
-	public Section getSecao() {
-		return secao;
+	public Section getSection() {
+		return section;
 	}
 
-	public void setSecao(Section secao) {
-		this.secao = secao;
+	public void setSection(Section section) {
+		this.section = section;
 	}
 
 	public Long getId() {
