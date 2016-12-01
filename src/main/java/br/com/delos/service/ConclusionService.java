@@ -14,7 +14,7 @@ public class ConclusionService {
 	@Autowired
 	private ConclusionRespository conclusionRespository;
 	
-	public List<Conclusion> listar() {
+	public List<Conclusion> list() {
 		return conclusionRespository.findAll();
 	}
 

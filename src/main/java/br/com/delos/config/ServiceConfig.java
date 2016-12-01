@@ -11,7 +11,7 @@ public class ServiceConfig {
 	private static final Logger log = Logger.getLogger(ServiceConfig.class);
 
 	public ServiceConfig() {
-		log.info("::::Inicialização do Service Config e Escaneamento dos Serviços::::");
+		log.info("::::InicializaÃ§Ã£o do Service Config e Escaneamento dos ServiÃ§os::::");
 	}
 	
 }

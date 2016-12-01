@@ -13,7 +13,7 @@ import br.com.delos.model.Section;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
-	@Query("SELECT i FROM Item i where i.secao = :section ") 
+	@Query("SELECT i FROM Item i where i.section = :section ") 
 	public List<Item> listBySection(@Param("section") Section section);
 
 }

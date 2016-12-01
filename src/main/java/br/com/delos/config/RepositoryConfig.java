@@ -41,7 +41,7 @@ public class RepositoryConfig {
 	private Environment env;
 	
 	public RepositoryConfig() {
-		log.info("::::Inicialização do Repository Config::::");
+		log.info("::::InicializaÃ§Ã£o do Repository Config::::");
 	}
 
 	@Bean

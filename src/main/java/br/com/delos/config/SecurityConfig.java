@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private AccessDeniedHandler restAccessDeniedHandler;
 	   
 	public SecurityConfig() {
-		log.info("::::Inicialização do Security Config::::");
+		log.info("::::InicializaÃ§Ã£o do Security Config::::");
 	}
 
 	@Autowired

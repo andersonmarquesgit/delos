@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-//import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class CriticalAnalisysService {
 	}
 	
 	private Sort orderByDateInclusion() {
-	    return new Sort(Sort.Direction.DESC, "dataInclusao");
+	    return new Sort(Sort.Direction.DESC, "dateInclusion");
 	}
 
 	public CriticalAnalisys inicializarNovaAnaliseCritica() {
@@ -56,8 +56,7 @@ public class CriticalAnalisysService {
 	}
 
 	private String formatAmountCriticalAnalisysInDay(Long amountCriticalAnalisysInDay) {
-//		return StringUtils.rightPad(amountCriticalAnalisysInDay.toString(), Constantes.QTD_ZEROS_NUM_ANALISE_CRITICA, "0");
-		return "";
+		return StringUtils.rightPad(amountCriticalAnalisysInDay.toString(), Constantes.QTD_ZEROS_NUM_ANALISE_CRITICA, "0");
 	}
 	
 	private Long countCriticalAnalisysInDay(Date dataAtual) {

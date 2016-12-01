@@ -22,7 +22,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 	private static final Logger log = Logger.getLogger(MvcConfig.class);
 	
 	public MvcConfig() {
-		log.info("::::Inicialização do MVC Config e Escaneamento dos Controladores::::");
+		log.info("::::InicializaÃ§Ã£o do MVC Config e Escaneamento dos Controladores::::");
 	}
 
 	@Bean
