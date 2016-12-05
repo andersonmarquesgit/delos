@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_elemento")
+@Table(name = "tb_factor")//TODO: antigo elemento, remover ao concluir migração
 public class Factor {
 	
 	@Id
