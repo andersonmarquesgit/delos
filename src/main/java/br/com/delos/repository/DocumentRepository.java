@@ -17,9 +17,9 @@ public interface DocumentRepository extends JpaRepository<Document, Long> {
 	@Query("SELECT d FROM Document d where d.documentType = :documentType") 
 	public List<Document> findByDocumentType(@Param("documentType") DocumentType documentType, Pageable pegeable);
 	
-	@Query("SELECT COUNT(d) FROM Documento d where d.documentType = :documentType") 
+	@Query("SELECT COUNT(d) FROM Document d where d.documentType = :documentType") 
 	public Long countByDocumentType(@Param("documentType") DocumentType documentType);
 	
-	@Query("SELECT d FROM Document d where d.documentType = :DocumentType") 
+	@Query("SELECT d FROM Document d where d.documentType = :documentType") 
 	public List<Document> listByDocumentType(@Param("documentType") DocumentType documentType);
 }
