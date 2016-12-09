@@ -20,6 +20,7 @@
 		<bootstrap.version>2.3.1</bootstrap.version>
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 		<jasperreports-version>5.6.0</jasperreports-version>
+		<commons-mail-version>1.4</commons-mail-version>
 	</properties>
 	
 	<repositories>
@@ -184,6 +185,13 @@
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
+		</dependency>
+		
+		<!-- COMMONS MAIL -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>${commons-mail-version}</version>
 		</dependency>
 	</dependencies>
 	
