@@ -21,6 +21,7 @@
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 		<jasperreports-version>5.6.0</jasperreports-version>
 		<commons-mail-version>1.4</commons-mail-version>
+		<chartistjsf.version>1.0</chartistjsf.version>
 	</properties>
 	
 	<repositories>
@@ -192,6 +193,14 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-email</artifactId>
 			<version>${commons-mail-version}</version>
+		</dependency>
+		
+		<!-- CHARTISJSF -->
+		<!-- Depende da versão do Primefaces https://github.com/hatemalimam/ChartistJSF#getting-started -->
+		<dependency>
+		    <groupId>org.chartistjsf</groupId>
+		    <artifactId>ChartistJSF</artifactId>
+		    <version>${chartistjsf.version}</version>      
 		</dependency>
 	</dependencies>
 	
