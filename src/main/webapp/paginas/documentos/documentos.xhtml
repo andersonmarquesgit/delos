@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:body>
+	<ui:composition template="/template/principal.xhtml">
+		<ui:define name="conteudo">
+			<div class="container-fluid">
+
+				<!-- Page Heading -->
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="page-header">#{labels.documentos}</h1>
+						<ol class="breadcrumb">
+							<li><i class="fa fa-dashboard"></i> <a href="#{request.contextPath}/paginas/index.jsf?faces-redirect=true">Dashboard</a>
+							</li>
+							<li class="active"><i class="fa fa-file-text"></i> #{labels.documentos}</li>
+						</ol>
+					</div>
+				</div>
+				<!-- /.row -->
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div>
+							<!-- Abas -->
+							<ul class="nav nav-tabs" role="tablist">
+								<li role="presentation"  class="active"><a href="#documentos"
+									aria-controls="documentos" role="tab" data-toggle="tab"><i class="fa fa-file-text"></i> #{labels.documentos_internos}</a></li>
+								<li role="presentation"><a href="#documentosComplementares"
+									aria-controls="documentosComplementares" role="tab" data-toggle="tab"><i class="fa fa-file-text-o"></i> #{labels.documentos_externos}</a></li>
+							</ul>
+		
+							<!-- Tab panes -->
+							<div class="tab-content">
+								<div role="tabpanel" class="tab-pane active" id="documentos">
+								<br />
+									<!-- Documentos Internos -->
+									<ui:include src="/paginas/documentos/documentosInternos.xhtml" />
+								</div>
+								<div role="tabpanel" class="tab-pane" id="documentosComplementares">
+								<br />
+									<!-- Documentos Externos -->
+									<ui:include src="/paginas/documentos/documentosExternos.xhtml" />
+								</div>
+							</div>
+		
+						</div>
+						
+						<!--Modal Adicionar Documento -->
+						<ui:include src="/paginas/documentos/modalAddDocumento.xhtml" />
+		
+						<!--Modal Adicionar Documento -->
+						<ui:include src="/paginas/documentos/modalAddDocumentoInterno.xhtml" />				
+						
+						<ui:include src="/paginas/documentos/modalDocumentoPDF.xhtml" />
+					</div>
+				</div>
+				<!-- /.row -->
+
+			</div>
+			<!-- /.container-fluid -->
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
+

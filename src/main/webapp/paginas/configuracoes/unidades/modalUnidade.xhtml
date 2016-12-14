@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+	<p:dialog id="modalUnidade" header="#{labels.configuracoes_modal_dados_unidade}"
+	widgetVar="modalUnidade"
+	closable="true" resizable="false" draggable="false" width="600" modal="true">
+	<p:ajax event="close" update="modalUnidade" 
+		listener="#{unidadeController.cancelarInclusao}" />
+		
+		<div id="dadosUnidadePanel" class="panel panel-default">
+			<div class="panel-heading">#{labels.configuracoes_modal_dados_unidade}</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-12">
+						<h:outputText styleClass="form-required" value="#{labels.configuracoes_modal_nome}"/>
+				        <b:inputText id="inputNomeUnidade" value="#{unidadeController.unidade.nome}" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6">
+						<h:outputText styleClass="form-required" value="#{labels.configuracoes_empresa}"/>
+			        	<h:selectOneMenu converter="GenericConverter" id="empresas" styleClass="width-full form-control" 
+							value="#{unidadeController.unidade.empresa}">
+				 		  	<f:selectItem itemLabel=""/>
+				 		  	<f:selectItems value="#{empresaController.empresas}" 
+							            	var="empresa"
+							            	itemLabel="#{empresa.razaoSocial}" 	
+							            	itemValue="#{empresa}"/>
+<!-- 							<p:ajax event="change" update="incluir" listener="#{habilidadePessoalControlador.habilitarInclusao}" /> 	            	 -->
+						</h:selectOneMenu>	
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="btn-group">
+				<p:commandButton id="btnSalvar" value="#{labels.salvar}" 
+					styleClass="btn btn-primary btn-modal"
+					actionListener="#{unidadeController.adicionarUnidade}" />
+				<p:commandButton styleClass="btn btn-default btn-modal"
+					value="#{labels.cancelar}"
+					onclick="PF('modalUnidade').hide();"
+					actionListener="#{unidadeController.cancelarInclusao}"/>
+			</div>
+		</div>	
+	</p:dialog>	
+	
+	<!-- DIALOGOS DE CONFIRMAÇÃO -->
+	<p:confirmDialog id="confirmInclusaoUnidade"
+		message="#{mensagens.sgq_confirmar_inclusao}"
+		widgetVar="confirmInclusaoUnidade" resizable="false"
+		closable="false" draggable="false">
+		<div class="pull-right">
+			<p:commandButton styleClass="btn btn-primary"
+				value="#{labels.sim}"
+				onclick="PF('confirmInclusaoUnidade').hide();"
+				actionListener="#{unidadeController.confirmSalvarUnidade}" />
+			<p:commandButton styleClass="btn btn-default"
+				value="#{labels.nao}"
+				onclick="PF('confirmInclusaoUnidade').hide();"/>
+		</div>
+	</p:confirmDialog>
+</ui:composition>
+</html>

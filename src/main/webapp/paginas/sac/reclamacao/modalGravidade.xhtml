@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+<p:dialog id="modalGravidade" header="#{labels.sac_reclamacao}"
+		widgetVar="modalGravidade"  responsive="true"
+		closable="true" resizable="false" draggable="false" modal="true">
+		<p:ajax event="close" listener="#{reclamacaoController.cancelarAnaliseDeGravidade}" />
+		<div id="dadosGravidade" class="panel panel-default">
+			<div class="panel-heading">#{labels.sac_reclamacao_analise_gravidade}</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-6">
+						<h:outputText styleClass="form-required" value="#{labels.sac_reclamacao_selecionar_gravidade}"/>
+						<h:selectOneMenu style="margin-top:5px;" converter="GenericConverter" id="gravidade" styleClass="width-full form-control" 
+							value="#{reclamacaoController.gravidade}">
+				 		  	<f:selectItem itemLabel=""/>
+				 		  	<f:selectItems value="#{gravidadeController.gravidades}" 
+							            	var="gravidade"
+							            	itemLabel="#{gravidade.descricao}" 	
+							            	itemValue="#{gravidade}"/>
+						</h:selectOneMenu>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<h:outputText styleClass="form-required" value="#{labels.sac_reclamacao_selecionar_complexidade}"/>
+					</div>
+					<div class="col-lg-6">
+						<h:selectOneMenu style="margin-top:5px;" converter="GenericConverter" id="complexidade" styleClass="width-full form-control" 
+							value="#{reclamacaoController.complexidade}">
+				 		  	<f:selectItem itemLabel=""/>
+				 		  	<f:selectItems value="#{gravidadeController.gravidades}" 
+							            	var="gravidade"
+							            	itemLabel="#{gravidade.descricao}" 	
+							            	itemValue="#{gravidade}"/>
+						</h:selectOneMenu>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="btn-group">
+				<p:commandButton id="btnSalvar" value="#{labels.salvar}" 
+					styleClass="btn btn-primary btn-modal"
+					actionListener="#{reclamacaoController.salvarAnaliseDeGravidade}" />
+				<p:commandButton styleClass="btn btn-default btn-modal"
+					value="#{labels.cancelar}"
+					actionListener="#{reclamacaoController.cancelarAnaliseDeGravidade}" />
+			</div>
+		</div>
+</p:dialog>
+
+<!-- DIALOGOS DE CONFIRMAÇÃO -->
+<p:confirmDialog id="confirmGravidadeReclamacao"
+	message="#{labels.sac_reclamacao_conf_analisar_gravidade}"
+	widgetVar="confirmGravidadeReclamacao" resizable="false"
+	closable="false" draggable="false">
+	<div class="pull-right">
+		<p:commandButton styleClass="btn btn-primary"
+				value="#{labels.sim}"
+				onclick="PF('confirmGravidadeReclamacao').hide();"
+				actionListener="#{reclamacaoController.confirmGravidadeReclamacao}" />
+		<p:commandButton styleClass="btn btn-default"
+				value="#{labels.nao}"
+				onclick="PF('confirmGravidadeReclamacao').hide();"/>
+	</div>
+</p:confirmDialog>
+</ui:composition>
+</html>

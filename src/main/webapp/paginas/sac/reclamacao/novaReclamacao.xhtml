@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+	
+	<ui:composition template="/template/principal.xhtml">
+		<ui:define name="conteudo">
+			<div class="container-fluid">
+			<ui:include src="/template/loading.xhtml" />
+			<h:form id="formNovaReclamacao">
+				<!-- Page Heading -->
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="page-header">#{labels.sac} <small>#{labels.sac_nova_reclamacao}</small></h1>
+						<ol class="breadcrumb">
+							<li><i class="fa fa-dashboard"></i> <a href="#{request.contextPath}/paginas/index.jsf?faces-redirect=true">#{labels.dashboard}</a></li>
+							<li><i class="fa fa-bullhorn"></i> <a href="#{request.contextPath}/paginas/sac/sac.jsf?faces-redirect=true">#{labels.sac}</a></li>
+							<li class="active"><i class="fa fa-bullhorn"></i> #{labels.sac_nova_reclamacao}</li>
+						</ol>
+					</div>
+						
+					<div class="col-lg-12">
+						<div id="dadosClientePanel" class="panel panel-default">
+							<div class="panel-heading">#{labels.sac_dados_cliente}</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-lg-8">
+										<h:outputText styleClass="form-required" value="#{labels.sac_dados_cliente_nome}"/>
+								        <h:inputText id="inputName" class="form-control" value="#{reclamacaoController.cliente.nome}" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-1">
+										<h:outputText value="#{labels.sac_dados_cliente_uf}"/>
+								        <h:selectOneMenu
+											converter="GenericConverter" id="selectUF"
+											styleClass="width-full form-control"
+											value="#{reclamacaoController.estado}">
+											<f:selectItem itemLabel="" />
+											<f:selectItems value="#{reclamacaoController.estados}"
+												var="estado" itemLabel="#{estado.sigla}"
+												itemValue="#{estado}" />
+												
+											<p:ajax event="change" update="selectCidade" 
+												onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" 
+												listener="#{reclamacaoController.listarCidadesPorEstado}" />
+										</h:selectOneMenu>
+									</div>
+									<div class="col-lg-4">
+										<h:outputText value="#{labels.sac_dados_cliente_cidade}"/>
+										<h:selectOneMenu
+											converter="GenericConverter" id="selectCidade"
+											styleClass="width-full form-control"
+											value="#{reclamacaoController.endereco.cidade}">
+											<f:selectItem itemLabel="" />
+											<f:selectItems value="#{reclamacaoController.cidades}"
+												var="cidade" itemLabel="#{cidade.nome}"
+												itemValue="#{cidade}" />
+										</h:selectOneMenu>
+									</div>
+									<div class="col-lg-3">
+										<h:outputText value="#{labels.sac_dados_cliente_bairro}"/>
+								        <h:inputText id="inputBairro" class="form-control" value="#{reclamacaoController.endereco.bairro}"/>
+									</div>
+									<div class="col-lg-2">
+										<h:outputText value="#{labels.sac_dados_cliente_cep}"/>
+										<h:inputText class="cep form-control" value="#{reclamacaoController.endereco.cep}" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-5">
+										<h:outputText value="#{labels.sac_dados_cliente_logradouro}"/>
+								        <h:inputText id="inputEndereco" class="form-control" value="#{reclamacaoController.endereco.logradouro}"/>
+									</div>
+									<div class="col-lg-1">
+										<h:outputText value="#{labels.sac_dados_cliente_numero}"/>
+								        <h:inputText id="inputNumero" class="form-control" value="#{reclamacaoController.endereco.numero}"/>
+									</div>
+									<div class="col-lg-2">
+										<h:outputText value="#{labels.sac_dados_cliente_complemento}"/>
+								        <h:inputText id="inputComplemento" class="form-control" value="#{reclamacaoController.endereco.complemento}"/>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-2">
+										<h:outputText styleClass="form-required" value="#{labels.sac_dados_cliente_telefone}"/>
+								        <h:inputText id="inputTelefone" class="telefone form-control" value="#{reclamacaoController.cliente.telefone}" />
+									</div>
+									<div class="col-lg-6">
+										<h:outputText styleClass="form-required" value="#{labels.sac_dados_cliente_email}"/>
+								        <h:inputText id="inputEmail" class="form-control" value="#{reclamacaoController.cliente.email}" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="dadosReclamacaoPanel" class="panel panel-default">
+							<div class="panel-heading">#{labels.sac_dados_reclamacao}</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-lg-6">
+										<h:outputText styleClass="form-required" value="#{labels.sac_dados_reclamacao_descricao}"/>
+								        <h:inputTextarea id="inputDescricao" styleClass="form-control" rows="5" value="#{reclamacaoController.reclamacao.descricao}" />
+									</div>
+									<div class="col-lg-6">
+										<h:outputText value="#{labels.sac_dados_reclamacao_remediacao}"/>
+								        <h:inputTextarea id="inputRemediacao" styleClass="form-control" rows="5" value="#{reclamacaoController.reclamacao.remediacaoSugerida}" />
+									</div>
+								</div>
+								<br />
+								<div class="row">
+									<div class="col-lg-4">
+										<h:outputText styleClass="form-required"
+											value="#{labels.sac_reclamacao_gravidade}:" />
+										<h:selectOneMenu
+											converter="GenericConverter" id="gravidade"
+											styleClass="width-full form-control"
+											value="#{reclamacaoController.reclamacao.gravidade}">
+											<f:selectItem itemLabel="" />
+											<f:selectItems value="#{gravidadeController.gravidades}"
+												var="gravidade" itemLabel="#{gravidade.descricao}"
+												itemValue="#{gravidade}" />
+										</h:selectOneMenu>
+									</div>
+									<div class="col-lg-4">
+								        <h:outputText styleClass="form-required" value="#{labels.sac_dados_reclamacao_tipo}"/>
+							        	<h:selectOneMenu
+											converter="GenericConverter" id="selectTipoOcorrencia"
+											styleClass="width-full form-control"
+											value="#{reclamacaoController.reclamacao.tipoReclamacao}">
+											<f:selectItem itemLabel="" />
+											<f:selectItems value="#{reclamacaoController.tipoReclamacaoList}"
+												var="tipo" itemLabel="#{tipo.descricao}"
+												itemValue="#{tipo}" />
+										</h:selectOneMenu>
+									</div>
+									<div class="col-lg-4">
+							        	<h:outputText styleClass="form-required" value="#{labels.sac_dados_reclamacao_data_resposta}"/>
+										<div class="row">
+											<p:calendar id="dataResposta" pattern="dd/MM/yyyy" readonlyInput="true"
+												value="#{reclamacaoController.reclamacao.dataPrazoResposta}"
+												locale="pt_BR" navigator="true" showOn="button"
+												mindate="new Date()"/>
+										</div>
+									</div>
+						        </div>
+						        <div class="row">
+									<div class="col-lg-4">
+										<h:outputText styleClass="form-required" value="#{labels.sac_reclamacao_complexidade}"/>
+										<h:selectOneMenu
+											converter="GenericConverter" id="complexidade"
+											styleClass="width-full form-control"
+											value="#{reclamacaoController.reclamacao.complexidade}">
+											<f:selectItem itemLabel="" />
+											<f:selectItems value="#{gravidadeController.gravidades}"
+												var="gravidade" itemLabel="#{gravidade.descricao}"
+												itemValue="#{gravidade}" />
+										</h:selectOneMenu>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div class="btn-group">
+								<p:commandButton id="btnSalvar" value="#{labels.salvar}" styleClass="btn btn-primary btn-modal"
+										actionListener="#{reclamacaoController.adicionarReclamacao}" />
+								<p:commandButton styleClass="btn btn-default btn-modal"
+									value="#{labels.cancelar}"
+									action="#{reclamacaoController.cancelarNovaReclamacao}" />
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- DIALOGOS DE CONFIRMAÇÃO -->
+				<p:confirmDialog id="confirmInclusaoReclamacao"
+					message="#{mensagens.sgq_confirmar_inclusao}"
+					widgetVar="confirmInclusaoReclamacao" resizable="false"
+					closable="false" draggable="false">
+					<div class="pull-right">
+						<p:commandButton styleClass="btn btn-primary"
+								value="#{labels.sim}"
+								action="#{reclamacaoController.confirmSalvarReclamacao}"
+								onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+								onclick="PF('confirmInclusaoReclamacao').hide();"/>
+						<p:commandButton styleClass="btn btn-default"
+								value="#{labels.nao}"
+								onclick="PF('confirmInclusaoReclamacao').hide();"/>
+					</div>
+				</p:confirmDialog>
+				
+			</h:form>	
+			</div>
+		</ui:define>
+	</ui:composition>
+</html>

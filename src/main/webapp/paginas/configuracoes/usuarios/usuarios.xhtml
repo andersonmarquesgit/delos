@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+	<h:form id="formUsuarios">
+	<p:commandButton id="btIncluirUsuario" styleClass="btn btn-labeled btn-primary" 
+			value="#{labels.configuracoes_novo_usuario}" actionListener="#{unidadeController.inicializarUnidades}"
+			update="formUsuarios"
+			oncomplete="PF('modalUsuario').show();" icon="fa fa-plus" />	
+		
+	<div class="table-responsive">
+	  	<p:dataTable tableStyleClass="table table-striped table-hover small table-bordered table-hover" value="#{usuarioController.usuarios}"
+	   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" var="usuario"
+	   		pageLinks="10" rows="20" rowsPerPageTemplate="10,20,50" paginatorPosition="bottom" style="text-align: center;"
+	   		emptyMessage="#{labels.empty_message_usuarios}" reflow="true">
+	      	<p:column headerText="#{labels.configuracoes_nome}" width="30%">
+	         	<h:outputText value="#{usuario.nome}"/>
+	      	</p:column>
+	      	<p:column headerText="#{labels.configuracoes_login_email}" width="30%">
+	         	<h:outputText value="#{usuario.login}"/>
+	      	</p:column>
+	      	<p:column headerText="#{labels.configuracoes_nivel}" width="10%">
+	         	<h:outputText value="#{usuario.nivel.nome}"/>
+	      	</p:column>
+	      	<p:column headerText="#{labels.configuracoes_status}">
+	         	<h:outputText value="#{usuario.ativo}"/>
+	      	</p:column>
+	      	<p:column headerText="#{labels.opcoes}" width="20%">
+		      	<p:commandButton icon="fa fa-pencil" title="Editar" process="@this" update="@none"
+		      			styleClass="btn btn-primary"
+                        actionListener="#" />
+		      	<p:commandButton icon="fa fa-trash" title="Excluir" process="@this" update="@none"
+		      			styleClass="btn btn-danger"
+                        actionListener="#" />
+			</p:column>
+	   	</p:dataTable>
+	</div>
+	
+	<!-- Modal Adicionar Usuario -->
+	<ui:include src="modalUsuario.xhtml" />
+	</h:form>   	
+</ui:composition>
+</html>

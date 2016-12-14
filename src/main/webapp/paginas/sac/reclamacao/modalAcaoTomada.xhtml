@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+	<p:dialog id="modalAcaoTomada" header="#{labels.sac_reclamacao}"
+		widgetVar="modalAcaoTomada" responsive="true"
+		style="position: absolute;margin-top: -190px !important;max-width: 900px;"
+		closable="true" resizable="false" draggable="false" modal="true">
+		<p:ajax event="close"
+			listener="#{reclamacaoController.cancelarAnaliseDeAcao}" />
+		<div class="row">
+			<div class="col-lg-6">
+				<strong><h:outputText value="Nº da reclamação: " /></strong>
+				<h:outputText value="#{reclamacaoController.reclamacao.numero}" />				
+			</div>
+		</div>	
+		<br/>
+		<div class="row">
+			<div class="col-lg-6">
+				<strong><h:outputText value="Descrição: " /></strong><br/>
+				<h:outputText value="#{reclamacaoController.descricao}" />				
+			</div>
+			<div class="col-lg-6">
+				<strong><h:outputText value="Sugestão de remediação: " /></strong><br/>
+				<h:outputText value="#{reclamacaoController.remediacaoSugerida}" />				
+			</div>
+		</div>
+		<br/>	
+		<div id="dadosAcao" class="panel panel-default">
+			<div class="panel-heading">#{labels.sac_reclamacao_analise_acao}</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-4">
+						<h:outputText styleClass="form-required"
+							value="#{labels.sac_reclamacao_selecionar_procedencia}" />
+						<h:selectOneMenu style="margin-top:5px;" id="acao"
+							styleClass="width-full form-control"
+							value="#{reclamacaoController.acaoTomada.procede}">
+							<f:selectItem itemLabel="Sim" itemValue="true" />
+							<f:selectItem itemLabel="Não" itemValue="false" />
+							<p:ajax event="change" process="@this" update="panelAcaoTomada" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+				<p:outputPanel id="panelAcaoTomada" >
+					<div class="row">
+						<div class="col-lg-12">
+							<h:outputText styleClass="form-required" rendered="#{reclamacaoController.acaoTomada.procede == true}"
+								value="#{labels.sac_reclamacao_acao_tomada}" />
+							<h:outputText styleClass="form-required" rendered="#{reclamacaoController.acaoTomada.procede == false}"
+								value="Informe os motivos pelo qual a reclamação não procede:" />
+							<h:inputTextarea style="margin-top:5px;" styleClass="form-control"
+								rendered="#{reclamacaoController.acaoTomada.procede != null}"
+								rows="5" value="#{reclamacaoController.acaoTomada.descricao}" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<ui:fragment rendered="#{reclamacaoController.acaoTomada.procede == true}">
+					        	<h:outputText styleClass="form-required" value="#{labels.sac_reclamacao_data_limite}"/>
+								<div class="row">
+									<p:calendar id="dataLimite" pattern="dd/MM/yyyy"
+										readonlyInput="true"
+										value="#{reclamacaoController.reclamacao.dataPrazoResposta}"
+										locale="pt_BR" navigator="true" showOn="button"
+										mindate="new Date()" />
+								</div>
+							</ui:fragment>
+						</div>
+			        </div>
+				</p:outputPanel>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="btn-group">
+				<p:commandButton id="btnSalvarAcao" value="#{labels.salvar}"
+					styleClass="btn btn-primary btn-modal"
+					actionListener="#{reclamacaoController.salvarAnaliseDeAcao}" />
+				<p:commandButton styleClass="btn btn-default btn-modal"
+					value="#{labels.cancelar}"
+					actionListener="#{reclamacaoController.cancelarAnaliseDeAcao}" />
+			</div>
+		</div>
+	</p:dialog>
+
+	<!-- DIALOGOS DE CONFIRMAÇÃO -->
+	<p:confirmDialog id="confirmAcaoReclamacao"
+		message="#{labels.sac_reclamacao_conf_analisar_acao}"
+		widgetVar="confirmAcaoReclamacao" resizable="false" closable="false"
+		draggable="false">
+		<div class="pull-right">
+			<p:commandButton styleClass="btn btn-primary" 
+				value="#{labels.sim}"
+				onclick="PF('confirmAcaoReclamacao').hide();"
+				actionListener="#{reclamacaoController.confirmAcaoReclamacao}" />
+			<p:commandButton styleClass="btn btn-default" 
+				value="#{labels.nao}"
+				onclick="PF('confirmAcaoReclamacao').hide();" />
+		</div>
+	</p:confirmDialog>
+</ui:composition>
+</html>

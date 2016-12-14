@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+<h:form id="formDocumentosInternos">
+	<p:commandButton id="btAdicionarDocExterno" styleClass="btn btn-labeled btn-primary" 
+		value="#{labels.documentos_internos_adicionar}" 
+		action="#{documentoController.adicionarDocInterno}"
+		icon="fa fa-plus" />
+		
+	<div class="panel panel-default">
+      	<div class="panel-heading panel-chevron-heading panel-chevron-heading collapsed" data-toggle="collapse" data-target="#bodyProcedimentos"><i class="fa fa-book"></i>&nbsp; #{labels.documentos_procedimentos}</div>
+      	<div id="bodyProcedimentos" class="panel-collapse collapse">
+	      	<div class="panel-body">
+			   	<p:dataTable id="dataTableDocProcedimentos" value="#{documentoController.documentosProcedimentos}" lazy="true"
+			   		reflow="true" 
+					var="documento" border="1" cellpadding="2" cellspacing="0"
+					paginator="true" paginatorPosition="bottom" rows="5" rowsPerPageTemplate="5,10,20" style="text-align: center;"
+					tableStyleClass="table table-striped table-hover small table-bordered table-hover"
+					emptyMessage="#{labels.empty_message_documentos}">
+					<p:column headerText="#{labels.documentos_titulo}"
+						sortBy="#{documento.titulo}" width="25%">
+						<h:outputText value="#{documento.titulo}" />
+					</p:column>
+					<p:column headerText="#{labels.documentos_descricao}">
+						<h:outputText value="#{documento.descricao}" />
+					</p:column>
+					<p:column headerText="#{labels.documentos_elemento}">
+						<h:outputText value="#{documento.elemento.descricao}" />
+					</p:column>
+					<p:column headerText="#{labels.opcoes}" width="8%">
+						<p:commandButton id="btteste" styleClass="btn btn-labeled btn-primary" 
+							actionListener="#{documentoController.visualizarDocumentoPDF(documento)}"
+							icon="fa fa-search" title="#{labels.documentos_visualizar_pdf}" />
+					</p:column>
+					</p:dataTable>
+	      	</div>
+      	</div>
+    </div>
+    <div class="panel panel-default">
+      	<div class="panel-heading panel-chevron-heading collapsed" data-toggle="collapse" data-target="#bodyPoliticas"><i class="fa fa-pencil-square-o"></i>&nbsp; #{labels.documentos_politicas_tratamento_reclamacao}</div>
+      	<div id="bodyPoliticas" class="panel-collapse collapse">
+	      	<div class="panel-body">
+	      		<p:dataTable tableStyleClass="table table-striped table-hover small table-bordered table-hover" 
+	      			value="#{documentoController.documentosPoliticas}"
+			   		reflow="true" id="dataTableDocPoliticas"
+			   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" var="documento"
+			   		pageLinks="10" rows="10" rowsPerPageTemplate="10,20,50" paginatorPosition="bottom" style="text-align: center;"
+			   		emptyMessage="#{labels.empty_message_documentos}" lazy="true">
+			      	<p:column headerText="#{labels.documentos_titulo}"
+						sortBy="#{documento.titulo}" width="25%">
+						<h:outputText value="#{documento.titulo}" />
+					</p:column>
+					<p:column headerText="#{labels.documentos_descricao}">
+						<h:outputText value="#{documento.descricao}" />
+					</p:column>
+					<p:column headerText="#{labels.documentos_elemento}">
+						<h:outputText value="#{documento.elemento.descricao}" />
+					</p:column>
+					<p:column headerText="#{labels.opcoes}" width="8%">
+						<p:commandButton id="btteste" styleClass="btn btn-labeled btn-primary" 
+							actionListener="#{documentoController.visualizarDocumentoPDF(documento)}"
+							icon="fa fa-search" title="#{labels.documentos_visualizar_pdf}" />
+					</p:column>
+			   </p:dataTable> 
+			</div>
+		</div>
+    </div>
+    <div class="panel panel-default">
+      	<div class="panel-heading panel-chevron-heading collapsed" data-toggle="collapse" data-target="#bodyTreinamentos"><i class="fa fa-desktop"></i>&nbsp; #{labels.documentos_treinamentos}</div>
+      	<div id="bodyTreinamentos" class="panel-collapse collapse">
+	      	<div class="panel-body">
+				<p:dataTable tableStyleClass="table table-striped table-hover small table-bordered table-hover" 
+					value="#{documentoController.documentosTreinamentos}"
+			   		reflow="true" id="dataTableDocTreinamentos"
+			   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" var="documento"
+			   		pageLinks="10" rows="10" rowsPerPageTemplate="10,20,50" paginatorPosition="bottom" style="text-align: center;"
+			   		emptyMessage="#{labels.empty_message_documentos}" lazy="true">
+			      	<p:column headerText="#{labels.documentos_titulo}"
+						sortBy="#{documento.titulo}" width="25%">
+						<h:outputText value="#{documento.titulo}" />
+					</p:column>
+					<p:column headerText="#{labels.documentos_descricao}">
+						<h:outputText value="#{documento.descricao}" />
+					</p:column>
+					<p:column headerText="#{labels.documentos_elemento}">
+						<h:outputText value="#{documento.elemento.descricao}" />
+					</p:column>
+					<p:column headerText="#{labels.opcoes}" width="8%">
+						<p:commandButton id="btteste" styleClass="btn btn-labeled btn-primary" 
+							actionListener="#{documentoController.visualizarDocumentoPDF(documento)}"
+							icon="fa fa-search" title="#{labels.documentos_visualizar_pdf}" />
+					</p:column>
+			   </p:dataTable> 
+			</div>
+		</div>
+    </div>
+    <div class="panel panel-default">
+      	<div class="panel-heading panel-chevron-heading collapsed" data-toggle="collapse" data-target="#bodyPessoasDesignadas"><i class="fa fa-graduation-cap"></i>&nbsp; #{labels.documentos_pessoas_designadas}</div>
+      	<div id="bodyPessoasDesignadas" class="panel-collapse collapse">	
+	      	<div class="panel-body">
+	      		<p:dataTable tableStyleClass="table table-striped table-hover small table-bordered table-hover" 
+	      			value="#{documentoController.documentosDesignacoes}"
+			   		reflow="true" id="dataTableDocDesignacoes"
+			   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" var="documento"
+			   		pageLinks="10" rows="10" rowsPerPageTemplate="10,20,50" paginatorPosition="bottom" style="text-align: center;"
+			   		emptyMessage="#{labels.empty_message_documentos}" lazy="true">
+			      	<p:column headerText="#{labels.documentos_titulo}"
+						sortBy="#{documento.titulo}" width="25%">
+						<h:outputText value="#{documento.titulo}" />
+					</p:column>
+					<p:column headerText="#{labels.documentos_descricao}">
+						<h:outputText value="#{documento.descricao}" />
+					</p:column>
+					<p:column headerText="#{labels.documentos_elemento}">
+						<h:outputText value="#{documento.elemento.descricao}" />
+					</p:column>
+					<p:column headerText="#{labels.opcoes}" width="8%">
+						<p:commandButton id="btteste" styleClass="btn btn-labeled btn-primary" 
+							actionListener="#{documentoController.visualizarDocumentoPDF(documento)}"
+							icon="fa fa-search" title="#{labels.documentos_visualizar_pdf}" />	
+					</p:column>
+			   </p:dataTable> 
+	      	</div>
+	    </div>  	
+    </div>
+</h:form>	
+</ui:composition>
+</html>

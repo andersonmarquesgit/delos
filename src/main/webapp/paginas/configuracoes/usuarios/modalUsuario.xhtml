@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+	<p:dialog id="modalUsuario" header="#{labels.configuracoes_modal_dados_usuario}"
+	widgetVar="modalUsuario"
+	closable="true" resizable="false" draggable="false" width="600" modal="true">
+	<p:ajax event="close" update="modalUsuario" 
+				listener="#{usuarioController.cancelarInclusao}" />
+				
+			<div id="dadosUsuarioPanel" class="panel panel-default">
+				<div class="panel-heading">#{labels.configuracoes_modal_dados_usuario}</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-8">
+							<h:outputText styleClass="form-required" value="#{labels.modal_nome}"/>
+					        <b:inputText id="inputNomeUsuario" value="#{usuarioController.usuario.nome}" />
+						</div>
+						<div class="col-lg-8">
+							<h:outputText styleClass="form-required" value="#{labels.modal_email}"/>
+					        <b:inputText id="inputEmailUsuario" value="#{usuarioController.usuario.email}" />
+						</div>
+						<div class="row">
+							<div class="col-lg-6">
+								<h:outputText styleClass="form-required" value="#{labels.configuracoes_unidades}"/>
+					        	<h:selectOneMenu converter="GenericConverter" id="unidades" styleClass="width-full form-control" 
+									value="#{usuarioController.usuario.unidade}">
+						 		  	<f:selectItem itemLabel=""/>
+						 		  	<f:selectItems value="#{unidadeController.unidades}" 
+									            	var="unidade"
+									            	itemLabel="#{unidade.nome} - #{unidade.empresa.razaoSocial}" 	
+									            	itemValue="#{unidade}"/>
+		<!-- 							<p:ajax event="change" update="incluir" listener="#{habilidadePessoalControlador.habilitarInclusao}" /> 	            	 -->
+								</h:selectOneMenu>	
+							</div>
+							<div class="col-lg-6">
+								<h:outputText styleClass="form-required" value="#{labels.configuracoes_niveis_de_usuarios}"/>
+					        	<h:selectOneMenu converter="GenericConverter" id="niveis" styleClass="width-full form-control" 
+									value="#{usuarioController.usuario.nivel}">
+						 		  	<f:selectItem itemLabel=""/>
+						 		  	<f:selectItems value="#{nivelUsuarioController.niveisDeUsuario}" 
+									            	var="nivel"
+									            	itemLabel="#{nivel.nome}" 	
+									            	itemValue="#{nivel}"/>
+		<!-- 							<p:ajax event="change" update="incluir" listener="#{habilidadePessoalControlador.habilitarInclusao}" /> 	            	 -->
+								</h:selectOneMenu>	
+							</div>
+						</div>	
+						<div class="col-lg-6">
+							<h:panelGrid columns="2" style="margin-top:10px" cellpadding="5">
+							    <p:selectBooleanCheckbox value="#{usuarioController.usuario.ativo}"/>
+							    <h:outputText value="#{labels.ativo}" style="margin-left:5px;" />
+							</h:panelGrid>		    
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-lg-12">
+							<fieldset style="margin-top:15px;">
+							    <legend>Senha</legend>
+							    <div class="row">
+								    <div class="col-lg-4">
+										<h:outputText styleClass="form-required" value="#{labels.modal_senha}"/>
+								        <p:password id="inputSenhaUsuario" value="#{usuarioController.usuario.password}" 
+								        	match="inputConfirmarSenhaUsuario" 
+								        	validatorMessage="#{mensagens.sgq.mensagens.confirmacao.senha.invalida}"/>
+									</div>
+							    </div>
+							    <div class="row" style="margin-top:10px;">
+									 <div class="col-lg-4">
+										<h:outputText styleClass="form-required" value="#{labels.modal_confirmar_senha}"/>
+								        <p:password id="inputConfirmarSenhaUsuario" value="#{usuarioController.usuario.password}" />
+									</div>
+								</div>
+							</fieldset>
+								
+						</div>
+					</div>	
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="btn-group">
+					<p:commandButton id="btnSalvar" value="#{labels.salvar}" 
+						styleClass="btn btn-primary btn-modal"
+						actionListener="#{usuarioController.adicionarUsuario}" />
+					<p:commandButton styleClass="btn btn-default btn-modal"
+						value="#{labels.cancelar}"
+						onclick="PF('modalUsuario').hide();"
+						actionListener="#{usuarioController.cancelarInclusao}"/>
+				</div>
+			</div>	
+	</p:dialog>
+	
+	<!-- DIALOGOS DE CONFIRMAÇÃO -->
+	<p:confirmDialog id="confirmInclusaoUsuario"
+		message="#{mensagens.sgq_confirmar_inclusao}"
+		widgetVar="confirmInclusaoUsuario" resizable="false"
+		closable="false" draggable="false">
+		<div class="pull-right">
+			<p:commandButton styleClass="btn btn-primary"
+				value="#{labels.sim}"
+				onclick="PF('confirmInclusaoUsuario').hide();"
+				actionListener="#{usuarioController.confirmSalvarUsuario}" />
+			<p:commandButton styleClass="btn btn-default"
+				value="#{labels.nao}"
+				onclick="PF('confirmInclusaoUsuario').hide();"/>
+		</div>
+	</p:confirmDialog>
+		
+</ui:composition>
+</html>

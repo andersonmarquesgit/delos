@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+		<p:dialog id="modalNivelUsuario" header="#{labels.configuracoes_modal_dados_nivel}"
+			widgetVar="modalNivelUsuario"
+			closable="true" resizable="false" draggable="false" width="600" modal="true">
+			<p:ajax event="close" update="modalNivelUsuario" 
+				listener="#{nivelUsuarioController.cancelarInclusao}" />
+				
+				<div id="dadosNivelUsuarioPanel" class="panel panel-default">
+					<div class="panel-heading">#{labels.configuracoes_modal_dados_nivel}</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<h:outputText styleClass="form-required" value="#{labels.configuracoes_modal_nome}"/>
+						        <b:inputText id="inputNomeNivel" value="#{nivelUsuarioController.nivelUsuario.nome}" />
+							</div>
+						</div>	
+						<div class="row">
+							<div class="col-lg-12">
+								<fieldset>
+								    <legend>Permissões</legend>
+								    <p>Selecione aqui os módulos aos quais o nível terá acesso:</p>
+									    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+										    <p:selectBooleanCheckbox value="#{nivelUsuarioController.nivelUsuario.permissaoDocumentos}"/><h:outputText value="#{labels.documentos}" style="margin-left:5px;" />
+										    <p:selectBooleanCheckbox value="#{nivelUsuarioController.nivelUsuario.permissaoSac}"/><h:outputText value="#{labels.configuracoes_sac}" style="margin-left:5px;" />
+										    <p:selectBooleanCheckbox value="#{nivelUsuarioController.nivelUsuario.permissaoAnaliseCritica}"/><h:outputText value="#{labels.analise_critica}" style="margin-left:5px;" />
+										    <p:selectBooleanCheckbox value="#{nivelUsuarioController.nivelUsuario.permissaoConfiguracoes}"/><h:outputText value="#{labels.configuracoes}" style="margin-left:5px;" />
+										</h:panelGrid>
+								</fieldset>
+									
+							</div>
+						</div>	
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="btn-group">
+						<p:commandButton id="btnSalvar" value="#{labels.salvar}" 
+							styleClass="btn btn-primary btn-modal"
+							actionListener="#{nivelUsuarioController.adicionarNivelUsuario}" />
+						<p:commandButton styleClass="btn btn-default btn-modal"
+							value="#{labels.cancelar}"
+							onclick="PF('modalNivelUsuario').hide();"
+							actionListener="#{nivelUsuarioController.cancelarInclusao}"/>
+					</div>
+				</div>	
+		</p:dialog>	
+		
+		<!-- DIALOGOS DE CONFIRMAÇÃO -->
+		<p:confirmDialog id="confirmInclusaoNivelUsuario"
+			message="#{mensagens.sgq_confirmar_inclusao}"
+			widgetVar="confirmInclusaoNivelUsuario" resizable="false"
+			closable="false" draggable="false">
+			<div class="pull-right">
+				<p:commandButton styleClass="btn btn-primary"
+					value="#{labels.sim}"
+					onclick="PF('confirmInclusaoNivelUsuario').hide();"
+					actionListener="#{nivelUsuarioController.confirmSalvarNivelUsuario}" />
+				<p:commandButton styleClass="btn btn-default"
+					value="#{labels.nao}"
+					onclick="PF('confirmInclusaoNivelUsuario').hide();"/>
+			</div>
+		</p:confirmDialog>
+</ui:composition>
+</html>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+	<p:dialog id="modalAceiteCliente" header="#{labels.sac_reclamacao}"
+		widgetVar="modalAceiteCliente"  responsive="true" width="440px" 
+		closable="true" resizable="false" draggable="false" modal="true">
+		<p:ajax event="close"
+			listener="#{reclamacaoController.cancelarAnaliseDeAceite}" />
+		<div id="dadosAceite" class="panel panel-default">
+			<div class="panel-heading">#{labels.sac_reclamacao_analisar_aceite_cliente}</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-12">
+						<h:outputText styleClass="form-required"
+							value="#{labels.sac_reclamacao_selecionar_aceite}" />
+						<h:selectOneMenu style="margin-top:5px;" id="aceite"
+							styleClass="width-full form-control"
+							value="#{reclamacaoController.aceiteCliente.aceite}">
+							<f:selectItem itemLabel="Sim" itemValue="true" />
+							<f:selectItem itemLabel="Não" itemValue="false" />
+							<p:ajax event="change" process="@this" update="panelAceiteCliente" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+				<p:outputPanel id="panelAceiteCliente" >
+					<div class="row">
+						<div class="col-lg-12">
+							<h:outputText styleClass="form-required" 
+								rendered="#{reclamacaoController.aceiteCliente.aceite == false}"
+								value="#{labels.sac_reclamacao_aceite_motivos}" />
+							<h:inputTextarea style="margin-top:5px;" styleClass="form-control"
+								rendered="#{reclamacaoController.aceiteCliente.aceite == false}"
+								rows="5" value="#{reclamacaoController.aceiteCliente.descricao}" />
+						</div>
+					</div>
+				</p:outputPanel>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="btn-group">
+				<p:commandButton id="btnSalvarAceite" value="#{labels.salvar}"
+					styleClass="btn btn-primary btn-modal"
+					actionListener="#{reclamacaoController.salvarAnaliseDeAceite}" />
+				<p:commandButton styleClass="btn btn-default btn-modal"
+					value="#{labels.cancelar}"
+					actionListener="#{reclamacaoController.cancelarAnaliseDeAceite}" />
+			</div>
+		</div>
+	</p:dialog>
+
+	<!-- DIALOGOS DE CONFIRMAÇÃO -->
+	<p:confirmDialog id="confirmAceiteReclamacao"
+		message="#{labels.sac_reclamacao_conf_aceite}"
+		widgetVar="confirmAceiteReclamacao" resizable="false" closable="false"
+		draggable="false">
+		<div class="pull-right">
+			<p:commandButton styleClass="btn btn-primary" 
+				value="#{labels.sim}"
+				onclick="PF('confirmAceiteReclamacao').hide();"
+				actionListener="#{reclamacaoController.confirmAceiteReclamacao}" />
+			<p:commandButton styleClass="btn btn-default" 
+				value="#{labels.nao}"
+				onclick="PF('confirmAceiteReclamacao').hide();" />
+		</div>
+	</p:confirmDialog>
+</ui:composition>
+</html>

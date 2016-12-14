@@ -83,7 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(restAuthenticationFailureHandler)
                 .usernameParameter("j_username")
                 .passwordParameter("j_password") 
-                .defaultSuccessUrl("/paginas/principal.xhtml")
+                .defaultSuccessUrl("/paginas/index.xhtml")
                 .permitAll()
                 .and()
 			.logout()

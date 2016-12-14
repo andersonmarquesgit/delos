@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+	<h:form id="formReclamacoes">
+	<p:commandButton id="btAdicionarReclamacao" styleClass="btn btn-labeled btn-primary" 
+		value="#{labels.sac_nova_reclamacao}" 
+		action="#{reclamacaoController.redirectNovaReclamacao}"
+		icon="fa fa-plus" />
+	<div class="table-responsive">
+	   <p:dataTable id="dataTableReclamacoes" widgetVar="dataTableReclamacoes" tableStyleClass="table table-striped table-hover small table-bordered table-hover" 
+	   		value="#{reclamacaoController.reclamacoes}" var="reclamacao" reflow="true"
+	   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" 
+	   		pageLinks="10" rows="10" rowsPerPageTemplate="10,20,50" paginatorPosition="bottom" filteredValue="#{reclamacaoController.reclamacoesFiltradas}"
+	   		style="text-align: center;" emptyMessage="#{labels.empty_message_reclamacoes}">
+	      	
+	      	<p:column headerText="#{labels.sac_reclamacao_numero}" sortBy="#{reclamacao.numero}" filterBy="#{reclamacao.numero}">
+	         	<h:outputText value="#{reclamacao.numero}" />
+	      	</p:column>
+	      	<p:column headerText="#{labels.sac_reclamacao_cliente}" sortBy="#{reclamacao.cliente.nome}" 
+	      		filterMatchMode="contains"
+	      		filterBy="#{reclamacao.cliente.nome}">
+	         	<h:outputText value="#{reclamacao.cliente.nome}"/>
+	      	</p:column>
+	      	<p:column id="dataReclamacao" headerText="#{labels.sac_reclamacao_data}" sortBy="#{reclamacao.dataInclusao}" 
+	      		filterBy="#{reclamacao.dataInclusao}" filterFunction="#{reclamacaoController.filterByData}">
+	      		<f:facet name="filter">
+				    <p:calendar pattern="dd/MM/yyyy" locale="pt_BR" navigator="true" 
+				    	onkeyup="PF('dataTableReclamacoes').filter()">
+				        <p:ajax event="dateSelect" oncomplete="PF('dataTableReclamacoes').filter()"/>
+				    </p:calendar>
+				</f:facet>
+	         	<h:outputText value="#{reclamacao.dataInclusao}">
+	         		<f:convertDateTime pattern="dd/MM/yyyy hh:mm"/>
+	         	</h:outputText>
+	     	</p:column>
+	     	<p:column headerText="#{labels.sac_reclamacao_data_resposta}"
+	     		sortBy="#{reclamacao.dataPrazoResposta}" 
+	     		filterBy="#{reclamacao.dataPrazoResposta}" 
+	     		filterFunction="#{reclamacaoController.filterByData}">
+	     		<f:facet name="filter">
+				    <p:calendar pattern="dd/MM/yyyy" locale="pt_BR" navigator="true" 
+				    	onkeyup="PF('dataTableReclamacoes').filter()">
+				        <p:ajax event="dateSelect" oncomplete="PF('dataTableReclamacoes').filter()"/>
+				    </p:calendar>
+				</f:facet>
+					<h:outputText value="#{reclamacao.dataPrazoResposta}">
+		         		<f:convertDateTime pattern="dd/MM/yyyy"/>
+		         	</h:outputText>
+	     	</p:column>
+	      	<p:column headerText="#{labels.sac_reclamacao_tipo}" sortBy="#{reclamacao.tipoReclamacao.descricao}" filterBy="#{reclamacao.tipoReclamacao.descricao}">
+	         	<h:outputText value="#{reclamacao.tipoReclamacao.descricao}"/>
+	      	</p:column>
+		    <p:column headerText="#{labels.sac_reclamacao_gravidade}" sortBy="#{reclamacao.gravidade.descricao}" filterBy="#{reclamacao.gravidade.descricao}">
+		        <h:outputText rendered="#{reclamacao.gravidade == null}" styleClass="label label-default" value="Definir"/>
+		    	<h:outputText rendered="#{reclamacao.gravidade.id == 1}" styleClass="label label-info" value="#{reclamacao.gravidade.descricao}"/>
+		    	<h:outputText rendered="#{reclamacao.gravidade.id == 2}" styleClass="label label-warning" value="#{reclamacao.gravidade.descricao}"/>
+		    	<h:outputText rendered="#{reclamacao.gravidade.id == 3}" styleClass="label label-danger" value="#{reclamacao.gravidade.descricao}"/>
+		    </p:column>
+	     	<p:column headerText="#{labels.sac_reclamacao_status}" sortBy="#{reclamacao.statusReclamacao.descricao}" filterBy="#{reclamacao.statusReclamacao.descricao}">
+	         	<h:outputText rendered="#{reclamacao.statusReclamacao.id == 1}" styleClass="label label-info" value="#{reclamacao.statusReclamacao.descricao}"/>
+	      		<h:outputText rendered="#{reclamacao.statusReclamacao.id == 2}" styleClass="label label-primary" value="#{reclamacao.statusReclamacao.descricao}"/>
+	      		<h:outputText rendered="#{reclamacao.statusReclamacao.id == 3}" styleClass="label label-warning" value="#{reclamacao.statusReclamacao.descricao}"/>
+	      		<h:outputText rendered="#{reclamacao.statusReclamacao.id == 4}" styleClass="label label-success" value="#{reclamacao.statusReclamacao.descricao}"/>
+	      	</p:column>
+	      	<p:column headerText="#{labels.opcoes}" width="10%">
+	      		<p:commandButton icon="fa fa-thumbs-up" 
+	      			title="#{labels.sac_reclamacao_analisar_aceite_cliente}"
+	      			styleClass="btn btn-defaut"
+	      			rendered="#{reclamacao.acaoTomada != null and reclamacao.aceiteCliente == null}" 
+	      			process="@this" update="@none"
+                    actionListener="#{reclamacaoController.analisarAceite(reclamacao)}" />
+	      		<p:commandButton icon="fa fa-commenting" 
+	      			title="#{labels.sac_reclamacao_analisar_acao}"
+	      			styleClass="btn btn-defaut"
+	      			rendered="#{reclamacao.gravidade != null and reclamacao.acaoTomada == null}" 
+	      			process="@this" update="@form" oncomplete="$('html, body').scrollTop(0);"
+                    actionListener="#{reclamacaoController.analisarAcao(reclamacao)}" />
+	      		<p:commandButton icon="fa fa-exclamation-triangle" 
+	      			title="#{labels.sac_reclamacao_analisar_gravidade}"
+	      			styleClass="btn btn-defaut"
+	      			rendered="#{reclamacao.gravidade == null}" 
+	      			process="@this" update="@none"
+                    actionListener="#{reclamacaoController.adicionarGravidade(reclamacao)}" />
+               	<p:commandButton icon="fa fa-print" title="Imprimir" ajax="false" onclick="this.form.target='_blank'"
+               			styleClass="btn btn-default" actionListener="#{relatorioController.imprimirReclamacao(reclamacao)}"/>    
+			</p:column>
+	   </p:dataTable>
+	</div>
+
+	<!-- Modal Adicionar Gravidade -->
+	<h:panelGroup id="modalAnalisarGravidade">
+		<ui:include src="/paginas/sac/reclamacao/modalGravidade.xhtml" />
+	</h:panelGroup>	
+	
+	<!-- Modal Analisar Ação -->
+	<h:panelGroup id="modalAnalisarAcao">
+		<ui:include src="/paginas/sac/reclamacao/modalAcaoTomada.xhtml" />
+	</h:panelGroup>	
+	
+	<!-- Modal Analisar Aceite -->
+	<h:panelGroup id="modalAnalisarAceite">
+		<ui:include src="/paginas/sac/reclamacao/modalAceiteCliente.xhtml" />
+	</h:panelGroup>	
+	</h:form>
+</ui:composition>
+</html>

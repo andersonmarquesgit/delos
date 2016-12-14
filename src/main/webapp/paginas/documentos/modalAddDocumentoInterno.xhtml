@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition>
+	<p:dialog id="modalAddDocumentoInterno" header="#{labels.documentos_internos_adicionar}"
+		widgetVar="modalAddDocumentoInterno" responsive="true"
+		style="position: absolute;margin-top: -190px !important;max-width: 900px;"
+		closable="true" resizable="false" draggable="false" modal="true">
+		<p:ajax event="close" listener="#{documentoController.cancelarEnvioDocInterno}" />
+			
+		<h:form id="formAddDocumentoInterno" enctype="multipart/form-data">
+			<div id="dadosClientePanel" class="panel panel-default">
+				<div class="panel-heading">#{labels.documentos_modal_dados}</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-12">
+							<h:outputText value="#{labels.documentos_modal_titulo}" styleClass="form-required"/>
+					        <h:inputText id="inputTituloDocumento" 
+					        	styleClass="width-full form-control"
+					        	value="#{documentoController.documento.titulo}"/>	
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-lg-12">
+							<h:outputText value="#{labels.documentos_modal_descricao}" styleClass="form-required"/>
+					        <h:inputText id="inputDescricaoDocumento" 
+					        	styleClass="width-full form-control"
+					        	value="#{documentoController.documento.descricao}"/>	
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-lg-6">
+					        <h:outputText value="#{labels.documentos_modal_tipo}" styleClass="form-required"/>
+				        	<h:selectOneMenu
+								converter="GenericConverter" id="selectTipoDocumento"
+								styleClass="width-full form-control"
+								value="#{documentoController.documento.tipoDocumento}">
+								<f:selectItem itemLabel="" />
+								<f:selectItems value="#{documentoController.tiposDeDocumentos}"
+									var="tipo" itemLabel="#{tipo.descricao}"
+									itemValue="#{tipo}" />
+							</h:selectOneMenu>
+						</div>
+						<div class="col-lg-6">
+				        	<h:outputText value="#{labels.documentos_modal_elemento}" styleClass="form-required"/>
+				        	<h:selectOneMenu
+								converter="GenericConverter" id="selectElemento"
+								styleClass="width-full form-control"
+								value="#{documentoController.documento.elemento}">
+								<f:selectItem itemLabel="" />
+								<f:selectItems value="#{documentoController.elementos}"
+									var="elemento" itemLabel="#{elemento.descricao}"
+									itemValue="#{elemento}" />
+							</h:selectOneMenu>
+						</div>
+			        </div>
+			        <div class="row">
+						<div class="col-lg-12">
+							<h:outputText value="#{labels.documentos_modal_arquivo}" styleClass="form-required"/>
+							<p:fileUpload uploadLabel="Enviar" cancelLabel="Cancelar"
+								label="Anexar" multiple="false" auto="true"
+								invalidFileMessage="Tipo de arquivo não permitido"
+								invalidSizeMessage="Tamanho excedido"
+								fileUploadListener="#{documentoController.uploadFile}"
+								mode="advanced" dragDropSupport="false" update="messages"
+								sizeLimit="1000000" fileLimit="1"
+								allowTypes="/(\.|\/)(xlsx|docx|xls|doc|pdf)$/"/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+			<div class="btn-group">
+				<p:commandButton id="btnConfirmarInclusao" value="#{labels.salvar}"
+					styleClass="btn btn-primary btn-modal"
+					actionListener="#{documentoController.confirmarInclusaoDocInterno}" />
+				<p:commandButton id="btnCancelarInclusao" styleClass="btn btn-default btn-modal"
+					value="#{labels.cancelar}"
+					actionListener="#{documentoController.cancelarEnvioDocInterno}" />
+			</div>
+		</div>
+		</h:form>	
+	</p:dialog>	
+</ui:composition>	
+</html>
