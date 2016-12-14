@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -34,6 +35,14 @@ public class User {
 	
 	@Column(name="name", nullable=false)
     private String name;
+
+	@ManyToOne
+	@JoinColumn(name="fk_unit", nullable=false)
+	private Unit unit;
+	
+	@ManyToOne
+	@JoinColumn(name="fk_company", nullable=false)
+	private Company company;
 	
 	public Long getId() {
 		return id;
@@ -87,6 +96,22 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Unit getUnit() {
+		return unit;
+	}
+
+	public void setUnit(Unit unit) {
+		this.unit = unit;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 	
 }
