@@ -178,7 +178,7 @@ public class ReclamationController {
 
 	public void primeiraEtapaDaReclamacao() {
 		Date dataAtual = new Date();
-		this.cliente.setEndereco(endereco);
+		this.cliente.setAddress(endereco);
 		this.reclamacao.setCustomer(cliente);
 		this.reclamacao.setDateInclusion(dataAtual);
 		this.reclamacao.setNumber(reclamacaoService

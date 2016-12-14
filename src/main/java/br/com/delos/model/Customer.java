@@ -30,7 +30,7 @@ public class Customer {
 	
 	@OneToOne(cascade = CascadeType.ALL, optional = true, orphanRemoval = true)
 	@JoinColumn(name="fk_address")
-	private Address endereco;
+	private Address address;
 
 	public Long getId() {
 		return id;
@@ -64,12 +64,12 @@ public class Customer {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Address getEndereco() {
-		return endereco;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setEndereco(Address endereco) {
-		this.endereco = endereco;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 }
