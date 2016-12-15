@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_nivel_usuario")
+@Table(name = "tb_user_level")
 public class UserLevel {
 
 	@Id
