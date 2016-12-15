@@ -26,12 +26,12 @@ public class UserDetailsService implements org.springframework.security.core.use
 
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-		log.debug("Autenticando o usu·rio: ", login);
+		log.debug("Autenticando o usu√°rio: ", login);
 
 		User user = userRepository.findByLogin(login);
 		
 		if (user == null) {
-			throw new UsernameNotFoundException("Usu·rio " + login + " n„o existe!");
+			throw new UsernameNotFoundException("Usu√°rio " + login + " n√£o existe!");
 		} 
 
 		Collection<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();

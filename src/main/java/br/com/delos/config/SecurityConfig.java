@@ -45,16 +45,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		log.info("::::Inicialização do Security Config::::");
 	}
 
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth)
-			throws Exception {
-		auth.userDetailsService(userDetailsService);
-	}
-	
 //	@Autowired
-//	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.inMemoryAuthentication().withUser("concretepage").password("concrete123").roles("ADMIN");
+//	public void configureGlobal(AuthenticationManagerBuilder auth)
+//			throws Exception {
+//		auth.userDetailsService(userDetailsService);
 //	}
+	
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication().withUser("agm").password("agm").roles("ADMIN");
+	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -67,9 +67,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.headers().disable()
 			.csrf().disable()
 			.authorizeRequests()
-//				.antMatchers("/resources/**").permitAll()
-//				.antMatchers("/template/**").permitAll()
-				.antMatchers("/paginas/**").hasAnyAuthority("ADMIN")
+				.antMatchers("/resources/**").permitAll()
+				.antMatchers("/template/**").permitAll()
+				.antMatchers("/paginas/**").permitAll()
+				.antMatchers("/paginas/configuracoes/**").hasAuthority("ADMIN")
 //				.anyRequest().authenticated()
 				.and()
 			.exceptionHandling()
@@ -77,18 +78,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(restAccessDeniedHandler)
                 .and()
 			.formLogin()
-				.loginPage("/login.xhtml")
-				.loginProcessingUrl("/principal")
-                .successHandler(restAuthenticationSuccessHandler)
-                .failureHandler(restAuthenticationFailureHandler)
+				.loginPage("/login.faces")
+				.loginProcessingUrl("/j_spring_security_check")
+//                .successHandler(restAuthenticationSuccessHandler)
+//                .failureHandler(restAuthenticationFailureHandler)
+                .failureUrl("/login.faces?erro=true")
                 .usernameParameter("j_username")
                 .passwordParameter("j_password") 
-                .defaultSuccessUrl("/paginas/index.xhtml")
+                .defaultSuccessUrl("/paginas/index.faces")
                 .permitAll()
                 .and()
 			.logout()
                 .logoutUrl("/")
-                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
+//                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
+                .logoutSuccessUrl("/login.faces" )
                 .deleteCookies("JSESSIONID")
                 .permitAll()
                 .and();
