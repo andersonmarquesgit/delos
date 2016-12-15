@@ -27,7 +27,7 @@ public class User {
 	@Column(name="login", nullable=false)
 	private String login;
 	
-	@Column(name="senha", nullable=false)
+	@Column(name="password", nullable=false)
     private String password;
 
 	@Column(name="email", nullable=false)
@@ -43,6 +43,19 @@ public class User {
 	@ManyToOne
 	@JoinColumn(name="fk_company", nullable=false)
 	private Company company;
+	
+	@Column(name="active")
+	private Boolean active;
+	
+	@ManyToOne
+	@JoinColumn(name="fk_user_level")
+	private UserLevel level;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "tb_user_role", joinColumns = {
+			@JoinColumn(name = "id_user", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "id_role", table = "tb_role", referencedColumnName = "id") })
+	private Set<Role> roles = new HashSet<Role>();
 	
 	public Long getId() {
 		return id;
@@ -67,12 +80,6 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "tb_users_roles", joinColumns = {
-			@JoinColumn(name = "id_user", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "id_roler", table = "role", referencedColumnName = "id") })
-	private Set<Role> roles = new HashSet<Role>();
 
 	public String getLogin() {
 		return login;
@@ -113,5 +120,21 @@ public class User {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
-	
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public UserLevel getLevel() {
+		return level;
+	}
+
+	public void setLevel(UserLevel level) {
+		this.level = level;
+	}
+
 }

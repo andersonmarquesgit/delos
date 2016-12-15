@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import br.com.delos.model.User;
 import br.com.delos.service.UserService;
 import br.com.delos.utils.Constantes;
+import br.com.delos.utils.FacesUtil;
 
 @Scope("session")
 @Controller
@@ -26,7 +27,7 @@ public class UserSession {
 			Authentication authentication = context.getAuthentication();
 			if(authentication instanceof Authentication) {
 				usuarioLogado = userService.findByLogin(((org.springframework.security.core.userdetails.User)authentication.getPrincipal()).getUsername());
-				br.com.delos.utils.FacesUtil.setSessionAttribute(Constantes.PROPRIEDADE_USUARIO_LOGADO, usuarioLogado);
+				FacesUtil.setSessionAttribute(Constantes.PROPRIEDADE_USUARIO_LOGADO, usuarioLogado);
 			}
 		}
 		return usuarioLogado;

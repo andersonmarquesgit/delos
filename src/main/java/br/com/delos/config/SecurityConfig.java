@@ -45,16 +45,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		log.info("::::Inicialização do Security Config::::");
 	}
 
-//	@Autowired
-//	public void configureGlobal(AuthenticationManagerBuilder auth)
-//			throws Exception {
-//		auth.userDetailsService(userDetailsService);
-//	}
-	
 	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("agm").password("agm").roles("ADMIN");
+	public void configureGlobal(AuthenticationManagerBuilder auth)
+			throws Exception {
+		auth.userDetailsService(userDetailsService);
 	}
+	
+//	@Autowired
+//	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.inMemoryAuthentication().withUser("agm").password("agm").roles("ADMIN");
+//	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
