@@ -10,7 +10,7 @@
 	<ui:composition template="/template/principal.xhtml">
 		<ui:define name="conteudo">
 			<div class="container-fluid">
-			<h:form id="formNovaReclamacao">
+			<h:form id="formNewCriticalAnalisys">
 				<!-- Page Heading -->
 				<div class="row">
 					<div class="col-lg-12">
@@ -24,51 +24,51 @@
 						
 					<div class="col-lg-12">
 					    <p:dataGrid  id="dataGridSecaoAnaliseCritica"
-					    	var="secaoAnaliseCritica" value="#{analiseCriticaController.analiseCritica.secoesAnaliseCritica}" columns="1" layout="grid"
+					    	var="sectionCriticalAnalisys" value="#{criticalAnalisysController.criticalAnalisys.sectionCriticalAnalisysList}" columns="1" layout="grid"
 					        rows="12" paginator="false"
 					        rowsPerPageTemplate="6,12,16">
 					 
-					        <p:panel header="#{secaoAnaliseCritica.secao.descricao}" style="text-align:left">
+					        <p:panel header="#{sectionCriticalAnalisys.section.description}" style="text-align:left">
 					            <h:panelGrid columns="1" style="width:100%">
-					 				<p:dataTable var="itemAnaliseCritica" value="#{secaoAnaliseCritica.itensAnaliseCritica}">
+					 				<p:dataTable var="itemCriticalAnalisys" value="#{sectionCriticalAnalisys.itemsCriticalAnalisys}">
 									    <p:column headerText="Item" >
-									        <h:outputText value="#{itemAnaliseCritica.item.descricao}" />
+									        <h:outputText value="#{itemCriticalAnalisys.item.description}" />
 									    </p:column>
 									    <p:column headerText="Resultado" width="12%" styleClass="form-required" >
-									        <h:selectOneMenu converter="GenericConverter" id="resultados"
+									        <h:selectOneMenu converter="GenericConverter" id="resultList"
 									        	styleClass="width-full form-control" 
-												value="#{itemAnaliseCritica.resultado}">
+												value="#{itemCriticalAnalisys.result}">
 									 		  	<f:selectItem itemLabel=""/>
-									 		  	<f:selectItems value="#{analiseCriticaController.resultados}"
-												            	var="resultado"
-												            	itemLabel="#{resultado.descricao}" 	
-												            	itemValue="#{resultado}"/>
+									 		  	<f:selectItems value="#{criticalAnalisysController.resultList}"
+												            	var="result"
+												            	itemLabel="#{result.description}" 	
+												            	itemValue="#{result}"/>
 											</h:selectOneMenu>	
 									    </p:column>
 									</p:dataTable>
 									<br />
 
 									<h:outputText styleClass="form-required" value="Conclusão:"/>
-									<h:selectOneMenu converter="GenericConverter" id="conclusoes" 
+									<h:selectOneMenu converter="GenericConverter" id="conclusionList" 
 										style="margin-top:5px;width:150px"
 							        	styleClass="width-full form-control" 
-										value="#{secaoAnaliseCritica.conclusao}">
+										value="#{sectionCriticalAnalisys.conclusion}">
 							 		  	<f:selectItem itemLabel=""/>
-							 		  	<f:selectItems value="#{analiseCriticaController.conclusoes}" 
-										            	var="conclusao"
-										            	itemLabel="#{conclusao.descricao}" 	
-										            	itemValue="#{conclusao}"/>
+							 		  	<f:selectItems value="#{criticalAnalisysController.conclusionList}" 
+										            	var="conclusion"
+										            	itemLabel="#{conclusion.description}" 	
+										            	itemValue="#{conclusion}"/>
 									</h:selectOneMenu>	
 											
 									<h:outputText styleClass="form-required" value="Documentos e indicadores de referência:"/>
     								<h:inputTextarea styleClass="form-control"
     									style="margin-top:5px;"
-										rows="3" value="#{secaoAnaliseCritica.referencias}" />
+										rows="3" value="#{sectionCriticalAnalisys.references}" />
     								
     								<h:outputText value="Comentários:"/>
     								<h:inputTextarea styleClass="form-control"
     									style="margin-top:5px;"
-										rows="3" value="#{secaoAnaliseCritica.comentarios}" />
+										rows="3" value="#{sectionCriticalAnalisys.comments}" />
 										
 					            </h:panelGrid>
 					        </p:panel>
@@ -79,21 +79,21 @@
 								<h:outputText styleClass="form-required" value="Conclusao geral da reunião:"/>
    								<h:inputTextarea styleClass="form-control"
    									style="margin-top:5px;"
-									rows="3" value="#{analiseCriticaController.analiseCritica.conclusaoGeral}" />
+									rows="3" value="#{criticalAnalisysController.criticalAnalisys.conclusion}" />
 									
 								<h:outputText styleClass="form-required" value="Participantes:"/>
    								<h:inputTextarea styleClass="form-control"
    									style="margin-top:5px;"
-									rows="3" value="#{analiseCriticaController.analiseCritica.participantes}" />
+									rows="3" value="#{criticalAnalisysController.criticalAnalisys.participants}" />
 							</div>
 						</div>
 						<div class="modal-footer">
 							<div class="btn-group">
 								<p:commandButton id="btnSalvar" value="#{labels.salvar}" styleClass="btn btn-primary btn-modal"
-										actionListener="#{analiseCriticaController.addCriticalAnalisys}" />
+										actionListener="#{criticalAnalisysController.addCriticalAnalisys}" />
 								<p:commandButton styleClass="btn btn-default btn-modal"
 									value="#{labels.cancelar}"
-									action="#{analiseCriticaController.cancelNewCriticalAnalisys}" />
+									action="#{criticalAnalisysController.cancelNewCriticalAnalisys}" />
 							</div>
 						</div>
 					</div>
@@ -107,7 +107,7 @@
 					<div class="pull-right">
 						<p:commandButton styleClass="btn btn-primary"
 								value="#{labels.sim}"
-								action="#{analiseCriticaController.confirmSaveCriticalAnalisys}" />
+								action="#{criticalAnalisysController.confirmSaveCriticalAnalisys}" />
 						<p:commandButton styleClass="btn btn-default"
 								value="#{labels.nao}"
 								onclick="PF('confirmInclusaoAnaliseCritica').hide();"/>

@@ -94,7 +94,7 @@ public class CriticalAnalisysController {
 		this.criticalAnalisys.setNumber(criticalAnalisysService.constructNumberCriticalAnalisys(DateUtil.getDataAtual()));
 		criticalAnalisysService.save(criticalAnalisys);
 		this.initObjects();
-		RequestContext.getCurrentInstance().update("formNovaReclamacao");
+		RequestContext.getCurrentInstance().update("formNewCriticalAnalisys");
 		RequestContext.getCurrentInstance().update("formCriticalAnalisys");
 		FacesUtil.obterFlashScope().setKeepMessages(true);
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO);

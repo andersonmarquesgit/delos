@@ -25,7 +25,7 @@ public class CriticalAnalisys {
     private String number;
 	
 	@OneToMany(mappedBy = "criticalAnalisys", cascade=CascadeType.ALL)
-	private List<SectionCriticalAnalisys> sectionCriticalAnalisys;
+	private List<SectionCriticalAnalisys> sectionCriticalAnalisysList;
 	
 	@Column(name="conclusion", nullable=false)
 	private String conclusion;
@@ -53,12 +53,12 @@ public class CriticalAnalisys {
 	}
 
 	public List<SectionCriticalAnalisys> getSectionCriticalAnalisys() {
-		return sectionCriticalAnalisys;
+		return sectionCriticalAnalisysList;
 	}
 
 	public void setSectionCriticalAnalisys(
 			List<SectionCriticalAnalisys> sectionCriticalAnalisys) {
-		this.sectionCriticalAnalisys = sectionCriticalAnalisys;
+		this.sectionCriticalAnalisysList = sectionCriticalAnalisys;
 	}
 
 	public String getConclusion() {
@@ -83,6 +83,14 @@ public class CriticalAnalisys {
 
 	public void setParticipants(String participants) {
 		this.participants = participants;
+	}
+
+	public List<SectionCriticalAnalisys> getSectionCriticalAnalisysList() {
+		return sectionCriticalAnalisysList;
+	}
+
+	public void setSectionCriticalAnalisysList(List<SectionCriticalAnalisys> sectionCriticalAnalisysList) {
+		this.sectionCriticalAnalisysList = sectionCriticalAnalisysList;
 	}
 
 }

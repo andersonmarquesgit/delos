@@ -26,21 +26,21 @@
 						
 						<div class="table-responsive">
 						   <p:dataTable id="dataTableAnaliseCritica" widgetVar="dataTableAnaliseCritica" tableStyleClass="table table-striped table-hover small table-bordered table-hover" 
-						   		value="#{criticalAnalisysController.analises}" var="analiseCritica" reflow="true"
+						   		value="#{criticalAnalisysController.analisysList}" var="criticalAnalisys" reflow="true"
 						   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" 
 						   		pageLinks="10" rows="10" rowsPerPageTemplate="10,20,50" paginatorPosition="bottom"
 						   		style="text-align: center;" emptyMessage="#{labels.empty_message_analises}">
 						   		
 						   		<p:column headerText="#{labels.analise_critica_numero}" width="20%">
-						         	<h:outputText value="#{analiseCritica.numero}" />
+						         	<h:outputText value="#{criticalAnalisys.number}" />
 						      	</p:column>
 						      	<p:column headerText="Data de Inclusão" width="20%">
-						         	<h:outputText value="#{analiseCritica.dataInclusao}">
+						         	<h:outputText value="#{criticalAnalisys.dateInclusion}">
 						         		<f:convertDateTime pattern="dd/MM/yyyy hh:mm"/>
 	         						</h:outputText>
 						      	</p:column>
 						      	<p:column headerText="#{labels.analise_critica_conclusao}">
-						         	<h:outputText value="#{analiseCritica.conclusaoGeral}" />
+						         	<h:outputText value="#{criticalAnalisys.conclusion}" />
 						      	</p:column>
 						   	</p:dataTable>
 						</div>   		
