@@ -90,10 +90,10 @@
 						<div class="modal-footer">
 							<div class="btn-group">
 								<p:commandButton id="btnSalvar" value="#{labels.salvar}" styleClass="btn btn-primary btn-modal"
-										actionListener="#{analiseCriticaController.adicionarAnaliseCritica}" />
+										actionListener="#{analiseCriticaController.addCriticalAnalisys}" />
 								<p:commandButton styleClass="btn btn-default btn-modal"
 									value="#{labels.cancelar}"
-									action="#{analiseCriticaController.cancelarNovaAnaliseCritica}" />
+									action="#{analiseCriticaController.cancelNewCriticalAnalisys}" />
 							</div>
 						</div>
 					</div>
@@ -107,7 +107,7 @@
 					<div class="pull-right">
 						<p:commandButton styleClass="btn btn-primary"
 								value="#{labels.sim}"
-								action="#{analiseCriticaController.confirmSalvarAnaliseCritica}" />
+								action="#{analiseCriticaController.confirmSaveCriticalAnalisys}" />
 						<p:commandButton styleClass="btn btn-default"
 								value="#{labels.nao}"
 								onclick="PF('confirmInclusaoAnaliseCritica').hide();"/>

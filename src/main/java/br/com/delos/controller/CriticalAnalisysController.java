@@ -73,12 +73,12 @@ public class CriticalAnalisysController {
 		conclusionList = conclusionService.list();
 	}
 	
-	public String redirectNovaAnaliseCritica() {
+	public String redirectNewCriticalAnalisys() {
 		return FacesUtil.sendRedirect("/paginas/analisecritica/novaAnaliseCritica");
 	}
 
-	public void adicionarAnaliseCritica() {
-		if(validarCamposObrigatorios()) {
+	public void addCriticalAnalisys() {
+		if(validateRequiredFields()) {
 			FacesUtil.adicionarErro(MsgConstantes.VALIDACAO_CAMPOS_OBRIGATORIOS);
 		}else{
 			RequestContext.getCurrentInstance().execute("PF('confirmInclusaoAnaliseCritica').show();");
@@ -88,45 +88,45 @@ public class CriticalAnalisysController {
 	/**
 	 * @return Redirect para a página principal de Análise Crítica. 
 	 */
-	public String confirmSalvarAnaliseCritica() {
+	public String confirmSaveCriticalAnalisys() {
 		RequestContext.getCurrentInstance().execute("PF('confirmInclusaoAnaliseCritica').hide();");
 		this.criticalAnalisys.setDateInclusion(DateUtil.getDataAtual());
 		this.criticalAnalisys.setNumber(criticalAnalisysService.constructNumberCriticalAnalisys(DateUtil.getDataAtual()));
 		criticalAnalisysService.save(criticalAnalisys);
 		this.initObjects();
 		RequestContext.getCurrentInstance().update("formNovaReclamacao");
-		RequestContext.getCurrentInstance().update("formAnaliseCritica");
+		RequestContext.getCurrentInstance().update("formCriticalAnalisys");
 		FacesUtil.obterFlashScope().setKeepMessages(true);
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO);
 		return this.redirectAnaliseCritica();
 	}
 	
-	public Boolean validarCamposObrigatorios() {
-		Boolean existeCompoNulo = false;
-		for (SectionCriticalAnalisys secaoAc : criticalAnalisys.getSectionCriticalAnalisys()) {
-			if(secaoAc.getConclusion() == null
-					|| secaoAc.getReferences().isEmpty()
-					|| secaoAc.getReferences() == null) {
-				existeCompoNulo = true;
+	public Boolean validateRequiredFields() {
+		Boolean existFieldNull = false;
+		for (SectionCriticalAnalisys sectionCA : criticalAnalisys.getSectionCriticalAnalisys()) {
+			if(sectionCA.getConclusion() == null
+					|| sectionCA.getReferences().isEmpty()
+					|| sectionCA.getReferences() == null) {
+				existFieldNull = true;
 			}
 			
-			for (ItemCriticalAnalisys itemAc : secaoAc.getItemsCriticalAnalisys()) {
+			for (ItemCriticalAnalisys itemAc : sectionCA.getItemsCriticalAnalisys()) {
 				if(itemAc.getResult() == null) {
-					existeCompoNulo = true;
+					existFieldNull = true;
 				}
 			}
 		}
 		
-		return existeCompoNulo;
+		return existFieldNull;
 	}
 	
 	public String redirectAnaliseCritica() {
 		return FacesUtil.sendRedirect("/paginas/analisecritica/analiseCritica");
 	}
 	
-	public String cancelarNovaAnaliseCritica() {
+	public String cancelNewCriticalAnalisys() {
 		this.initObjects();
-		RequestContext.getCurrentInstance().update("formAnaliseCritica");
+		RequestContext.getCurrentInstance().update("formCriticalAnalisys");
 		return this.redirectAnaliseCritica();
 	}
 
