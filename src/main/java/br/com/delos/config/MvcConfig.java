@@ -1,10 +1,13 @@
 package br.com.delos.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -13,6 +16,8 @@ import org.springframework.web.servlet.resource.GzipResourceResolver;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.springframework.web.servlet.resource.ResourceUrlEncodingFilter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import br.com.delos.scope.spring.ViewScope;
 
 @Configuration
 @EnableWebMvc
@@ -28,8 +33,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public InternalResourceViewResolver internalResourceViewResolver(){
 	    InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-	    resolver.setPrefix("/views/");
-	    resolver.setSuffix(".jsp");
+	    resolver.setPrefix("/paginas/");
+	    resolver.setSuffix(".xhtml");
 	    return resolver;
 	}
 	
@@ -53,5 +58,14 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
+    
+    @Bean
+	public static CustomScopeConfigurer customScopeConfigurer(){
+		CustomScopeConfigurer view = new CustomScopeConfigurer();
+		Map<String,Object> scopes = new HashMap<String,Object>();
+		scopes.put("view",new ViewScope());
+		view.setScopes(scopes);
+		return view;
+	}
 
 }
