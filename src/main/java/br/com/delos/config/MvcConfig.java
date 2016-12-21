@@ -18,6 +18,7 @@ import org.springframework.web.servlet.resource.ResourceUrlEncodingFilter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import br.com.delos.scope.spring.ViewScope;
+import br.com.delos.utils.core.BeanSuportFactory;
 
 @Configuration
 @EnableWebMvc
@@ -67,5 +68,11 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		view.setScopes(scopes);
 		return view;
 	}
+    
+    @Bean
+    public static BeanSuportFactory beanSuportFactory() {
+    	BeanSuportFactory bsf = new BeanSuportFactory();
+    	return bsf;
+    }
 
 }

@@ -27,7 +27,7 @@ public class UserSession {
 			Authentication authentication = context.getAuthentication();
 			if(authentication instanceof Authentication) {
 				usuarioLogado = userService.findByLogin(((org.springframework.security.core.userdetails.User)authentication.getPrincipal()).getUsername());
-//				FacesUtil.setSessionAttribute(Constantes.PROPRIEDADE_USUARIO_LOGADO, usuarioLogado);
+				FacesUtil.setSessionAttribute(Constantes.PROPRIEDADE_USUARIO_LOGADO, usuarioLogado);
 			}
 		}
 		return usuarioLogado;
