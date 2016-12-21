@@ -15,6 +15,7 @@
 		<spring.mvc.version>4.1.4.RELEASE</spring.mvc.version>
 		<spring.data.version>1.2.0.RELEASE</spring.data.version>
 		<spring.security.version>4.0.2.RELEASE</spring.security.version>
+		<spring.test.version>3.2.0.RELEASE</spring.test.version>
 		<hibernate-version>5.0.1.Final</hibernate-version>
 		<h2.version>1.4.189</h2.version>
 		<bootstrap.version>2.3.1</bootstrap.version>
@@ -38,6 +39,18 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 		
@@ -69,6 +82,13 @@
 			<version>${spring.security.version}</version>
 		</dependency>
 
+		<!-- Spring Test -->
+		<dependency>
+	  		<groupId>org.springframework</groupId>
+	  		<artifactId>spring-test</artifactId>
+	  		<version>${spring.test.version}</version>
+	  	</dependency>
+	  	
 		<!-- H2 Database -->
 		<dependency>
 			<groupId>com.h2database</groupId>
