@@ -334,7 +334,7 @@ public class ReclamationController {
 	 * Método responsável pela quarta etapa da Reclamação {@link Reclamation}, ou
 	 * seja, a realização da análise do aceite do cliente {@link CustomerAcceptance}
 	 */
-	public void confirmAcAcceptanceacao() {
+	public void confirmAceiteReclamacao() {
 		RequestContext.getCurrentInstance().execute("PF('modalAceiteCliente').hide();");
 		this.quartaEtapaDaReclamacao();
 		reclamacaoService.salvar(reclamation);
