@@ -39,7 +39,7 @@ public class ReclamationController {
 
 	private static final long serialVersionUID = -7580482456782445297L;
 
-	private List<Reclamation> reclamacoes;
+	private List<Reclamation> reclamationList;
 	private List<Reclamation> reclamacoesFiltradas;
 	private Reclamation reclamation;
 	private Reclamation reclamacaoSelecionada;
@@ -95,7 +95,7 @@ public class ReclamationController {
 	}
 
 	private void inicializarReclamacoes() {
-		reclamacoes = reclamacaoService.listar();
+		reclamationList = reclamacaoService.listar();
 	}
 
 	private void inicializarAcaoTomada() {
@@ -403,12 +403,12 @@ public class ReclamationController {
 	// Gets e Sets
 	// ==============================================================================================
 
-	public List<Reclamation> getReclamacoes() {
-		return reclamacoes;
+	public List<Reclamation> getReclamationList() {
+		return reclamationList;
 	}
 
-	public void setReclamacoes(List<Reclamation> reclamacoes) {
-		this.reclamacoes = reclamacoes;
+	public void setReclamationList(List<Reclamation> reclamationList) {
+		this.reclamationList = reclamationList;
 	}
 
 	public List<Reclamation> getReclamacoesFiltradas() {
