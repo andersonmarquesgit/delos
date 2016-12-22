@@ -30,7 +30,7 @@
 								<div class="row">
 									<div class="col-lg-8">
 										<h:outputText styleClass="form-required" value="#{labels.sac_dados_cliente_nome}"/>
-								        <h:inputText id="inputName" class="form-control" value="#{reclamacaoController.cliente.nome}" />
+								        <h:inputText id="inputName" class="form-control" value="#{reclamationController.customer.name}" />
 									</div>
 								</div>
 								<div class="row">
@@ -39,15 +39,15 @@
 								        <h:selectOneMenu
 											converter="GenericConverter" id="selectUF"
 											styleClass="width-full form-control"
-											value="#{reclamacaoController.estado}">
+											value="#{reclamationController.state}">
 											<f:selectItem itemLabel="" />
-											<f:selectItems value="#{reclamacaoController.estados}"
+											<f:selectItems value="#{reclamationController.stateList}"
 												var="estado" itemLabel="#{estado.sigla}"
 												itemValue="#{estado}" />
 												
 											<p:ajax event="change" update="selectCidade" 
 												onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" 
-												listener="#{reclamacaoController.listarCidadesPorEstado}" />
+												listener="#{reclamationController.listarCidadesPorEstado}" />
 										</h:selectOneMenu>
 									</div>
 									<div class="col-lg-4">
@@ -55,44 +55,44 @@
 										<h:selectOneMenu
 											converter="GenericConverter" id="selectCidade"
 											styleClass="width-full form-control"
-											value="#{reclamacaoController.endereco.cidade}">
+											value="#{reclamationController.address.city}">
 											<f:selectItem itemLabel="" />
-											<f:selectItems value="#{reclamacaoController.cidades}"
+											<f:selectItems value="#{reclamationController.cityList}"
 												var="cidade" itemLabel="#{cidade.nome}"
 												itemValue="#{cidade}" />
 										</h:selectOneMenu>
 									</div>
 									<div class="col-lg-3">
 										<h:outputText value="#{labels.sac_dados_cliente_bairro}"/>
-								        <h:inputText id="inputBairro" class="form-control" value="#{reclamacaoController.endereco.bairro}"/>
+								        <h:inputText id="inputBairro" class="form-control" value="#{reclamationController.address.bairro}"/>
 									</div>
 									<div class="col-lg-2">
 										<h:outputText value="#{labels.sac_dados_cliente_cep}"/>
-										<h:inputText class="cep form-control" value="#{reclamacaoController.endereco.cep}" />
+										<h:inputText class="cep form-control" value="#{reclamationController.address.cep}" />
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-5">
 										<h:outputText value="#{labels.sac_dados_cliente_logradouro}"/>
-								        <h:inputText id="inputEndereco" class="form-control" value="#{reclamacaoController.endereco.logradouro}"/>
+								        <h:inputText id="inputaddress" class="form-control" value="#{reclamationController.address.address}"/>
 									</div>
 									<div class="col-lg-1">
 										<h:outputText value="#{labels.sac_dados_cliente_numero}"/>
-								        <h:inputText id="inputNumero" class="form-control" value="#{reclamacaoController.endereco.numero}"/>
+								        <h:inputText id="inputNumero" class="form-control" value="#{reclamationController.address.numero}"/>
 									</div>
 									<div class="col-lg-2">
 										<h:outputText value="#{labels.sac_dados_cliente_complemento}"/>
-								        <h:inputText id="inputComplemento" class="form-control" value="#{reclamacaoController.endereco.complemento}"/>
+								        <h:inputText id="inputComplemento" class="form-control" value="#{reclamationController.address.complemento}"/>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-2">
 										<h:outputText styleClass="form-required" value="#{labels.sac_dados_cliente_telefone}"/>
-								        <h:inputText id="inputTelefone" class="telefone form-control" value="#{reclamacaoController.cliente.telefone}" />
+								        <h:inputText id="inputTelefone" class="telefone form-control" value="#{reclamationController.customer.phoneNumber}" />
 									</div>
 									<div class="col-lg-6">
 										<h:outputText styleClass="form-required" value="#{labels.sac_dados_cliente_email}"/>
-								        <h:inputText id="inputEmail" class="form-control" value="#{reclamacaoController.cliente.email}" />
+								        <h:inputText id="inputEmail" class="form-control" value="#{reclamationController.customer.email}" />
 									</div>
 								</div>
 							</div>
@@ -103,11 +103,11 @@
 								<div class="row">
 									<div class="col-lg-6">
 										<h:outputText styleClass="form-required" value="#{labels.sac_dados_reclamacao_descricao}"/>
-								        <h:inputTextarea id="inputDescricao" styleClass="form-control" rows="5" value="#{reclamacaoController.reclamacao.descricao}" />
+								        <h:inputTextarea id="inputDescricao" styleClass="form-control" rows="5" value="#{reclamationController.reclamation.description}" />
 									</div>
 									<div class="col-lg-6">
 										<h:outputText value="#{labels.sac_dados_reclamacao_remediacao}"/>
-								        <h:inputTextarea id="inputRemediacao" styleClass="form-control" rows="5" value="#{reclamacaoController.reclamacao.remediacaoSugerida}" />
+								        <h:inputTextarea id="inputRemediacao" styleClass="form-control" rows="5" value="#{reclamationController.reclamation.suggestedRemediation}" />
 									</div>
 								</div>
 								<br />
@@ -118,7 +118,7 @@
 										<h:selectOneMenu
 											converter="GenericConverter" id="gravidade"
 											styleClass="width-full form-control"
-											value="#{reclamacaoController.reclamacao.gravidade}">
+											value="#{reclamationController.reclamation.gravity}">
 											<f:selectItem itemLabel="" />
 											<f:selectItems value="#{gravidadeController.gravidades}"
 												var="gravidade" itemLabel="#{gravidade.descricao}"
@@ -130,9 +130,9 @@
 							        	<h:selectOneMenu
 											converter="GenericConverter" id="selectTipoOcorrencia"
 											styleClass="width-full form-control"
-											value="#{reclamacaoController.reclamacao.tipoReclamacao}">
+											value="#{reclamationController.reclamation.reclamationType}">
 											<f:selectItem itemLabel="" />
-											<f:selectItems value="#{reclamacaoController.tipoReclamacaoList}"
+											<f:selectItems value="#{reclamationController.reclamationTypeList}"
 												var="tipo" itemLabel="#{tipo.descricao}"
 												itemValue="#{tipo}" />
 										</h:selectOneMenu>
@@ -141,7 +141,7 @@
 							        	<h:outputText styleClass="form-required" value="#{labels.sac_dados_reclamacao_data_resposta}"/>
 										<div class="row">
 											<p:calendar id="dataResposta" pattern="dd/MM/yyyy" readonlyInput="true"
-												value="#{reclamacaoController.reclamacao.dataPrazoResposta}"
+												value="#{reclamationController.reclamation.deadlineAnswer}"
 												locale="pt_BR" navigator="true" showOn="button"
 												mindate="new Date()"/>
 										</div>
@@ -153,7 +153,7 @@
 										<h:selectOneMenu
 											converter="GenericConverter" id="complexidade"
 											styleClass="width-full form-control"
-											value="#{reclamacaoController.reclamacao.complexidade}">
+											value="#{reclamationController.reclamation.complexity}">
 											<f:selectItem itemLabel="" />
 											<f:selectItems value="#{gravidadeController.gravidades}"
 												var="gravidade" itemLabel="#{gravidade.descricao}"
@@ -166,10 +166,10 @@
 						<div class="modal-footer">
 							<div class="btn-group">
 								<p:commandButton id="btnSalvar" value="#{labels.salvar}" styleClass="btn btn-primary btn-modal"
-										actionListener="#{reclamacaoController.adicionarReclamacao}" />
+										actionListener="#{reclamationController.adicionarReclamacao}" />
 								<p:commandButton styleClass="btn btn-default btn-modal"
 									value="#{labels.cancelar}"
-									action="#{reclamacaoController.cancelarNovaReclamacao}" />
+									action="#{reclamationController.cancelarNovaReclamacao}" />
 							</div>
 						</div>
 					</div>
@@ -183,7 +183,7 @@
 					<div class="pull-right">
 						<p:commandButton styleClass="btn btn-primary"
 								value="#{labels.sim}"
-								action="#{reclamacaoController.confirmSalvarReclamacao}"
+								action="#{reclamationController.confirmSalvarReclamacao}"
 								onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
 								onclick="PF('confirmInclusaoReclamacao').hide();"/>
 						<p:commandButton styleClass="btn btn-default"

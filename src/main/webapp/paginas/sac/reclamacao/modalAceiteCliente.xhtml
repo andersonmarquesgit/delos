@@ -12,7 +12,7 @@
 		widgetVar="modalAceiteCliente"  responsive="true" width="440px" 
 		closable="true" resizable="false" draggable="false" modal="true">
 		<p:ajax event="close"
-			listener="#{reclamacaoController.cancelarAnaliseDeAceite}" />
+			listener="#{reclamationController.cancelarAnaliseDeAceite}" />
 		<div id="dadosAceite" class="panel panel-default">
 			<div class="panel-heading">#{labels.sac_reclamacao_analisar_aceite_cliente}</div>
 			<div class="panel-body">
@@ -22,7 +22,7 @@
 							value="#{labels.sac_reclamacao_selecionar_aceite}" />
 						<h:selectOneMenu style="margin-top:5px;" id="aceite"
 							styleClass="width-full form-control"
-							value="#{reclamacaoController.aceiteCliente.aceite}">
+							value="#{reclamationController.customerAcceptance.acceptance}">
 							<f:selectItem itemLabel="Sim" itemValue="true" />
 							<f:selectItem itemLabel="Não" itemValue="false" />
 							<p:ajax event="change" process="@this" update="panelAceiteCliente" />
@@ -33,11 +33,11 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<h:outputText styleClass="form-required" 
-								rendered="#{reclamacaoController.aceiteCliente.aceite == false}"
+								rendered="#{reclamationController.customerAcceptance.acceptance == false}"
 								value="#{labels.sac_reclamacao_aceite_motivos}" />
 							<h:inputTextarea style="margin-top:5px;" styleClass="form-control"
-								rendered="#{reclamacaoController.aceiteCliente.aceite == false}"
-								rows="5" value="#{reclamacaoController.aceiteCliente.descricao}" />
+								rendered="#{reclamationController.customerAcceptance.acceptance == false}"
+								rows="5" value="#{reclamationController.customerAcceptance.description}" />
 						</div>
 					</div>
 				</p:outputPanel>
@@ -47,10 +47,10 @@
 			<div class="btn-group">
 				<p:commandButton id="btnSalvarAceite" value="#{labels.salvar}"
 					styleClass="btn btn-primary btn-modal"
-					actionListener="#{reclamacaoController.salvarAnaliseDeAceite}" />
+					actionListener="#{reclamationController.salvarAnaliseDeAceite}" />
 				<p:commandButton styleClass="btn btn-default btn-modal"
 					value="#{labels.cancelar}"
-					actionListener="#{reclamacaoController.cancelarAnaliseDeAceite}" />
+					actionListener="#{reclamationController.cancelarAnaliseDeAceite}" />
 			</div>
 		</div>
 	</p:dialog>
@@ -64,7 +64,7 @@
 			<p:commandButton styleClass="btn btn-primary" 
 				value="#{labels.sim}"
 				onclick="PF('confirmAceiteReclamacao').hide();"
-				actionListener="#{reclamacaoController.confirmAceiteReclamacao}" />
+				actionListener="#{reclamationController.confirmAceiteReclamacao}" />
 			<p:commandButton styleClass="btn btn-default" 
 				value="#{labels.nao}"
 				onclick="PF('confirmAceiteReclamacao').hide();" />

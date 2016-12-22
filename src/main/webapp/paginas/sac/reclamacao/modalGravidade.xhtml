@@ -11,7 +11,7 @@
 <p:dialog id="modalGravidade" header="#{labels.sac_reclamacao}"
 		widgetVar="modalGravidade"  responsive="true"
 		closable="true" resizable="false" draggable="false" modal="true">
-		<p:ajax event="close" listener="#{reclamacaoController.cancelarAnaliseDeGravidade}" />
+		<p:ajax event="close" listener="#{reclamationController.cancelarAnaliseDeGravidade}" />
 		<div id="dadosGravidade" class="panel panel-default">
 			<div class="panel-heading">#{labels.sac_reclamacao_analise_gravidade}</div>
 			<div class="panel-body">
@@ -19,7 +19,7 @@
 					<div class="col-lg-6">
 						<h:outputText styleClass="form-required" value="#{labels.sac_reclamacao_selecionar_gravidade}"/>
 						<h:selectOneMenu style="margin-top:5px;" converter="GenericConverter" id="gravidade" styleClass="width-full form-control" 
-							value="#{reclamacaoController.gravidade}">
+							value="#{reclamationController.gravity}">
 				 		  	<f:selectItem itemLabel=""/>
 				 		  	<f:selectItems value="#{gravidadeController.gravidades}" 
 							            	var="gravidade"
@@ -34,7 +34,7 @@
 					</div>
 					<div class="col-lg-6">
 						<h:selectOneMenu style="margin-top:5px;" converter="GenericConverter" id="complexidade" styleClass="width-full form-control" 
-							value="#{reclamacaoController.complexidade}">
+							value="#{reclamationController.complexity}">
 				 		  	<f:selectItem itemLabel=""/>
 				 		  	<f:selectItems value="#{gravidadeController.gravidades}" 
 							            	var="gravidade"
@@ -49,10 +49,10 @@
 			<div class="btn-group">
 				<p:commandButton id="btnSalvar" value="#{labels.salvar}" 
 					styleClass="btn btn-primary btn-modal"
-					actionListener="#{reclamacaoController.salvarAnaliseDeGravidade}" />
+					actionListener="#{reclamationController.salvarAnaliseDeGravidade}" />
 				<p:commandButton styleClass="btn btn-default btn-modal"
 					value="#{labels.cancelar}"
-					actionListener="#{reclamacaoController.cancelarAnaliseDeGravidade}" />
+					actionListener="#{reclamationController.cancelarAnaliseDeGravidade}" />
 			</div>
 		</div>
 </p:dialog>
@@ -66,7 +66,7 @@
 		<p:commandButton styleClass="btn btn-primary"
 				value="#{labels.sim}"
 				onclick="PF('confirmGravidadeReclamacao').hide();"
-				actionListener="#{reclamacaoController.confirmGravidadeReclamacao}" />
+				actionListener="#{reclamationController.confirmGravidadeReclamacao}" />
 		<p:commandButton styleClass="btn btn-default"
 				value="#{labels.nao}"
 				onclick="PF('confirmGravidadeReclamacao').hide();"/>

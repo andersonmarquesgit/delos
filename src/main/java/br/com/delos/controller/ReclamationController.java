@@ -41,18 +41,18 @@ public class ReclamationController {
 
 	private List<Reclamation> reclamacoes;
 	private List<Reclamation> reclamacoesFiltradas;
-	private Reclamation reclamacao;
+	private Reclamation reclamation;
 	private Reclamation reclamacaoSelecionada;
-	private Customer cliente;
-	private Address endereco;
-	private List<ReclamationType> tipoReclamacaoList;
-	private Gravity gravidade;
-	private Gravity complexidade;
-	private Action acaoTomada;
-	private CustomerAcceptance aceiteCliente;
-	private List<State> estados;
-	private List<City> cidades;
-	private State estado;
+	private Customer customer;
+	private Address address;
+	private List<ReclamationType> reclamationTypeList;
+	private Gravity gravity;
+	private Gravity complexity;
+	private Action action;
+	private CustomerAcceptance customerAcceptance;
+	private List<State> stateList;
+	private List<City> cityList;
+	private State state;
 	
 	@Autowired
 	private ReclamationTypeService tipoReclamacaoService;
@@ -78,11 +78,11 @@ public class ReclamationController {
 	}
 
 	private void inicializarObjetosDaTela() {
-		cliente = new Customer();
-		endereco = new Address();
-		gravidade = null;
-		complexidade = null;
-		tipoReclamacaoList = tipoReclamacaoService.list();
+		customer = new Customer();
+		address = new Address();
+		gravity = null;
+		complexity = null;
+		reclamationTypeList = tipoReclamacaoService.list();
 		this.inicializarReclamacao();
 		this.inicializarReclamacoes();
 		this.inicializarAcaoTomada();
@@ -91,7 +91,7 @@ public class ReclamationController {
 	}
 
 	private void inicializarReclamacao() {
-		reclamacao = new Reclamation();
+		reclamation = new Reclamation();
 	}
 
 	private void inicializarReclamacoes() {
@@ -99,16 +99,16 @@ public class ReclamationController {
 	}
 
 	private void inicializarAcaoTomada() {
-		acaoTomada = new Action();
-		acaoTomada.setProcced(true);
+		action = new Action();
+		action.setProcced(true);
 	}
 
 	private void inicializarAceiteCliente() {
-		aceiteCliente = new CustomerAcceptance();
+		customerAcceptance = new CustomerAcceptance();
 	}
 
 	private void inicializarEstados() {
-		estados = enderecoService.listarEstados();
+		stateList = enderecoService.listarEstados();
 	}
 	
 	public void adicionarReclamacao() {
@@ -123,8 +123,8 @@ public class ReclamationController {
 	}
 
 	public Boolean validarCamposObrigatoriosDoCliente() {
-		if (cliente.getName().isEmpty() || cliente.getPhoneNumber().isEmpty()
-				|| cliente.getEmail().isEmpty()) {
+		if (customer.getName().isEmpty() || customer.getPhoneNumber().isEmpty()
+				|| customer.getEmail().isEmpty()) {
 			return true;
 		} else {
 			return false;
@@ -132,11 +132,11 @@ public class ReclamationController {
 	}
 
 	public Boolean validarCamposObrigatoriosDaReclamacao() {
-		if (reclamacao.getDescription().isEmpty()
-				|| reclamacao.getReclamationType() == null
-				|| reclamacao.getDeadlineAnswer() == null
-				|| reclamacao.getGravity() == null
-				|| reclamacao.getComplexity() == null) {
+		if (reclamation.getDescription().isEmpty()
+				|| reclamation.getReclamationType() == null
+				|| reclamation.getDeadlineAnswer() == null
+				|| reclamation.getGravity() == null
+				|| reclamation.getComplexity() == null) {
 			return true;
 		} else {
 			return false;
@@ -152,8 +152,8 @@ public class ReclamationController {
 		this.primeiraEtapaDaReclamacao();
 		RequestContext.getCurrentInstance().execute(
 				"PF('confirmInclusaoReclamacao').hide();");
-		reclamacaoService.salvar(reclamacao);
-		reclamacaoService.enviarEmail(this.reclamacao);
+		reclamacaoService.salvar(reclamation);
+		reclamacaoService.enviarEmail(this.reclamation);
 		this.inicializarObjetosDaTela();
 		this.inicializarReclamacoes();
 		RequestContext.getCurrentInstance().update("formNovaReclamacao");
@@ -178,22 +178,22 @@ public class ReclamationController {
 
 	public void primeiraEtapaDaReclamacao() {
 		Date dataAtual = new Date();
-		this.cliente.setAddress(endereco);
-		this.reclamacao.setCustomer(cliente);
-		this.reclamacao.setDateInclusion(dataAtual);
-		this.reclamacao.setNumber(reclamacaoService
+		this.customer.setAddress(address);
+		this.reclamation.setCustomer(customer);
+		this.reclamation.setDateInclusion(dataAtual);
+		this.reclamation.setNumber(reclamacaoService
 				.construirNumeroDaReclamacao(dataAtual));
-		this.reclamacao.setUser(userSession.obterUsuarioLogado());
+		this.reclamation.setUser(userSession.obterUsuarioLogado());
 
 		// ReclamationStatus statusReclamacao = statusReclamacaoService
 		// .findOn(ReclamationStatusEnum.ANALISE_GRAVIDADE.getId());
 		ReclamationStatus statusReclamacao = statusReclamacaoService
 				.findOn(ReclamationStatusEnum.ACAO_TOMADA.getId());
-		this.reclamacao.setReclamationStatus(statusReclamacao);
+		this.reclamation.setReclamationStatus(statusReclamacao);
 	}
 
 	public void adicionarGravidade(Reclamation reclamacao) {
-		this.reclamacao = reclamacao;
+		this.reclamation = reclamacao;
 		RequestContext.getCurrentInstance().execute(
 				"PF('modalGravidade').show();");
 	}
@@ -217,8 +217,8 @@ public class ReclamationController {
 				"PF('modalGravidade').hide();");
 		this.segundaEtapaDaReclamacao();
 		Object[] params = new Object[1];
-		params[0] = this.gravidade.getDescription();
-		reclamacaoService.salvar(reclamacao);
+		params[0] = this.gravity.getDescription();
+		reclamacaoService.salvar(reclamation);
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_ANALISE_GRAVIDADE,
 				params);
 		this.inicializarObjetosDaTela();
@@ -239,17 +239,17 @@ public class ReclamationController {
 	public void segundaEtapaDaReclamacao() {
 		ReclamationStatus statusReclamacao = statusReclamacaoService
 				.findOn(ReclamationStatusEnum.ACAO_TOMADA.getId());
-		this.reclamacao.setReclamationStatus(statusReclamacao);
-		this.reclamacao.setGravity(gravidade);
-		this.reclamacao.setComplexity(complexidade);
+		this.reclamation.setReclamationStatus(statusReclamacao);
+		this.reclamation.setGravity(gravity);
+		this.reclamation.setComplexity(complexity);
 	}
 
 	public Boolean validarCamposObrigatoriosGravidade() {
-		return (this.gravidade == null || this.complexidade == null);
+		return (this.gravity == null || this.complexity == null);
 	}
 
 	public void analisarAcao(Reclamation reclamacao) {
-		this.reclamacao = reclamacao;
+		this.reclamation = reclamacao;
 		RequestContext.getCurrentInstance().execute(
 				"PF('modalAcaoTomada').show();");
 		RequestContext.getCurrentInstance().update("numeroReclamacao");
@@ -267,8 +267,8 @@ public class ReclamationController {
 	}
 
 	public Boolean validarCamposObrigatoriosAcao() {
-		return (this.acaoTomada.getProcced() == null
-				|| this.acaoTomada.getDescription() == null || this.acaoTomada
+		return (this.action.getProcced() == null
+				|| this.action.getDescription() == null || this.action
 					.getDescription() == "");
 	}
 
@@ -280,7 +280,7 @@ public class ReclamationController {
 		RequestContext.getCurrentInstance().execute(
 				"PF('modalAcaoTomada').hide();");
 		this.terceiraEtapaDaReclamacao();
-		reclamacaoService.salvar(reclamacao);
+		reclamacaoService.salvar(reclamation);
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_ANALISE_ACAO);
 		this.inicializarObjetosDaTela();
 		this.inicializarReclamacoes();
@@ -299,12 +299,12 @@ public class ReclamationController {
 	public void terceiraEtapaDaReclamacao() {
 		ReclamationStatus statusReclamacao = statusReclamacaoService
 				.findOn(ReclamationStatusEnum.ACEITE_CLIENTE.getId());
-		this.reclamacao.setReclamationStatus(statusReclamacao);
-		this.reclamacao.setAction(acaoTomada);
+		this.reclamation.setReclamationStatus(statusReclamacao);
+		this.reclamation.setAction(action);
 	}
 
 	public void analisarAceite(Reclamation reclamacao) {
-		this.reclamacao = reclamacao;
+		this.reclamation = reclamacao;
 		RequestContext.getCurrentInstance().execute(
 				"PF('modalAceiteCliente').show();");
 	}
@@ -322,12 +322,12 @@ public class ReclamationController {
 
 	public Boolean validarCamposObrigatoriosAceite() {
 		Boolean descricaoObrigatoria = false;
-		if (this.aceiteCliente.getAcceptance() == false) {
-			descricaoObrigatoria = this.aceiteCliente.getDescription() == null
-					|| this.aceiteCliente.getDescription().isEmpty();
+		if (this.customerAcceptance.getAcceptance() == false) {
+			descricaoObrigatoria = this.customerAcceptance.getDescription() == null
+					|| this.customerAcceptance.getDescription().isEmpty();
 		}
 
-		return (this.aceiteCliente.getAcceptance() == null || descricaoObrigatoria);
+		return (this.customerAcceptance.getAcceptance() == null || descricaoObrigatoria);
 	}
 
 	/**
@@ -337,7 +337,7 @@ public class ReclamationController {
 	public void confirmAcAcceptanceacao() {
 		RequestContext.getCurrentInstance().execute("PF('modalAceiteCliente').hide();");
 		this.quartaEtapaDaReclamacao();
-		reclamacaoService.salvar(reclamacao);
+		reclamacaoService.salvar(reclamation);
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_ANALISE_ACEITE);
 		this.inicializarObjetosDaTela();
 		RequestContext.getCurrentInstance().update("formReclamacoes");
@@ -355,8 +355,8 @@ public class ReclamationController {
 	public void quartaEtapaDaReclamacao() {
 		ReclamationStatus statusReclamacao = statusReclamacaoService
 				.findOn(ReclamationStatusEnum.CONCLUIDA.getId());
-		this.reclamacao.setReclamationStatus(statusReclamacao);
-		this.reclamacao.setCustomerAcceptance(aceiteCliente);
+		this.reclamation.setReclamationStatus(statusReclamacao);
+		this.reclamation.setCustomerAcceptance(customerAcceptance);
 	}
 
 	public String redirectNovaReclamacao() {
@@ -368,7 +368,7 @@ public class ReclamationController {
 	}
 
 	public void listarCidadesPorEstado() {
-		cidades = enderecoService.listarCidadesPorEstado(this.estado.getId());
+		cityList = enderecoService.listarCidadesPorEstado(this.state.getId());
 	}
 	
 	public boolean filterByData(Object value, Object filter, Locale locale) {
@@ -385,11 +385,11 @@ public class ReclamationController {
 	}
 	
 	public String getRemediacaoSugerida(){
-		return this.verificarTextoNA(this.reclamacao.getSuggestedRemediation());
+		return this.verificarTextoNA(this.reclamation.getSuggestedRemediation());
 	}
 	
 	public String getDescricao(){
-		return this.verificarTextoNA(this.reclamacao.getDescription());
+		return this.verificarTextoNA(this.reclamation.getDescription());
 	}
 	
 	public String verificarTextoNA(String texto) {
@@ -419,12 +419,12 @@ public class ReclamationController {
 		this.reclamacoesFiltradas = reclamacoesFiltradas;
 	}
 
-	public Reclamation getReclamacao() {
-		return reclamacao;
+	public Reclamation getReclamation() {
+		return reclamation;
 	}
 
-	public void setReclamacao(Reclamation reclamacao) {
-		this.reclamacao = reclamacao;
+	public void setReclamation(Reclamation reclamation) {
+		this.reclamation = reclamation;
 	}
 
 	public Reclamation getReclamacaoSelecionada() {
@@ -435,84 +435,84 @@ public class ReclamationController {
 		this.reclamacaoSelecionada = reclamacaoSelecionada;
 	}
 
-	public Customer getCliente() {
-		return cliente;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCliente(Customer cliente) {
-		this.cliente = cliente;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
-	public Address getEndereco() {
-		return endereco;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setEndereco(Address endereco) {
-		this.endereco = endereco;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
-	public List<ReclamationType> getTipoReclamacaoList() {
-		return tipoReclamacaoList;
+	public List<ReclamationType> getReclamationTypeList() {
+		return reclamationTypeList;
 	}
 
-	public void setTipoReclamacaoList(List<ReclamationType> tipoReclamacaoList) {
-		this.tipoReclamacaoList = tipoReclamacaoList;
+	public void setReclamationTypeList(List<ReclamationType> reclamationTypeList) {
+		this.reclamationTypeList = reclamationTypeList;
 	}
 
-	public Gravity getGravidade() {
-		return gravidade;
+	public Gravity getGravity() {
+		return gravity;
 	}
 
-	public void setGravidade(Gravity gravidade) {
-		this.gravidade = gravidade;
+	public void setGravity(Gravity gravity) {
+		this.gravity = gravity;
 	}
 
-	public Gravity getComplexidade() {
-		return complexidade;
+	public Gravity getComplexity() {
+		return complexity;
 	}
 
-	public void setComplexidade(Gravity complexidade) {
-		this.complexidade = complexidade;
+	public void setComplexity(Gravity complexity) {
+		this.complexity = complexity;
 	}
 
-	public Action getAcaoTomada() {
-		return acaoTomada;
+	public Action getAction() {
+		return action;
 	}
 
-	public void setAcaoTomada(Action acaoTomada) {
-		this.acaoTomada = acaoTomada;
+	public void setAction(Action action) {
+		this.action = action;
 	}
 
-	public CustomerAcceptance getAceiteCliente() {
-		return aceiteCliente;
+	public CustomerAcceptance getCustomerAcceptance() {
+		return customerAcceptance;
 	}
 
-	public void setAceiteCliente(CustomerAcceptance aceiteCliente) {
-		this.aceiteCliente = aceiteCliente;
+	public void setCustomerAcceptance(CustomerAcceptance aceiteCliente) {
+		this.customerAcceptance = aceiteCliente;
 	}
 
-	public List<State> getEstados() {
-		return estados;
+	public List<State> getStateList() {
+		return stateList;
 	}
 
-	public void setEstados(List<State> estados) {
-		this.estados = estados;
+	public void setStateList(List<State> stateList) {
+		this.stateList = stateList;
 	}
 
-	public List<City> getCidades() {
-		return cidades;
+	public List<City> getCityList() {
+		return cityList;
 	}
 
-	public void setCidades(List<City> cidades) {
-		this.cidades = cidades;
+	public void setCityList(List<City> cityList) {
+		this.cityList = cityList;
 	}
 
-	public State getEstado() {
-		return estado;
+	public State getState() {
+		return state;
 	}
 
-	public void setEstado(State estado) {
-		this.estado = estado;
+	public void setState(State state) {
+		this.state = state;
 	}
 
 	public ChartBean getChartBean() {

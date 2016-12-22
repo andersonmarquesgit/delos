@@ -39,7 +39,7 @@ public class ReclamationService {
 	}
 	
 	private Sort orderByDataInclusao() {
-	    return new Sort(Sort.Direction.DESC, "dataInclusao");
+	    return new Sort(Sort.Direction.DESC, "dateInclusion");
 	}
 
 	public String construirNumeroDaReclamacao(Date dataAtual){
