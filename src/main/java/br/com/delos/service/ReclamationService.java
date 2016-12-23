@@ -30,7 +30,7 @@ public class ReclamationService {
 	private ReclamationRepository reclamacaoRepository;
 
 	@Transactional
-	public Reclamation salvar(Reclamation reclamacao) {
+	public Reclamation save(Reclamation reclamacao) {
 		return reclamacaoRepository.saveAndFlush(reclamacao);
 	}
 
@@ -82,7 +82,7 @@ public class ReclamationService {
 		return reclamacaoRepository.calcularReclamacoesPorTipoNoAno(anoSelecionado, reclamationType);
 	}
 
-	public void enviarEmail(Reclamation reclamation) {
+	public void sendEmail(Reclamation reclamation) {
 		EmailUtil email = new EmailUtil("Teste de envio da reclamação", 
 				FacesUtil.obterTexto(MsgConstantes.EMAIL_EMPRESA) + " - " +
 				FacesUtil.obterTexto(MsgConstantes.EMAIL_REGISTRO_DE_RECLAMACAO) + " Nº " + reclamation.getNumber(), 

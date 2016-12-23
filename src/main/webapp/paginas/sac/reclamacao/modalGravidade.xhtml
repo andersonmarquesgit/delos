@@ -11,7 +11,7 @@
 <p:dialog id="modalGravidade" header="#{labels.sac_reclamacao}"
 		widgetVar="modalGravidade"  responsive="true"
 		closable="true" resizable="false" draggable="false" modal="true">
-		<p:ajax event="close" listener="#{reclamationController.cancelarAnaliseDeGravidade}" />
+		<p:ajax event="close" listener="#{reclamationController.cancelGravityAnalisys}" />
 		<div id="dadosGravidade" class="panel panel-default">
 			<div class="panel-heading">#{labels.sac_reclamacao_analise_gravidade}</div>
 			<div class="panel-body">
@@ -49,10 +49,10 @@
 			<div class="btn-group">
 				<p:commandButton id="btnSalvar" value="#{labels.salvar}" 
 					styleClass="btn btn-primary btn-modal"
-					actionListener="#{reclamationController.salvarAnaliseDeGravidade}" />
+					actionListener="#{reclamationController.saveGravityAnalisys}" />
 				<p:commandButton styleClass="btn btn-default btn-modal"
 					value="#{labels.cancelar}"
-					actionListener="#{reclamationController.cancelarAnaliseDeGravidade}" />
+					actionListener="#{reclamationController.cancelGravityAnalisys}" />
 			</div>
 		</div>
 </p:dialog>

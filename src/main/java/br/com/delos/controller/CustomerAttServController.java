@@ -92,7 +92,7 @@ public class CustomerAttServController {
 	public String confirmarInclusaoReclamacao() {
 		this.primeiraEtapaDaReclamacao();
 		RequestContext.getCurrentInstance().execute("PF('confirmInclusaoReclamacao').hide();");
-		reclamacaoService.salvar(reclamacao);
+		reclamacaoService.save(reclamacao);
 		this.inicializarObjetos();
 		this.inicializarReclamacoes();
 		RequestContext.getCurrentInstance().update("formNovaReclamacao");
@@ -121,7 +121,7 @@ public class CustomerAttServController {
 			RequestContext.getCurrentInstance().execute("PF('modalGravidade').hide();");
 			Object[] params = new Object[1];
 			params[0] = this.gravidade.getDescription();
-			reclamacaoService.salvar(reclamacao);
+			reclamacaoService.save(reclamacao);
 			this.inicializarObjetos();
 			this.inicializarReclamacoes();
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_ANALISE_GRAVIDADE, params);

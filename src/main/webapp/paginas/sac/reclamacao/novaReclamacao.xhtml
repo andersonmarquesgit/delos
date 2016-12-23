@@ -166,10 +166,10 @@
 						<div class="modal-footer">
 							<div class="btn-group">
 								<p:commandButton id="btnSalvar" value="#{labels.salvar}" styleClass="btn btn-primary btn-modal"
-										actionListener="#{reclamationController.adicionarReclamacao}" />
+										actionListener="#{reclamationController.addReclamation}" />
 								<p:commandButton styleClass="btn btn-default btn-modal"
 									value="#{labels.cancelar}"
-									action="#{reclamationController.cancelarNovaReclamacao}" />
+									action="#{reclamationController.cancelNewReclamation}" />
 							</div>
 						</div>
 					</div>
@@ -183,7 +183,7 @@
 					<div class="pull-right">
 						<p:commandButton styleClass="btn btn-primary"
 								value="#{labels.sim}"
-								action="#{reclamationController.confirmSalvarReclamacao}"
+								action="#{reclamationController.confirmSaveReclamation}"
 								onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
 								onclick="PF('confirmInclusaoReclamacao').hide();"/>
 						<p:commandButton styleClass="btn btn-default"

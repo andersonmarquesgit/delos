@@ -9,7 +9,7 @@
 
 <ui:composition>
 	<h:form id="formReclamacoes">
-	<p:commandButton id="btAdicionarReclamacao" styleClass="btn btn-labeled btn-primary" 
+	<p:commandButton id="btAddReclamation" styleClass="btn btn-labeled btn-primary" 
 		value="#{labels.sac_nova_reclamacao}" 
 		action="#{reclamationController.redirectNovaReclamacao}"
 		icon="fa fa-plus" />
@@ -81,13 +81,13 @@
 	      			styleClass="btn btn-defaut"
 	      			rendered="#{reclamation.gravity != null and reclamation.action == null}" 
 	      			process="@this" update="@form" oncomplete="$('html, body').scrollTop(0);"
-                    actionListener="#{reclamationController.analisarAcao(reclamation)}" />
+                    actionListener="#{reclamationController.analyzeAction(reclamation)}" />
 	      		<p:commandButton icon="fa fa-exclamation-triangle" 
 	      			title="#{labels.sac_reclamacao_analisar_gravidade}"
 	      			styleClass="btn btn-defaut"
 	      			rendered="#{reclamation.gravity == null}" 
 	      			process="@this" update="@none"
-                    actionListener="#{reclamationController.adicionarGravidade(reclamation)}" />
+                    actionListener="#{reclamationController.addGravity(reclamation)}" />
                	<p:commandButton icon="fa fa-print" title="Imprimir" ajax="false" onclick="this.form.target='_blank'"
                			styleClass="btn btn-default" actionListener="#{relatorioController.imprimirReclamacao(reclamacao)}"/>    
 			</p:column>

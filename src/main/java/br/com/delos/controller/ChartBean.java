@@ -52,13 +52,13 @@ public class ChartBean implements Serializable{
 	public void init() {
 		anoSelecionado = DateUtil.getAnoAtual();
 		listaAnos = DateUtil.getListaAnos(anoSelecionado-4);
-		criarChartReclamacoes();
-		criarPieChartReclamacoes();
+		createChartReclamations();
+		createPieChartReclamatons();
 		criarLineChartReclamacoes();
-		carregarTotaisPorStatus();
+		loadTotalsByStatus();
 	}
 
-	public void carregarTotaisPorStatus() {
+	public void loadTotalsByStatus() {
 		List<Reclamation> reclamacoesPorMesEAno = reclamacaoService.listarPorMesEAno(DateUtil.getMesAtual(), DateUtil.getAnoAtual());
 		this.totalDefinir = 0;
 		this.totalBaixa = 0;
@@ -79,8 +79,8 @@ public class ChartBean implements Serializable{
 	}
 
 	public void selecionarAno() {
-		criarChartReclamacoes();
-		criarPieChartReclamacoes();
+		createChartReclamations();
+		createPieChartReclamatons();
 	}
 	private void criarLineChartReclamacoes() {
 		lineChartReclamacoes = initLineChartReclamacoes();
@@ -107,7 +107,7 @@ public class ChartBean implements Serializable{
 		return model;
 	}
 
-	public void criarChartReclamacoes() {
+	public void createChartReclamations() {
 		chartReclamacoes = initChartReclamacoes();
 		chartReclamacoes.setAspectRatio(AspectRatio.OCTAVE);
 		chartReclamacoes.setShowTooltip(true);
@@ -169,7 +169,7 @@ public class ChartBean implements Serializable{
 		return model;
 	}
 
-	public void criarPieChartReclamacoes() {
+	public void createPieChartReclamatons() {
 		pieChartReclamacoes = new PieChartModel();
 		pieChartReclamacoes.setAspectRatio(AspectRatio.MAJOR_SEVENTH);
 		List<ReclamationType> listTiposReclamacao = tipoReclamacaoService.list();

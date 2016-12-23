@@ -55,13 +55,13 @@ public class ReclamationController {
 	private State state;
 	
 	@Autowired
-	private ReclamationTypeService tipoReclamacaoService;
+	private ReclamationTypeService reclamationTypeService;
 
 	@Autowired
-	private ReclamationService reclamacaoService;
+	private ReclamationService reclamationService;
 
 	@Autowired
-	private ReclamationStatusService statusReclamacaoService;
+	private ReclamationStatusService reclamationStatusService;
 
 	@Autowired
 	private UserSession userSession;
@@ -70,50 +70,50 @@ public class ReclamationController {
 	private ChartBean chartBean;
 	
 	@Autowired
-	private AddressService enderecoService;
+	private AddressService addressService;
 	
 	@PostConstruct
 	public void init() {
-		this.inicializarObjetosDaTela();
+		this.initObjects();
 	}
 
-	private void inicializarObjetosDaTela() {
+	private void initObjects() {
 		customer = new Customer();
 		address = new Address();
 		gravity = null;
 		complexity = null;
-		reclamationTypeList = tipoReclamacaoService.list();
-		this.inicializarReclamacao();
-		this.inicializarReclamacoes();
-		this.inicializarAcaoTomada();
-		this.inicializarAceiteCliente();
-		this.inicializarEstados();
+		reclamationTypeList = reclamationTypeService.list();
+		this.initReclamation();
+		this.initReclamationList();
+		this.initAction();
+		this.initCustomerAcceptance();
+		this.initStateList();
 	}
 
-	private void inicializarReclamacao() {
+	private void initReclamation() {
 		reclamation = new Reclamation();
 	}
 
-	private void inicializarReclamacoes() {
-		reclamationList = reclamacaoService.listar();
+	private void initReclamationList() {
+		reclamationList = reclamationService.listar();
 	}
 
-	private void inicializarAcaoTomada() {
+	private void initAction() {
 		action = new Action();
 		action.setProcced(true);
 	}
 
-	private void inicializarAceiteCliente() {
+	private void initCustomerAcceptance() {
 		customerAcceptance = new CustomerAcceptance();
 	}
 
-	private void inicializarEstados() {
-		stateList = enderecoService.listarEstados();
+	private void initStateList() {
+		stateList = addressService.listarEstados();
 	}
 	
-	public void adicionarReclamacao() {
-		if (validarCamposObrigatoriosDoCliente()
-				|| validarCamposObrigatoriosDaReclamacao()) {
+	public void addReclamation() {
+		if (validateCustomerRequiredFields()
+				|| validateReclamationRequiredFields()) {
 			FacesUtil
 					.adicionarErro(MsgConstantes.VALIDACAO_CAMPOS_OBRIGATORIOS);
 		} else {
@@ -122,7 +122,7 @@ public class ReclamationController {
 		}
 	}
 
-	public Boolean validarCamposObrigatoriosDoCliente() {
+	public Boolean validateCustomerRequiredFields() {
 		if (customer.getName().isEmpty() || customer.getPhoneNumber().isEmpty()
 				|| customer.getEmail().isEmpty()) {
 			return true;
@@ -131,7 +131,7 @@ public class ReclamationController {
 		}
 	}
 
-	public Boolean validarCamposObrigatoriosDaReclamacao() {
+	public Boolean validateReclamationRequiredFields() {
 		if (reclamation.getDescription().isEmpty()
 				|| reclamation.getReclamationType() == null
 				|| reclamation.getDeadlineAnswer() == null
@@ -145,61 +145,61 @@ public class ReclamationController {
 
 	/**
 	 * @return Redirect para a página principal de Sac. Método responsável pela
-	 *         primeira etapa da Reclamação {@link Reclamacao}, ou seja, o
+	 *         primeira etapa da Reclamação {@link Reclamation}, ou seja, o
 	 *         cadastro inicial
 	 */
-	public String confirmSalvarReclamacao() {
-		this.primeiraEtapaDaReclamacao();
+	public String confirmSaveReclamation() {
+		this.firstStepRegisterReclamation();
 		RequestContext.getCurrentInstance().execute(
 				"PF('confirmInclusaoReclamacao').hide();");
-		reclamacaoService.salvar(reclamation);
-		reclamacaoService.enviarEmail(this.reclamation);
-		this.inicializarObjetosDaTela();
-		this.inicializarReclamacoes();
+		reclamationService.save(reclamation);
+		reclamationService.sendEmail(this.reclamation);
+		this.initObjects();
+		this.initReclamationList();
 		RequestContext.getCurrentInstance().update("formNovaReclamacao");
 		RequestContext.getCurrentInstance().update("formReclamacoes");
 		FacesUtil.obterFlashScope().setKeepMessages(true);
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO);
-		this.atualizarDadosDoDashboard();
+		this.refreshDashboard();
 		return this.redirectSac();
 	}
 	
-	private void atualizarDadosDoDashboard(){
-		chartBean.carregarTotaisPorStatus();
-		chartBean.criarChartReclamacoes();
-		chartBean.criarPieChartReclamacoes();
+	private void refreshDashboard(){
+		chartBean.loadTotalsByStatus();
+		chartBean.createChartReclamations();
+		chartBean.createPieChartReclamatons();
 	}
 
-	public String cancelarNovaReclamacao() {
-		this.inicializarObjetosDaTela();
+	public String cancelNewReclamation() {
+		this.initObjects();
 		RequestContext.getCurrentInstance().update("formNovaReclamacao");
 		return this.redirectSac();
 	}
 
-	public void primeiraEtapaDaReclamacao() {
+	public void firstStepRegisterReclamation() {
 		Date dataAtual = new Date();
 		this.customer.setAddress(address);
 		this.reclamation.setCustomer(customer);
 		this.reclamation.setDateInclusion(dataAtual);
-		this.reclamation.setNumber(reclamacaoService
+		this.reclamation.setNumber(reclamationService
 				.construirNumeroDaReclamacao(dataAtual));
 		this.reclamation.setUser(userSession.obterUsuarioLogado());
 
 		// ReclamationStatus statusReclamacao = statusReclamacaoService
 		// .findOn(ReclamationStatusEnum.ANALISE_GRAVIDADE.getId());
-		ReclamationStatus statusReclamacao = statusReclamacaoService
+		ReclamationStatus statusReclamacao = reclamationStatusService
 				.findOn(ReclamationStatusEnum.ACAO_TOMADA.getId());
 		this.reclamation.setReclamationStatus(statusReclamacao);
 	}
 
-	public void adicionarGravidade(Reclamation reclamacao) {
+	public void addGravity(Reclamation reclamacao) {
 		this.reclamation = reclamacao;
 		RequestContext.getCurrentInstance().execute(
 				"PF('modalGravidade').show();");
 	}
 
-	public void salvarAnaliseDeGravidade() {
-		if (validarCamposObrigatoriosGravidade()) {
+	public void saveGravityAnalisys() {
+		if (validityGravityRequiredFields()) {
 			FacesUtil
 					.adicionarErro(MsgConstantes.VALIDACAO_CAMPOS_OBRIGATORIOS);
 		} else {
@@ -209,53 +209,53 @@ public class ReclamationController {
 	}
 
 	/**
-	 * Método responsável pela segunda etapa da Reclamação {@link Reclamacao},
+	 * Método responsável pela segunda etapa da Reclamação {@link Reclamation},
 	 * ou seja, a realização da análise da gravidade {@link Gravity}
 	 */
 	public void confirmGravidadeReclamacao() {
 		RequestContext.getCurrentInstance().execute(
 				"PF('modalGravidade').hide();");
-		this.segundaEtapaDaReclamacao();
+		this.secondStepRegisterReclamation();
 		Object[] params = new Object[1];
 		params[0] = this.gravity.getDescription();
-		reclamacaoService.salvar(reclamation);
+		reclamationService.save(reclamation);
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_ANALISE_GRAVIDADE,
 				params);
-		this.inicializarObjetosDaTela();
-		this.inicializarReclamacoes();
+		this.initObjects();
+		this.initReclamationList();
 		RequestContext.getCurrentInstance().update("formReclamacoes");
 		RequestContext.getCurrentInstance().update("modalGravidade");
 	}
 
-	public void cancelarAnaliseDeGravidade() {
-		this.inicializarObjetosDaTela();
-		this.inicializarReclamacoes();
+	public void cancelGravityAnalisys() {
+		this.initObjects();
+		this.initReclamationList();
 		RequestContext.getCurrentInstance().update("modalGravidade");
 		RequestContext.getCurrentInstance().execute(
 				"PF('modalGravidade').hide();");
 
 	}
 
-	public void segundaEtapaDaReclamacao() {
-		ReclamationStatus statusReclamacao = statusReclamacaoService
+	public void secondStepRegisterReclamation() {
+		ReclamationStatus reclamationStatus = reclamationStatusService
 				.findOn(ReclamationStatusEnum.ACAO_TOMADA.getId());
-		this.reclamation.setReclamationStatus(statusReclamacao);
+		this.reclamation.setReclamationStatus(reclamationStatus);
 		this.reclamation.setGravity(gravity);
 		this.reclamation.setComplexity(complexity);
 	}
 
-	public Boolean validarCamposObrigatoriosGravidade() {
+	public Boolean validityGravityRequiredFields() {
 		return (this.gravity == null || this.complexity == null);
 	}
 
-	public void analisarAcao(Reclamation reclamacao) {
-		this.reclamation = reclamacao;
+	public void analyzeAction(Reclamation reclamation) {
+		this.reclamation = reclamation;
 		RequestContext.getCurrentInstance().execute(
 				"PF('modalAcaoTomada').show();");
 		RequestContext.getCurrentInstance().update("numeroReclamacao");
 	}
 
-	public void salvarAnaliseDeAcao() {
+	public void saveActionAnalisys() {
 		if (validarCamposObrigatoriosAcao()) {
 			FacesUtil
 					.adicionarErro(MsgConstantes.VALIDACAO_CAMPOS_OBRIGATORIOS);
@@ -280,24 +280,24 @@ public class ReclamationController {
 		RequestContext.getCurrentInstance().execute(
 				"PF('modalAcaoTomada').hide();");
 		this.terceiraEtapaDaReclamacao();
-		reclamacaoService.salvar(reclamation);
+		reclamationService.save(reclamation);
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_ANALISE_ACAO);
-		this.inicializarObjetosDaTela();
-		this.inicializarReclamacoes();
+		this.initObjects();
+		this.initReclamationList();
 		RequestContext.getCurrentInstance().update("formReclamacoes");
 		RequestContext.getCurrentInstance().update("modalAcaoTomada");
 	}
 
 	public void cancelarAnaliseDeAcao() {
-		this.inicializarObjetosDaTela();
-		this.inicializarReclamacoes();
+		this.initObjects();
+		this.initReclamationList();
 		RequestContext.getCurrentInstance().update("modalAcaoTomada");
 		RequestContext.getCurrentInstance().execute(
 				"PF('modalAcaoTomada').hide();");
 	}
 
 	public void terceiraEtapaDaReclamacao() {
-		ReclamationStatus statusReclamacao = statusReclamacaoService
+		ReclamationStatus statusReclamacao = reclamationStatusService
 				.findOn(ReclamationStatusEnum.ACEITE_CLIENTE.getId());
 		this.reclamation.setReclamationStatus(statusReclamacao);
 		this.reclamation.setAction(action);
@@ -337,23 +337,23 @@ public class ReclamationController {
 	public void confirmAceiteReclamacao() {
 		RequestContext.getCurrentInstance().execute("PF('modalAceiteCliente').hide();");
 		this.quartaEtapaDaReclamacao();
-		reclamacaoService.salvar(reclamation);
+		reclamationService.save(reclamation);
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_ANALISE_ACEITE);
-		this.inicializarObjetosDaTela();
+		this.initObjects();
 		RequestContext.getCurrentInstance().update("formReclamacoes");
 		RequestContext.getCurrentInstance().update("modalAceiteCliente");
 	}
 
 	public void cancelarAnaliseDeAceite() {
-		this.inicializarObjetosDaTela();
-		this.inicializarReclamacoes();
+		this.initObjects();
+		this.initReclamationList();
 		RequestContext.getCurrentInstance().update("modalAceiteCliente");
 		RequestContext.getCurrentInstance().execute(
 				"PF('modalAceiteCliente').hide();");
 	}
 
 	public void quartaEtapaDaReclamacao() {
-		ReclamationStatus statusReclamacao = statusReclamacaoService
+		ReclamationStatus statusReclamacao = reclamationStatusService
 				.findOn(ReclamationStatusEnum.CONCLUIDA.getId());
 		this.reclamation.setReclamationStatus(statusReclamacao);
 		this.reclamation.setCustomerAcceptance(customerAcceptance);
@@ -368,7 +368,7 @@ public class ReclamationController {
 	}
 
 	public void listarCidadesPorEstado() {
-		cityList = enderecoService.listarCidadesPorEstado(this.state.getId());
+		cityList = addressService.listarCidadesPorEstado(this.state.getId());
 	}
 	
 	public boolean filterByData(Object value, Object filter, Locale locale) {
