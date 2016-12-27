@@ -4,15 +4,14 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <ui:composition>
 	<p:dialog id="modalEmpresa" header="#{labels.configuracoes_modal_dados_empresa}"
 	widgetVar="modalEmpresa"
 	closable="true" resizable="false" draggable="false" width="600" modal="true">
 	<p:ajax event="close" update="modalEmpresa" 
-		listener="#{empresaController.cancelarInclusao}" />
+		listener="#{companyController.cancelAddCompany}" />
 		
 		<div id="dadosEmpresaPanel" class="panel panel-default">
 			<div class="panel-heading">#{labels.configuracoes_modal_dados_empresa}</div>
@@ -20,14 +19,14 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<h:outputText styleClass="form-required" value="#{labels.configuracoes_modal_nome}"/>
-				        <b:inputText id="inputNomeEmpresa" value="#{empresaController.empresa.razaoSocial}" />
+				        <h:inputText id="inputNomeEmpresa" class="form-control" value="#{companyController.company.name}" />
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
 						<h:outputText styleClass="form-required" value="#{labels.configuracoes_modal_dados_empresa_cnpj}"/><br />
-				        <p:inputMask mask="99.999.999/9999-99" id="inputCnpj" 
-				        	value="#{empresaController.empresa.cnpj}" />
+				        <p:inputMask mask="99.999.999/9999-99" id="inputCnpj" class="form-control" 
+				        	value="#{companyController.company.cnpj}" />
 					</div>
 				</div>	
 			</div>
@@ -36,11 +35,11 @@
 			<div class="btn-group">
 				<p:commandButton id="btnSalvar" value="#{labels.salvar}" 
 					styleClass="btn btn-primary btn-modal"
-					actionListener="#{empresaController.adicionarEmpresa}" />
+					actionListener="#{companyController.addCompany}" />
 				<p:commandButton styleClass="btn btn-default btn-modal"
 					value="#{labels.cancelar}"
 					onclick="PF('modalEmpresa').hide();"
-					actionListener="#{empresaController.cancelarInclusao}"/>
+					actionListener="#{companyController.cancelAddCompany}"/>
 			</div>
 		</div>	
 	</p:dialog>	
@@ -54,7 +53,7 @@
 			<p:commandButton styleClass="btn btn-primary"
 				value="#{labels.sim}"
 				onclick="PF('confirmInclusaoEmpresa').hide();"
-				actionListener="#{empresaController.confirmSalvarEmpresa}" />
+				actionListener="#{companyController.confirmSaveCompany}" />
 			<p:commandButton styleClass="btn btn-default"
 				value="#{labels.nao}"
 				onclick="PF('confirmInclusaoEmpresa').hide();"/>

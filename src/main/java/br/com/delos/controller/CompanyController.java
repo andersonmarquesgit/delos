@@ -19,20 +19,17 @@ import br.com.delos.service.CompanyService;
 import br.com.delos.utils.FacesUtil;
 import br.com.delos.utils.MsgConstantes;
 
-//@ManagedBean
-//@ViewScoped
-//@Controller
 @Scope("view")
 @Controller
 public class CompanyController {
 	
 	private static final Logger logger = LogManager.getLogger(CompanyController.class);
 	
-	private Company empresa;
+	private Company company;
 
-	private Company empresaSelecionada;
+	private Company companySelected;
 	
-	private List<Company> empresas;
+	private List<Company> companyList;
 	
 	@Autowired
 	private CompanyService empresaService;
@@ -48,26 +45,26 @@ public class CompanyController {
 	}
 	
 	private void inicializarEmpresa() {
-		empresa = new Company();
+		company = new Company();
 	}
 	
 	public void inicializarEmpresas() {
-		empresas = empresaService.listar();
+		companyList = empresaService.listar();
 	}
 
 
-	public void adicionarEmpresa() {
-		if(empresa.getName().isEmpty() || empresa.getCnpj().isEmpty()) {
+	public void addCompany() {
+		if(company.getName().isEmpty() || company.getCnpj().isEmpty()) {
 			FacesUtil.adicionarErro(MsgConstantes.VALIDACAO_CAMPOS_OBRIGATORIOS);
 		}else{
 			RequestContext.getCurrentInstance().execute("PF('confirmInclusaoEmpresa').show();");
 		}
 	}
 	
-	public void confirmSalvarEmpresa() {
+	public void confirmSaveCompany() {
 		RequestContext.getCurrentInstance().execute("PF('modalEmpresa').hide();");
-		Boolean ehEdicao = (this.empresa.getId() == null);
-		empresaService.salvar(empresa);
+		Boolean ehEdicao = (this.company.getId() == null);
+		empresaService.salvar(company);
 		if(ehEdicao) {
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO);
 		}else{
@@ -77,15 +74,15 @@ public class CompanyController {
 		RequestContext.getCurrentInstance().update("formEmpresas");
 	}
 	
-	public void cancelarInclusao() {
+	public void cancelAddCompany() {
 		this.inicializarObjetosDaTela();
 		RequestContext.getCurrentInstance().update("formEmpresas");
 		RequestContext.getCurrentInstance().execute("PF('modalEmpresa').hide();");
 	}
 	
-	public void excluirEmpresa() {
+	public void deleteCompany() {
 		try {
-			empresaService.remover(this.empresaSelecionada);
+			empresaService.remover(this.companySelected);
 			this.inicializarObjetosDaTela();
 			RequestContext.getCurrentInstance().update("formEmpresas");
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_EXCLUSAO);
@@ -96,44 +93,44 @@ public class CompanyController {
 		}
 	}
 	
-	public void confirmarExclusaoEmpresa(Company empresaSelecionada) {
-		this.empresaSelecionada = empresaSelecionada;
+	public void confirmDeleteCompany(Company companySelected) {
+		this.companySelected = companySelected;
 		RequestContext.getCurrentInstance().execute("PF('confirmExclusaoEmpresa').show();");
 	}
 	
-	public void cancelarExclusao() {
+	public void cancelDelete() {
 		RequestContext.getCurrentInstance().execute("PF('confirmExclusaoEmpresa').hide();");
 	}
 	
-	public void editarEmpresa(Company empresaSelecionada) {
-		this.empresa = empresaSelecionada;
+	public void editCompany(Company companySelected) {
+		this.company = companySelected;
 		RequestContext.getCurrentInstance().update("formEmpresas");
 		RequestContext.getCurrentInstance().execute("PF('modalEmpresa').show();");
 	}
 
 	//Gets e Sets ==============================================================================================
-	public Company getEmpresa() {
-		return empresa;
+	public Company getCompany() {
+		return company;
 	}
 
-	public void setEmpresa(Company empresa) {
-		this.empresa = empresa;
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
-	public Company getEmpresaSelecionada() {
-		return empresaSelecionada;
+	public Company getCompanySelected() {
+		return companySelected;
 	}
 
-	public void setEmpresaSelecionada(Company empresaSelecionada) {
-		this.empresaSelecionada = empresaSelecionada;
+	public void setCompanySelected(Company companySelected) {
+		this.companySelected = companySelected;
 	}
 
-	public List<Company> getEmpresas() {
-		return empresas;
+	public List<Company> getCompanyList() {
+		return companyList;
 	}
 
-	public void setEmpresas(List<Company> empresas) {
-		this.empresas = empresas;
+	public void setCompanyList(List<Company> companyList) {
+		this.companyList = companyList;
 	}
 	
 }
