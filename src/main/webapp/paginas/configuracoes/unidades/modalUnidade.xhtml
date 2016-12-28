@@ -12,7 +12,7 @@
 	widgetVar="modalUnidade"
 	closable="true" resizable="false" draggable="false" width="600" modal="true">
 	<p:ajax event="close" update="modalUnidade" 
-		listener="#{unidadeController.cancelarInclusao}" />
+		listener="#{unitController.cancelAddUnit}" />
 		
 		<div id="dadosUnidadePanel" class="panel panel-default">
 			<div class="panel-heading">#{labels.configuracoes_modal_dados_unidade}</div>
@@ -20,19 +20,19 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<h:outputText styleClass="form-required" value="#{labels.configuracoes_modal_nome}"/>
-				        <b:inputText id="inputNomeUnidade" value="#{unidadeController.unidade.nome}" />
+				        <h:inputText id="inputNomeUnidade" class="form-control" value="#{unitController.unit.name}" />
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-6">
 						<h:outputText styleClass="form-required" value="#{labels.configuracoes_empresa}"/>
 			        	<h:selectOneMenu converter="GenericConverter" id="empresas" styleClass="width-full form-control" 
-							value="#{unidadeController.unidade.empresa}">
+							value="#{unitController.unit.company}">
 				 		  	<f:selectItem itemLabel=""/>
-				 		  	<f:selectItems value="#{empresaController.empresas}" 
-							            	var="empresa"
-							            	itemLabel="#{empresa.razaoSocial}" 	
-							            	itemValue="#{empresa}"/>
+				 		  	<f:selectItems value="#{companyController.companyList}" 
+							            	var="company"
+							            	itemLabel="#{company.name}" 	
+							            	itemValue="#{company}"/>
 <!-- 							<p:ajax event="change" update="incluir" listener="#{habilidadePessoalControlador.habilitarInclusao}" /> 	            	 -->
 						</h:selectOneMenu>	
 					</div>
@@ -43,11 +43,11 @@
 			<div class="btn-group">
 				<p:commandButton id="btnSalvar" value="#{labels.salvar}" 
 					styleClass="btn btn-primary btn-modal"
-					actionListener="#{unidadeController.adicionarUnidade}" />
+					actionListener="#{unitController.addUnit}" />
 				<p:commandButton styleClass="btn btn-default btn-modal"
 					value="#{labels.cancelar}"
 					onclick="PF('modalUnidade').hide();"
-					actionListener="#{unidadeController.cancelarInclusao}"/>
+					actionListener="#{unitController.cancelAddUnit}"/>
 			</div>
 		</div>	
 	</p:dialog>	
@@ -61,7 +61,7 @@
 			<p:commandButton styleClass="btn btn-primary"
 				value="#{labels.sim}"
 				onclick="PF('confirmInclusaoUnidade').hide();"
-				actionListener="#{unidadeController.confirmSalvarUnidade}" />
+				actionListener="#{unitController.confirmAddUnit}" />
 			<p:commandButton styleClass="btn btn-default"
 				value="#{labels.nao}"
 				onclick="PF('confirmInclusaoUnidade').hide();"/>

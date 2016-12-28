@@ -32,7 +32,7 @@ public class CompanyController {
 	private List<Company> companyList;
 	
 	@Autowired
-	private CompanyService empresaService;
+	private CompanyService companyService;
 	
 	@PostConstruct
 	public void init() {
@@ -40,16 +40,16 @@ public class CompanyController {
 	}
 
 	private void inicializarObjetosDaTela() {
-		this.inicializarEmpresa();
-		this.inicializarEmpresas();
+		this.initCompany();
+		this.initCompanyList();
 	}
 	
-	private void inicializarEmpresa() {
+	private void initCompany() {
 		company = new Company();
 	}
 	
-	public void inicializarEmpresas() {
-		companyList = empresaService.listar();
+	public void initCompanyList() {
+		companyList = companyService.list();
 	}
 
 
@@ -64,7 +64,7 @@ public class CompanyController {
 	public void confirmSaveCompany() {
 		RequestContext.getCurrentInstance().execute("PF('modalEmpresa').hide();");
 		Boolean ehEdicao = (this.company.getId() == null);
-		empresaService.salvar(company);
+		companyService.salvar(company);
 		if(ehEdicao) {
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO);
 		}else{
@@ -82,7 +82,7 @@ public class CompanyController {
 	
 	public void deleteCompany() {
 		try {
-			empresaService.remover(this.companySelected);
+			companyService.remover(this.companySelected);
 			this.inicializarObjetosDaTela();
 			RequestContext.getCurrentInstance().update("formEmpresas");
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_EXCLUSAO);

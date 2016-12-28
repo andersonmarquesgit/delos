@@ -17,11 +17,11 @@ import br.com.delos.utils.MsgConstantes;
 @Scope("view")
 @Controller
 public class UnitController {
-	private Unit unidade;
+	private Unit unit;
 
-	private Unit unidadeSelecionada;
+	private Unit unitSelected;
 	
-	private List<Unit> unidades;
+	private List<Unit> unitList;
 	
 	@Autowired
 	private UnitService unidadeService;
@@ -37,25 +37,25 @@ public class UnitController {
 	}
 	
 	private void inicializarUnidade() {
-		unidade = new Unit();
+		unit = new Unit();
 	}
 	
 	public void inicializarUnidades() {
-		unidades = unidadeService.listar();
+		unitList = unidadeService.listar();
 	}
 	
-	public void adicionarUnidade() {
-		if(unidade.getName().isEmpty() || unidade.getCompany() == null) {
+	public void addUnit() {
+		if(unit.getName().isEmpty() || unit.getCompany() == null) {
 			FacesUtil.adicionarErro(MsgConstantes.VALIDACAO_CAMPOS_OBRIGATORIOS);
 		}else{
 			RequestContext.getCurrentInstance().execute("PF('confirmInclusaoUnidade').show();");
 		}
 	}
 	
-	public void confirmSalvarUnidade() {
+	public void confirmAddUnit() {
 		RequestContext.getCurrentInstance().execute("PF('modalUnidade').hide();");
-		Boolean ehEdicao = (this.unidade.getId() == null);
-		unidadeService.salvar(unidade);
+		Boolean ehEdicao = (this.unit.getId() == null);
+		unidadeService.salvar(unit);
 		if(ehEdicao) {
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO);
 		}else{
@@ -65,58 +65,58 @@ public class UnitController {
 		RequestContext.getCurrentInstance().update("formUnidades");
 	}
 	
-	public void cancelarInclusao() {
+	public void cancelAddUnit() {
 		this.inicializarObjetosDaTela();
 		RequestContext.getCurrentInstance().update("formUnidades");
 		RequestContext.getCurrentInstance().execute("PF('modalUnidade').hide();");
 	}
 	
-	public void excluirUnidade() {
-		unidadeService.remover(this.unidadeSelecionada);
+	public void deleteUnit() {
+		unidadeService.remover(this.unitSelected);
 		this.inicializarObjetosDaTela();
 		RequestContext.getCurrentInstance().update("formUnidades");
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_EXCLUSAO);
 	}
 	
-	public void confirmarExclusaoUnidade(Unit unidadeSelecionada) {
-		this.unidadeSelecionada = unidadeSelecionada;
+	public void confirmDeleteUnit(Unit unitSelected) {
+		this.unitSelected = unitSelected;
 		RequestContext.getCurrentInstance().execute("PF('confirmExclusaoUnidade').show();");
 	}
 	
-	public void cancelarExclusao() {
+	public void cancelDeleteUnit() {
 		RequestContext.getCurrentInstance().execute("PF('confirmExclusaoUnidade').hide();");
 	}
 	
-	public void editarUnidade(Unit unidadeSelecionada) {
-		this.unidade = unidadeSelecionada;
+	public void editUnit(Unit unitSelected) {
+		this.unit = unitSelected;
 		RequestContext.getCurrentInstance().update("formUnidades");
 		RequestContext.getCurrentInstance().update("selectEmpresa");
 		RequestContext.getCurrentInstance().execute("PF('modalUnidade').show();");
 	}
 
 	//Gets e Sets ==============================================================================================
-	public Unit getUnidade() {
-		return unidade;
+	public Unit getUnit() {
+		return unit;
 	}
 
-	public void setUnidade(Unit unidade) {
-		this.unidade = unidade;
+	public void setUnit(Unit unit) {
+		this.unit = unit;
 	}
 
-	public Unit getUnidadeSelecionada() {
-		return unidadeSelecionada;
+	public Unit getUnitSelected() {
+		return unitSelected;
 	}
 
-	public void setUnidadeSelecionada(Unit unidadeSelecionada) {
-		this.unidadeSelecionada = unidadeSelecionada;
+	public void setUnitSelected(Unit unitSelected) {
+		this.unitSelected = unitSelected;
 	}
 
-	public List<Unit> getUnidades() {
-		return unidades;
+	public List<Unit> getUnitList() {
+		return unitList;
 	}
 
-	public void setUnidades(List<Unit> unidades) {
-		this.unidades = unidades;
+	public void setUnitList(List<Unit> unitList) {
+		this.unitList = unitList;
 	}
 
 }

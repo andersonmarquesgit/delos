@@ -10,30 +10,30 @@
 <ui:composition>
 <h:form id="formUnidades">
 	<p:commandButton id="btIncluirUsuario" styleClass="btn btn-labeled btn-primary" 
-			value="#{labels.configuracoes_nova_unidade}" actionListener="#{empresaController.inicializarEmpresas}"
+			value="#{labels.configuracoes_nova_unidade}" actionListener="#{companyController.initCompanyList}"
 			update="formUnidades"
 			oncomplete="PF('modalUnidade').show();" icon="fa fa-plus" />
 			
 	<div class="table-responsive">
 	   <p:dataTable tableStyleClass="table table-striped table-hover small table-bordered table-hover" 
-	   		value="#{unidadeController.unidades}" var="unidade"
+	   		value="#{unitController.unitList}" var="unit"
 	   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" 
 	   		pageLinks="10" rows="20" rowsPerPageTemplate="10,20,50" 
 	   		paginatorPosition="bottom" style="text-align: center;"
 	   		emptyMessage="#{labels.empty_message_unidades}" reflow="true">
 	      	<p:column headerText="#{labels.configuracoes_nome}">
-	         	<h:outputText value="#{unidade.nome}"/>
+	         	<h:outputText value="#{unit.name}"/>
 	      	</p:column>
 	      	<p:column headerText="#{labels.configuracoes_empresa}">
-	         	<h:outputText value="#{unidade.empresa.razaoSocial}"/>
+	         	<h:outputText value="#{unit.company.name}"/>
 	      	</p:column>
 	      	<p:column headerText="#{labels.opcoes}" width="20%">
 		      	<p:commandButton icon="fa fa-pencil" title="Editar" process="@this" update="@none"
 		      			styleClass="btn btn-primary"
-                        actionListener="#{unidadeController.editarUnidade(unidade)}" />
+                        actionListener="#{unitController.editUnit(unit)}" />
 		      	<p:commandButton icon="fa fa-trash" title="Excluir" process="@this" update="@none"
 		      			styleClass="btn btn-danger"
-                        actionListener="#{unidadeController.confirmarExclusaoUnidade(unidade)}" />
+                        actionListener="#{unitController.confirmDeleteUnit(unit)}" />
 			</p:column>
 	   </p:dataTable>
 	   
@@ -44,8 +44,8 @@
 			<div class="pull-right">
 				<p:commandButton styleClass="btn btn-primary" value="#{labels.sim}" 
 					onclick="PF('confirmExclusaoUnidade').hide();" 
-					actionListener="#{unidadeController.excluirUnidade}" />
-				<p:commandButton styleClass="btn btn-default" value="#{labels.nao}" actionListener="#{unidadeController.cancelarExclusao}"/>
+					actionListener="#{unitController.deleteUnit}" />
+				<p:commandButton styleClass="btn btn-default" value="#{labels.nao}" actionListener="#{unitController.cancelDeleteUnit}"/>
 			</div>
 	   </p:confirmDialog>
 	   

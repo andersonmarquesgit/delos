@@ -16,7 +16,7 @@ public class CompanyService {
 	@Autowired
 	private CompanyRepository companyRepository;
 	
-	public List<Company> listar() {
+	public List<Company> list() {
 		List<Company> companys = companyRepository.findAll();
 		SortUtil.sortList(companys, true, "name");
 		return companys;
