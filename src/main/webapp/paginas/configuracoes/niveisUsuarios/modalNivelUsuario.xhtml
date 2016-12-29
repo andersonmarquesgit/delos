@@ -4,15 +4,14 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <ui:composition>
 		<p:dialog id="modalNivelUsuario" header="#{labels.configuracoes_modal_dados_nivel}"
 			widgetVar="modalNivelUsuario"
 			closable="true" resizable="false" draggable="false" width="600" modal="true">
 			<p:ajax event="close" update="modalNivelUsuario" 
-				listener="#{nivelUsuarioController.cancelarInclusao}" />
+				listener="#{userLevelController.cancelDeleteUserLevel}" />
 				
 				<div id="dadosNivelUsuarioPanel" class="panel panel-default">
 					<div class="panel-heading">#{labels.configuracoes_modal_dados_nivel}</div>
@@ -20,7 +19,7 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<h:outputText styleClass="form-required" value="#{labels.configuracoes_modal_nome}"/>
-						        <b:inputText id="inputNomeNivel" value="#{nivelUsuarioController.nivelUsuario.nome}" />
+						        <h:inputText id="inputNomeNivel" class="form-control" value="#{userLevelController.userLevel.name}" />
 							</div>
 						</div>	
 						<div class="row">
@@ -29,10 +28,10 @@
 								    <legend>Permissões</legend>
 								    <p>Selecione aqui os módulos aos quais o nível terá acesso:</p>
 									    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-										    <p:selectBooleanCheckbox value="#{nivelUsuarioController.nivelUsuario.permissaoDocumentos}"/><h:outputText value="#{labels.documentos}" style="margin-left:5px;" />
-										    <p:selectBooleanCheckbox value="#{nivelUsuarioController.nivelUsuario.permissaoSac}"/><h:outputText value="#{labels.configuracoes_sac}" style="margin-left:5px;" />
-										    <p:selectBooleanCheckbox value="#{nivelUsuarioController.nivelUsuario.permissaoAnaliseCritica}"/><h:outputText value="#{labels.analise_critica}" style="margin-left:5px;" />
-										    <p:selectBooleanCheckbox value="#{nivelUsuarioController.nivelUsuario.permissaoConfiguracoes}"/><h:outputText value="#{labels.configuracoes}" style="margin-left:5px;" />
+										    <p:selectBooleanCheckbox value="#{userLevelController.userLevel.docPermission}"/><h:outputText value="#{labels.documentos}" style="margin-left:5px;" />
+										    <p:selectBooleanCheckbox value="#{userLevelController.userLevel.sacPermission}"/><h:outputText value="#{labels.configuracoes_sac}" style="margin-left:5px;" />
+										    <p:selectBooleanCheckbox value="#{userLevelController.userLevel.criticalAnalisysPermission}"/><h:outputText value="#{labels.analise_critica}" style="margin-left:5px;" />
+										    <p:selectBooleanCheckbox value="#{userLevelController.userLevel.configurarionPermission}"/><h:outputText value="#{labels.configuracoes}" style="margin-left:5px;" />
 										</h:panelGrid>
 								</fieldset>
 									
@@ -44,25 +43,25 @@
 					<div class="btn-group">
 						<p:commandButton id="btnSalvar" value="#{labels.salvar}" 
 							styleClass="btn btn-primary btn-modal"
-							actionListener="#{nivelUsuarioController.adicionarNivelUsuario}" />
+							actionListener="#{userLevelController.addUserLevel}" />
 						<p:commandButton styleClass="btn btn-default btn-modal"
 							value="#{labels.cancelar}"
 							onclick="PF('modalNivelUsuario').hide();"
-							actionListener="#{nivelUsuarioController.cancelarInclusao}"/>
+							actionListener="#{userLevelController.cancelAddUserLevel}"/>
 					</div>
 				</div>	
 		</p:dialog>	
 		
 		<!-- DIALOGOS DE CONFIRMAÇÃO -->
 		<p:confirmDialog id="confirmInclusaoNivelUsuario"
-			message="#{mensagens.sgq_confirmar_inclusao}"
+			message="#{userLevelController.userLevel.id == null ? mensagens.sgq_confirmar_inclusao : mensagens.sgq_confirmar_edicao}"
 			widgetVar="confirmInclusaoNivelUsuario" resizable="false"
 			closable="false" draggable="false">
 			<div class="pull-right">
 				<p:commandButton styleClass="btn btn-primary"
 					value="#{labels.sim}"
 					onclick="PF('confirmInclusaoNivelUsuario').hide();"
-					actionListener="#{nivelUsuarioController.confirmSalvarNivelUsuario}" />
+					actionListener="#{userLevelController.confirmAddUserLevel}" />
 				<p:commandButton styleClass="btn btn-default"
 					value="#{labels.nao}"
 					onclick="PF('confirmInclusaoNivelUsuario').hide();"/>

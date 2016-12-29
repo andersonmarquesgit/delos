@@ -54,7 +54,7 @@
 	
 	<!-- DIALOGOS DE CONFIRMAÇÃO -->
 	<p:confirmDialog id="confirmInclusaoUnidade"
-		message="#{mensagens.sgq_confirmar_inclusao}"
+		message="#{unitController.unit.id == null ? mensagens.sgq_confirmar_inclusao : mensagens.sgq_confirmar_edicao}"
 		widgetVar="confirmInclusaoUnidade" resizable="false"
 		closable="false" draggable="false">
 		<div class="pull-right">
