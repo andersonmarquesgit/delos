@@ -30,15 +30,15 @@ public class UserLevelController implements Serializable{
 	
 	@PostConstruct
 	public void init() {
-		this.inicializarObjetosDaTela();
+		this.initObjects();
 	}
 
-	private void inicializarObjetosDaTela() {
-		this.inicializarNivelUsuario();
+	private void initObjects() {
+		this.initUserLevel();
 		userLevelList = nivelUsuarioService.list();
 	}
 	
-	private void inicializarNivelUsuario() {
+	private void initUserLevel() {
 		userLevel = new UserLevel();
 	}
 
@@ -60,19 +60,19 @@ public class UserLevelController implements Serializable{
 		}else{
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO);
 		}
-		this.inicializarObjetosDaTela();
+		this.initObjects();
 		RequestContext.getCurrentInstance().update("formNiveisUsuarios");
 	}
 	
 	public void cancelAddUserLevel() {
-		this.inicializarObjetosDaTela();
+		this.initObjects();
 		RequestContext.getCurrentInstance().update("formNiveisUsuarios");
 		RequestContext.getCurrentInstance().execute("PF('modalNivelUsuario').hide();");
 	}
 	
 	public void deleteUserLevel() {
 		nivelUsuarioService.remover(this.userLevelSelected);
-		this.inicializarObjetosDaTela();
+		this.initObjects();
 		RequestContext.getCurrentInstance().update("formNiveisUsuarios");
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_EXCLUSAO);
 	}

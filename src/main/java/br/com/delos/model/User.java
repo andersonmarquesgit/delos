@@ -49,7 +49,7 @@ public class User {
 	
 	@ManyToOne
 	@JoinColumn(name="fk_user_level")
-	private UserLevel level;
+	private UserLevel userLevel;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tb_user_role", joinColumns = {
@@ -129,12 +129,12 @@ public class User {
 		this.active = active;
 	}
 
-	public UserLevel getLevel() {
-		return level;
+	public UserLevel getUserLevel() {
+		return userLevel;
 	}
 
-	public void setLevel(UserLevel level) {
-		this.level = level;
+	public void setUserLevel(UserLevel userLevel) {
+		this.userLevel = userLevel;
 	}
 
 }

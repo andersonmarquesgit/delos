@@ -15,7 +15,7 @@ public class UnitService {
 	@Autowired
 	private UnitRepository unitRepository;
 	
-	public List<Unit> listar() {
+	public List<Unit> list() {
 		List<Unit> unitList = unitRepository.findAll();
 		SortUtil.sortList(unitList, true, "name");
 		return unitList;

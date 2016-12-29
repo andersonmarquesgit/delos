@@ -28,20 +28,20 @@ public class UnitController {
 	
 	@PostConstruct
 	public void init() {
-		this.inicializarObjetosDaTela();
+		this.initObjects();
 	}
 
-	private void inicializarObjetosDaTela() {
-		this.inicializarUnidade();
-		this.inicializarUnidades();
+	private void initObjects() {
+		this.initUnit();
+		this.initUnitList();
 	}
 	
-	private void inicializarUnidade() {
+	private void initUnit() {
 		unit = new Unit();
 	}
 	
-	public void inicializarUnidades() {
-		unitList = unidadeService.listar();
+	public void initUnitList() {
+		unitList = unidadeService.list();
 	}
 	
 	public void addUnit() {
@@ -61,19 +61,19 @@ public class UnitController {
 		}else{
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_EDICAO);
 		}
-		this.inicializarObjetosDaTela();
+		this.initObjects();
 		RequestContext.getCurrentInstance().update("formUnidades");
 	}
 	
 	public void cancelAddUnit() {
-		this.inicializarObjetosDaTela();
+		this.initObjects();
 		RequestContext.getCurrentInstance().update("formUnidades");
 		RequestContext.getCurrentInstance().execute("PF('modalUnidade').hide();");
 	}
 	
 	public void deleteUnit() {
 		unidadeService.remover(this.unitSelected);
-		this.inicializarObjetosDaTela();
+		this.initObjects();
 		RequestContext.getCurrentInstance().update("formUnidades");
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_EXCLUSAO);
 	}

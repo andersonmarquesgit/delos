@@ -20,77 +20,78 @@ import br.com.delos.utils.MsgConstantes;
 @Controller
 public class UserController {
 	
-	private List<User> usuarios;
+	private List<User> userList;
 	
-	private User usuario;
+	private User user;
 	
 	@Autowired
 	private UserService userService;
 	
 	@PostConstruct
 	public void init() {
-		this.inicializarObjetos();
+		this.initObjects();
 	}
 
-	private void inicializarObjetos() {
-		usuario = new User();
-		usuarios = userService.list();
+	private void initObjects() {
+		user = new User();
+		userList = userService.list();
 	}
 	
-	public void adicionarUsuario() {
-		if(validarCampoObrigatorios()) {
+	public void addUser() {
+		if(validateUserRequiredFields()) {
 			FacesUtil.adicionarErro(MsgConstantes.VALIDACAO_CAMPOS_OBRIGATORIOS);
 		}else{
 			RequestContext.getCurrentInstance().execute("PF('confirmInclusaoUsuario').show();");
 		}
 	}
 	
-	public void confirmSalvarUsuario() {
+	public void confirmAddUser() {
 		RequestContext.getCurrentInstance().update("formUsuarios");
 		RequestContext.getCurrentInstance().execute("PF('modalUsuario').hide();");
 //		usuario.setRole(Role.ROLE_USER);
-		usuario.setRoles(null);
-		usuario.setLogin(usuario.getEmail());
-		usuario.setCompany(usuario.getUnit().getCompany());
-		userService.salvar(usuario);
-		this.inicializarObjetos();
-		if(this.usuario.getId() == null) {
+		user.setRoles(null);
+		user.setLogin(user.getEmail());
+		user.setCompany(user.getUnit().getCompany());
+		userService.salvar(user);
+		this.initObjects();
+		if(this.user.getId() == null) {
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO);
 		}else{
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_EDICAO);
 		}
 	}
 	
-	public void cancelarInclusao() {
-		this.inicializarObjetos();
+	public void cancelAddUser() {
+		this.initObjects();
 		RequestContext.getCurrentInstance().update("formUsuarios");
 		RequestContext.getCurrentInstance().execute("PF('modalUsuario').hide();");
 	}
 	
-	public boolean validarCampoObrigatorios(){
-		if(this.usuario.getName().isEmpty() ||
-				this.usuario.getEmail().isEmpty() ||
-				this.usuario.getPassword().isEmpty()) {
+	public boolean validateUserRequiredFields(){
+		if(this.user.getName().isEmpty() ||
+				this.user.getEmail().isEmpty() ||
+				this.user.getPassword().isEmpty()) {
 			return true;
 		}
 		return false;
 	}
 	
 	//Gets e Sets ==============================================================================================
-	public List<User> getUsuarios() {
-		return usuarios;
+	
+	public List<User> getUserList() {
+		return userList;
 	}
-
-	public void setUsuarios(List<User> usuarios) {
-		this.usuarios = usuarios;
+	
+	public void setUserList(List<User> userList) {
+		this.userList = userList;
 	}
-
-	public User getUsuario() {
-		return usuario;
+	
+	public User getUser() {
+		return user;
 	}
-
-	public void setUsuario(User usuario) {
-		this.usuario = usuario;
+	
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
