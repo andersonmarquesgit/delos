@@ -10,26 +10,26 @@
 <ui:composition>
 	<h:form id="formUsuarios">
 	<p:commandButton id="btIncluirUsuario" styleClass="btn btn-labeled btn-primary" 
-			value="#{labels.configuracoes_novo_usuario}" actionListener="#{unidadeController.inicializarUnidades}"
+			value="#{labels.configuracoes_novo_usuario}" actionListener="#{unitController.initUnitList}"
 			update="formUsuarios"
 			oncomplete="PF('modalUsuario').show();" icon="fa fa-plus" />	
 		
 	<div class="table-responsive">
-	  	<p:dataTable tableStyleClass="table table-striped table-hover small table-bordered table-hover" value="#{usuarioController.usuarios}"
-	   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" var="usuario"
+	  	<p:dataTable tableStyleClass="table table-striped table-hover small table-bordered table-hover" value="#{userController.userList}"
+	   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" var="user"
 	   		pageLinks="10" rows="20" rowsPerPageTemplate="10,20,50" paginatorPosition="bottom" style="text-align: center;"
 	   		emptyMessage="#{labels.empty_message_usuarios}" reflow="true">
 	      	<p:column headerText="#{labels.configuracoes_nome}" width="30%">
-	         	<h:outputText value="#{usuario.nome}"/>
+	         	<h:outputText value="#{user.name}"/>
 	      	</p:column>
 	      	<p:column headerText="#{labels.configuracoes_login_email}" width="30%">
-	         	<h:outputText value="#{usuario.login}"/>
+	         	<h:outputText value="#{user.login}"/>
 	      	</p:column>
 	      	<p:column headerText="#{labels.configuracoes_nivel}" width="10%">
-	         	<h:outputText value="#{usuario.nivel.nome}"/>
+	         	<h:outputText value="#{user.userLevel.name}"/>
 	      	</p:column>
 	      	<p:column headerText="#{labels.configuracoes_status}">
-	         	<h:outputText value="#{usuario.ativo}"/>
+	         	<h:outputText value="#{user.active}"/>
 	      	</p:column>
 	      	<p:column headerText="#{labels.opcoes}" width="20%">
 		      	<p:commandButton icon="fa fa-pencil" title="Editar" process="@this" update="@none"

@@ -4,15 +4,14 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <ui:composition>
 	<p:dialog id="modalUsuario" header="#{labels.configuracoes_modal_dados_usuario}"
 	widgetVar="modalUsuario"
 	closable="true" resizable="false" draggable="false" width="600" modal="true">
 	<p:ajax event="close" update="modalUsuario" 
-				listener="#{usuarioController.cancelarInclusao}" />
+				listener="#{userController.cancelAddUser}" />
 				
 			<div id="dadosUsuarioPanel" class="panel panel-default">
 				<div class="panel-heading">#{labels.configuracoes_modal_dados_usuario}</div>
@@ -20,41 +19,41 @@
 					<div class="row">
 						<div class="col-lg-8">
 							<h:outputText styleClass="form-required" value="#{labels.modal_nome}"/>
-					        <b:inputText id="inputNomeUsuario" value="#{usuarioController.usuario.nome}" />
+					        <h:inputText id="inputNomeUsuario" class="form-control" value="#{userController.user.name}" />
 						</div>
 						<div class="col-lg-8">
 							<h:outputText styleClass="form-required" value="#{labels.modal_email}"/>
-					        <b:inputText id="inputEmailUsuario" value="#{usuarioController.usuario.email}" />
+					        <h:inputText id="inputEmailUsuario" class="form-control" value="#{userController.user.email}" />
 						</div>
 						<div class="row">
 							<div class="col-lg-6">
 								<h:outputText styleClass="form-required" value="#{labels.configuracoes_unidades}"/>
 					        	<h:selectOneMenu converter="GenericConverter" id="unidades" styleClass="width-full form-control" 
-									value="#{usuarioController.usuario.unidade}">
+									value="#{userController.user.unit}">
 						 		  	<f:selectItem itemLabel=""/>
-						 		  	<f:selectItems value="#{unidadeController.unidades}" 
-									            	var="unidade"
-									            	itemLabel="#{unidade.nome} - #{unidade.empresa.razaoSocial}" 	
-									            	itemValue="#{unidade}"/>
+						 		  	<f:selectItems value="#{unitController.unitList}" 
+									            	var="unit"
+									            	itemLabel="#{unit.name} - #{unit.company.name}" 	
+									            	itemValue="#{unit}"/>
 		<!-- 							<p:ajax event="change" update="incluir" listener="#{habilidadePessoalControlador.habilitarInclusao}" /> 	            	 -->
 								</h:selectOneMenu>	
 							</div>
 							<div class="col-lg-6">
 								<h:outputText styleClass="form-required" value="#{labels.configuracoes_niveis_de_usuarios}"/>
 					        	<h:selectOneMenu converter="GenericConverter" id="niveis" styleClass="width-full form-control" 
-									value="#{usuarioController.usuario.nivel}">
+									value="#{userController.user.userLevel}">
 						 		  	<f:selectItem itemLabel=""/>
-						 		  	<f:selectItems value="#{nivelUsuarioController.niveisDeUsuario}" 
-									            	var="nivel"
-									            	itemLabel="#{nivel.nome}" 	
-									            	itemValue="#{nivel}"/>
+						 		  	<f:selectItems value="#{userLevelController.userLevelList}" 
+									            	var="userLevel"
+									            	itemLabel="#{userLevel.name}" 	
+									            	itemValue="#{userLevel}"/>
 		<!-- 							<p:ajax event="change" update="incluir" listener="#{habilidadePessoalControlador.habilitarInclusao}" /> 	            	 -->
 								</h:selectOneMenu>	
 							</div>
 						</div>	
 						<div class="col-lg-6">
 							<h:panelGrid columns="2" style="margin-top:10px" cellpadding="5">
-							    <p:selectBooleanCheckbox value="#{usuarioController.usuario.ativo}"/>
+							    <p:selectBooleanCheckbox value="#{userController.user.active}"/>
 							    <h:outputText value="#{labels.ativo}" style="margin-left:5px;" />
 							</h:panelGrid>		    
 						</div>
@@ -66,7 +65,7 @@
 							    <div class="row">
 								    <div class="col-lg-4">
 										<h:outputText styleClass="form-required" value="#{labels.modal_senha}"/>
-								        <p:password id="inputSenhaUsuario" value="#{usuarioController.usuario.password}" 
+								        <p:password id="inputSenhaUsuario" value="#{userController.user.password}" 
 								        	match="inputConfirmarSenhaUsuario" 
 								        	validatorMessage="#{mensagens.sgq.mensagens.confirmacao.senha.invalida}"/>
 									</div>
@@ -74,7 +73,7 @@
 							    <div class="row" style="margin-top:10px;">
 									 <div class="col-lg-4">
 										<h:outputText styleClass="form-required" value="#{labels.modal_confirmar_senha}"/>
-								        <p:password id="inputConfirmarSenhaUsuario" value="#{usuarioController.usuario.password}" />
+								        <p:password id="inputConfirmarSenhaUsuario" value="#{userController.user.password}" />
 									</div>
 								</div>
 							</fieldset>
@@ -87,11 +86,11 @@
 				<div class="btn-group">
 					<p:commandButton id="btnSalvar" value="#{labels.salvar}" 
 						styleClass="btn btn-primary btn-modal"
-						actionListener="#{usuarioController.adicionarUsuario}" />
+						actionListener="#{userController.addUser}" />
 					<p:commandButton styleClass="btn btn-default btn-modal"
 						value="#{labels.cancelar}"
 						onclick="PF('modalUsuario').hide();"
-						actionListener="#{usuarioController.cancelarInclusao}"/>
+						actionListener="#{userController.cancelAddUser}"/>
 				</div>
 			</div>	
 	</p:dialog>
@@ -105,7 +104,7 @@
 			<p:commandButton styleClass="btn btn-primary"
 				value="#{labels.sim}"
 				onclick="PF('confirmInclusaoUsuario').hide();"
-				actionListener="#{usuarioController.confirmSalvarUsuario}" />
+				actionListener="#{userController.confirmAddUser}" />
 			<p:commandButton styleClass="btn btn-default"
 				value="#{labels.nao}"
 				onclick="PF('confirmInclusaoUsuario').hide();"/>
