@@ -101,7 +101,7 @@
 				
 				<!-- DIALOGOS DE CONFIRMAÇÃO -->
 				<p:confirmDialog id="confirmInclusaoAnaliseCritica"
-					message="#{mensagens.sgq_confirmar_inclusao}"
+					message="#{criticalAnalisysController.criticalAnalisys.id == null ? mensagens.sgq_confirmar_inclusao : mensagens.sgq_confirmar_edicao}"
 					widgetVar="confirmInclusaoAnaliseCritica" resizable="false"
 					closable="false" draggable="false">
 					<div class="pull-right">

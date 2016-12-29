@@ -46,7 +46,7 @@
 	
 	<!-- DIALOGOS DE CONFIRMAÇÃO -->
 	<p:confirmDialog id="confirmInclusaoEmpresa"
-		message="#{mensagens.sgq_confirmar_inclusao}"
+		message="#{companyController.company.id == null ? mensagens.sgq_confirmar_inclusao : mensagens.sgq_confirmar_edicao}"
 		widgetVar="confirmInclusaoEmpresa" resizable="false"
 		closable="false" draggable="false">
 		<div class="pull-right">

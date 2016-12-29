@@ -21,9 +21,9 @@ import br.com.delos.utils.MsgConstantes;
 public class UserLevelController implements Serializable{
 	private static final long serialVersionUID = -7580482456782445297L;
 	
-	private List<UserLevel> niveisDeUsuario;
-	private UserLevel nivelUsuario;
-	private UserLevel nivelUsuarioSelecionado;
+	private List<UserLevel> userLevelList;
+	private UserLevel userLevel;
+	private UserLevel userLevelSelected;
 	
 	@Autowired
 	private UserLevelService nivelUsuarioService;
@@ -35,85 +35,85 @@ public class UserLevelController implements Serializable{
 
 	private void inicializarObjetosDaTela() {
 		this.inicializarNivelUsuario();
-		niveisDeUsuario = nivelUsuarioService.list();
+		userLevelList = nivelUsuarioService.list();
 	}
 	
 	private void inicializarNivelUsuario() {
-		nivelUsuario = new UserLevel();
+		userLevel = new UserLevel();
 	}
 
-	public void adicionarNivelUsuario() {
-		if(nivelUsuario.getName().isEmpty()) {
+	public void addUserLevel() {
+		if(userLevel.getName().isEmpty()) {
 			FacesUtil.adicionarErro(MsgConstantes.VALIDACAO_CAMPOS_OBRIGATORIOS);
 		}else{
 			RequestContext.getCurrentInstance().execute("PF('confirmInclusaoNivelUsuario').show();");
 		}
 	}
 	
-	public void confirmSalvarNivelUsuario() {
+	public void confirmAddUserLevel() {
 		RequestContext.getCurrentInstance().execute("PF('modalNivelUsuario').hide();");
-		nivelUsuario.setDateInclusion(new Date());
-		Boolean ehEdicao = (this.nivelUsuario.getId() == null);
-		nivelUsuarioService.salvar(nivelUsuario);
+		userLevel.setDateInclusion(new Date());
+		Boolean ehEdicao = (this.userLevel.getId() != null);
+		nivelUsuarioService.salvar(userLevel);
 		if(ehEdicao) {
-			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO);
-		}else{
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_EDICAO);
+		}else{
+			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO);
 		}
 		this.inicializarObjetosDaTela();
 		RequestContext.getCurrentInstance().update("formNiveisUsuarios");
 	}
 	
-	public void cancelarInclusao() {
+	public void cancelAddUserLevel() {
 		this.inicializarObjetosDaTela();
 		RequestContext.getCurrentInstance().update("formNiveisUsuarios");
 		RequestContext.getCurrentInstance().execute("PF('modalNivelUsuario').hide();");
 	}
 	
-	public void excluirNivelUsuario() {
-		nivelUsuarioService.remover(this.nivelUsuarioSelecionado);
+	public void deleteUserLevel() {
+		nivelUsuarioService.remover(this.userLevelSelected);
 		this.inicializarObjetosDaTela();
 		RequestContext.getCurrentInstance().update("formNiveisUsuarios");
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_EXCLUSAO);
 	}
 	
-	public void confirmarExclusaoNivelUsuario(UserLevel nivelUsuarioSelecionado) {
-		this.nivelUsuarioSelecionado = nivelUsuarioSelecionado;
+	public void confirmDeleteUserLevel(UserLevel userLevelSelected) {
+		this.userLevelSelected = userLevelSelected;
 		RequestContext.getCurrentInstance().execute("PF('confirmExclusaoNivelUsuario').show();");
 	}
 	
-	public void cancelarExclusao() {
+	public void cancelDeleteUserLevel() {
 		RequestContext.getCurrentInstance().execute("PF('confirmExclusaoNivelUsuario').hide();");
 	}
 	
-	public void editarNivelUsuario(UserLevel nivelUsuarioSelecionado) {
-		this.nivelUsuario = nivelUsuarioSelecionado;
+	public void editUserLevel(UserLevel userLevelSelected) {
+		this.userLevel = userLevelSelected;
 		RequestContext.getCurrentInstance().update("formNiveisUsuarios");
 		RequestContext.getCurrentInstance().execute("PF('modalNivelUsuario').show();");
 	}
 	
 	//Gets e Sets ==============================================================================================
-	public List<UserLevel> getNiveisDeUsuario() {
-		return niveisDeUsuario;
+	public List<UserLevel> getUserLevelList() {
+		return userLevelList;
 	}
 
-	public void setNiveisDeUsuario(List<UserLevel> niveisDeUsuario) {
-		this.niveisDeUsuario = niveisDeUsuario;
+	public void setUserLevelList(List<UserLevel> userLevelList) {
+		this.userLevelList = userLevelList;
 	}
 
-	public UserLevel getNivelUsuario() {
-		return nivelUsuario;
+	public UserLevel getUserLevel() {
+		return userLevel;
 	}
 
-	public void setNivelUsuario(UserLevel nivelUsuario) {
-		this.nivelUsuario = nivelUsuario;
+	public void setUserLevel(UserLevel userLevel) {
+		this.userLevel = userLevel;
 	}
 
-	public UserLevel getNivelUsuarioSelecionado() {
-		return nivelUsuarioSelecionado;
+	public UserLevel getUserLevelSelected() {
+		return userLevelSelected;
 	}
 
-	public void setNivelUsuarioSelecionado(UserLevel nivelUsuarioSelecionado) {
-		this.nivelUsuarioSelecionado = nivelUsuarioSelecionado;
+	public void setUserLevelSelected(UserLevel userLevelSelected) {
+		this.userLevelSelected = userLevelSelected;
 	}
 }
