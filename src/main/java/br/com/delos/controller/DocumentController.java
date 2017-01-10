@@ -31,16 +31,16 @@ import br.com.delos.utils.enums.DocumentTypeEnum;
 @Controller
 public class DocumentController {
 
-	private Document documento;
+	private Document document;
 	private Document documentoSelecionado;
 	private LazyDataModel<Document> documentosProcedimentos;
 	private LazyDataModel<Document> documentosPoliticas;
 	private LazyDataModel<Document> documentosTreinamentos;
 	private LazyDataModel<Document> documentosDesignacoes;
-	private LazyDataModel<Document> documentosExternos;
+	private LazyDataModel<Document> docExternalList;
 	private List<DocumentType> tiposDeDocumentos;
-	private List<DocumentType> tiposDeDocumentosExternos;
-	private List<Factor> elementos;
+	private List<DocumentType> documentoTypeExternalList;
+	private List<Factor> elementList;
 	private StreamedContent streamedContent;
     private InputStream stream;
     
@@ -65,13 +65,13 @@ public class DocumentController {
 	}
 
 	private void inicializarElementosENovoDoc() {
-		elementos = elementoService.list();
-		documento = new Document();
+		elementList = elementoService.list();
+		document = new Document();
 	}
 
 	private void inicializarDocumentosExternos() {
-		documentosExternos = new DocumentLazyList(DocumentTypeEnum.DOCUMENTOS_COMPLEMENTARES.getId(), documentoService);
-		tiposDeDocumentosExternos = tipoDocumentoService.findById(DocumentTypeEnum.DOCUMENTOS_COMPLEMENTARES.getId());
+		docExternalList = new DocumentLazyList(DocumentTypeEnum.DOCUMENTOS_COMPLEMENTARES.getId(), documentoService);
+		documentoTypeExternalList = tipoDocumentoService.findById(DocumentTypeEnum.DOCUMENTOS_COMPLEMENTARES.getId());
 	}
 
 	private void inicializarDocumentosInternos() {
@@ -102,11 +102,11 @@ public class DocumentController {
 		return new DocumentLazyList(DocumentTypeEnum.DOCUMENTOS_COMPLEMENTARES.getId(), documentoService);
 	}
 	
-	public void adicionarDocExterno() {
+	public void addDocExternal() {
 		RequestContext.getCurrentInstance().execute("PF('modalAddDocumento').show();");
 	}
 	
-	public void cancelarEnvioDocExterno() {
+	public void cancelSendDocExternal() {
 		this.inicializarDocumentosExternos();
 		this.inicializarElementosENovoDoc();
 		RequestContext.getCurrentInstance().update("modalAddDocumento");
@@ -133,13 +133,13 @@ public class DocumentController {
 		byte[] conteudo = new byte[inputStream.available()];
 		inputStream.read(conteudo);
 		inputStream.close();
-		documento.setConteudo(conteudo);
-		documento.setFileName(event.getFile().getFileName());
+		document.setConteudo(conteudo);
+		document.setFileName(event.getFile().getFileName());
 	}
 	
-	public void confirmarInclusaoDocExterno(){
+	public void confirmAddDocExternal(){
 		if(camposObrigatoriosPreenchidos()) {
-			documentoService.salvar(documento);
+			documentoService.salvar(document);
 			this.inicializarDocumentosExternos();
 			this.inicializarElementosENovoDoc();
 			RequestContext.getCurrentInstance().update("modalAddDocumento");
@@ -153,7 +153,7 @@ public class DocumentController {
 	
 	public void confirmarInclusaoDocInterno(){
 		if(camposObrigatoriosPreenchidos()) {
-			documentoService.salvar(documento);
+			documentoService.salvar(document);
 			this.inicializarDocumentosInternos();
 			this.inicializarElementosENovoDoc();
 			RequestContext.getCurrentInstance().update("modalAddDocumentoInterno");
@@ -166,10 +166,10 @@ public class DocumentController {
 	}
 	
 	public boolean camposObrigatoriosPreenchidos() {
-		if(documento.getConteudo() != null
-				&& !documento.getDescription().isEmpty() && documento.getDescription() != null
-				&& !documento.getTitle().isEmpty() && documento.getTitle() != null
-				&& documento.getElement() != null && documento.getDocumentType() != null){
+		if(document.getConteudo() != null
+				&& !document.getDescription().isEmpty() && document.getDescription() != null
+				&& !document.getTitle().isEmpty() && document.getTitle() != null
+				&& document.getElement() != null && document.getDocumentType() != null){
 			return true;
 		}
 		
@@ -196,12 +196,12 @@ public class DocumentController {
 	
 	// Gets e Sets
 	// ==============================================================================================
-	public Document getDocumento() {
-		return documento;
+	public Document getDocument() {
+		return document;
 	}
 
-	public void setDocumento(Document documento) {
-		this.documento = documento;
+	public void setDocument(Document document) {
+		this.document = document;
 	}
 
 
@@ -213,12 +213,12 @@ public class DocumentController {
 		this.tiposDeDocumentos = tiposDeDocumentos;
 	}
 
-	public List<Factor> getElementos() {
-		return elementos;
+	public List<Factor> getElementList() {
+		return elementList;
 	}
 
-	public void setElementos(List<Factor> elementos) {
-		this.elementos = elementos;
+	public void setElementList(List<Factor> elementList) {
+		this.elementList = elementList;
 	}
 
 	public LazyDataModel<Document> getDocumentosProcedimentos() {
@@ -256,21 +256,21 @@ public class DocumentController {
 		this.documentosDesignacoes = documentosDesignacoes;
 	}
 
-	public LazyDataModel<Document> getDocumentosExternos() {
-		return documentosExternos;
+	public LazyDataModel<Document> getDocExternalList() {
+		return docExternalList;
 	}
 
-	public void setDocumentosExternos(LazyDataModel<Document> documentosExternos) {
-		this.documentosExternos = documentosExternos;
+	public void setDocExternalList(LazyDataModel<Document> docExternalList) {
+		this.docExternalList = docExternalList;
 	}
 
-	public List<DocumentType> getTiposDeDocumentosExternos() {
-		return tiposDeDocumentosExternos;
+	public List<DocumentType> getDocumentoTypeExternalList() {
+		return documentoTypeExternalList;
 	}
 
-	public void setTiposDeDocumentosExternos(
-			List<DocumentType> tiposDeDocumentosExternos) {
-		this.tiposDeDocumentosExternos = tiposDeDocumentosExternos;
+	public void setDocumentoTypeExternalList(
+			List<DocumentType> documentoTypeExternalList) {
+		this.documentoTypeExternalList = documentoTypeExternalList;
 	}
 
 	public StreamedContent getStreamedContent() throws IOException {

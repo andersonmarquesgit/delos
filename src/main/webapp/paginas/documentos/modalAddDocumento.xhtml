@@ -12,7 +12,7 @@
 		widgetVar="modalAddDocumento" responsive="true"
 		style="position: absolute;margin-top: -190px !important;max-width: 900px;"
 		closable="true" resizable="false" draggable="false" modal="true">
-		<p:ajax event="close" listener="#{documentoController.cancelarEnvioDocExterno}" />
+		<p:ajax event="close" listener="#{documentController.cancelSendDocExternal}" />
 			
 		<h:form id="formAddDocumento" enctype="multipart/form-data">
 			<div id="dadosClientePanel" class="panel panel-default">
@@ -23,7 +23,7 @@
 							<h:outputText value="#{labels.documentos_modal_titulo}" styleClass="form-required"/>
 					        <h:inputText id="inputTituloDocumento" 
 					        	styleClass="width-full form-control"
-					        	value="#{documentoController.documento.titulo}"/>	
+					        	value="#{documentController.document.title}"/>	
 						</div>
 					</div>	
 					<div class="row">
@@ -31,7 +31,7 @@
 							<h:outputText value="#{labels.documentos_modal_descricao}" styleClass="form-required"/>
 					        <h:inputText id="inputDescricaoDocumento" 
 					        	styleClass="width-full form-control"
-					        	value="#{documentoController.documento.descricao}"/>	
+					        	value="#{documentController.document.description}"/>	
 						</div>
 					</div>	
 					<div class="row">
@@ -40,11 +40,11 @@
 				        	<h:selectOneMenu
 								converter="GenericConverter" id="selectTipoDocumento"
 								styleClass="width-full form-control"
-								value="#{documentoController.documento.tipoDocumento}">
+								value="#{documentController.document.documentType}">
 								<f:selectItem itemLabel="" />
-								<f:selectItems value="#{documentoController.tiposDeDocumentosExternos}"
-									var="tipo" itemLabel="#{tipo.descricao}"
-									itemValue="#{tipo}" />
+								<f:selectItems value="#{documentController.documentoTypeExternalList}"
+									var="type" itemLabel="#{type.description}"
+									itemValue="#{type}" />
 							</h:selectOneMenu>
 						</div>
 						<div class="col-lg-6">
@@ -52,11 +52,11 @@
 				        	<h:selectOneMenu
 								converter="GenericConverter" id="selectElemento"
 								styleClass="width-full form-control"
-								value="#{documentoController.documento.elemento}">
+								value="#{documentController.document.element}">
 								<f:selectItem itemLabel="" />
-								<f:selectItems value="#{documentoController.elementos}"
-									var="elemento" itemLabel="#{elemento.descricao}"
-									itemValue="#{elemento}" />
+								<f:selectItems value="#{documentController.elementList}"
+									var="element" itemLabel="#{element.description}"
+									itemValue="#{element}" />
 							</h:selectOneMenu>
 						</div>
 			        </div>
@@ -67,7 +67,7 @@
 								label="Anexar" multiple="false" auto="true"
 								invalidFileMessage="Tipo de arquivo não permitido"
 								invalidSizeMessage="Tamanho excedido"
-								fileUploadListener="#{documentoController.uploadFile}"
+								fileUploadListener="#{documentController.uploadFile}"
 								mode="advanced" dragDropSupport="false" update="messages"
 								sizeLimit="1000000" fileLimit="1"
 								allowTypes="/(\.|\/)(xlsx|docx|xls|doc|pdf)$/"/>
@@ -79,10 +79,10 @@
 			<div class="btn-group">
 				<p:commandButton id="btnConfirmarInclusao" value="#{labels.salvar}"
 					styleClass="btn btn-primary btn-modal"
-					actionListener="#{documentoController.confirmarInclusaoDocExterno}" />
+					actionListener="#{documentController.confirmAddDocExternal}" />
 				<p:commandButton id="btnCancelarInclusao" styleClass="btn btn-default btn-modal"
 					value="#{labels.cancelar}"
-					actionListener="#{documentoController.cancelarEnvioDocExterno}" />
+					actionListener="#{documentController.cancelSendDocExternal}" />
 			</div>
 		</div>
 		</h:form>	

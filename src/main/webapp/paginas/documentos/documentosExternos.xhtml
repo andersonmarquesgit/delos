@@ -11,29 +11,29 @@
 <h:form id="formDocumentosExternos">
 	<p:commandButton id="btAdicionarDocExterno" styleClass="btn btn-labeled btn-primary" 
 		value="#{labels.documentos_externos_adicionar}" 
-		action="#{documentoController.adicionarDocExterno}"
+		action="#{documentController.addDocExternal}"
 		icon="fa fa-plus" />
 	
 	<div class="panel panel-default">
       	<div class="panel-body">
 			<p:dataTable id="dataTableDocExternos" tableStyleClass="table table-striped table-hover small table-bordered table-hover" 
-				value="#{documentoController.documentosExternos}" reflow="true" lazy="true"
-		   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" var="documento"
+				value="#{documentController.docExternalList}" reflow="true" lazy="true"
+		   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" var="document"
 		   		pageLinks="10" rows="10" rowsPerPageTemplate="10,20,50" paginatorPosition="bottom" style="text-align: center;"
 		   		emptyMessage="#{labels.empty_message_documentos}">
-		   		<p:column headerText="#{labels.documentos_titulo}" sortBy="#{documento.titulo}" width="25%">
-		         	<h:outputText value="#{documento.titulo}"/>
+		   		<p:column headerText="#{labels.documentos_titulo}" sortBy="#{document.titulo}" width="25%">
+		         	<h:outputText value="#{document.title}"/>
 		      	</p:column>
 		      	<p:column headerText="#{labels.documentos_descricao}">
-		         	<h:outputText value="#{documento.descricao}"/>
+		         	<h:outputText value="#{document.description}"/>
 		      	</p:column>
 		      	<p:column headerText="#{labels.documentos_elemento}">
-		         	<h:outputText value="#{documento.elemento.descricao}"/>
+		         	<h:outputText value="#{document.element.description}"/>
 		      	</p:column>
 		      	<p:column headerText="#{labels.opcoes}" width="8%">
 					<p:commandButton id="btteste"
 						styleClass="btn btn-labeled btn-primary"
-						actionListener="#{documentoController.visualizarDocumentoPDF(documento)}"
+						actionListener="#{documentController.visualizarDocumentoPDF(document)}"
 						icon="fa fa-search" title="#{labels.documentos_visualizar_pdf}" />
 				</p:column>
 		   </p:dataTable>
