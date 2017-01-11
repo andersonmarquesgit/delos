@@ -21,7 +21,7 @@
 		   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" var="document"
 		   		pageLinks="10" rows="10" rowsPerPageTemplate="10,20,50" paginatorPosition="bottom" style="text-align: center;"
 		   		emptyMessage="#{labels.empty_message_documentos}">
-		   		<p:column headerText="#{labels.documentos_titulo}" sortBy="#{document.titulo}" width="25%">
+		   		<p:column headerText="#{labels.documentos_titulo}" sortBy="#{document.title}" width="25%">
 		         	<h:outputText value="#{document.title}"/>
 		      	</p:column>
 		      	<p:column headerText="#{labels.documentos_descricao}">
@@ -33,7 +33,7 @@
 		      	<p:column headerText="#{labels.opcoes}" width="8%">
 					<p:commandButton id="btteste"
 						styleClass="btn btn-labeled btn-primary"
-						actionListener="#{documentController.visualizarDocumentoPDF(document)}"
+						actionListener="#{documentController.viewDocumentPDF(document)}"
 						icon="fa fa-search" title="#{labels.documentos_visualizar_pdf}" />
 				</p:column>
 		   </p:dataTable>

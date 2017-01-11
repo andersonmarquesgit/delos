@@ -32,7 +32,7 @@ import br.com.delos.utils.enums.DocumentTypeEnum;
 public class DocumentController {
 
 	private Document document;
-	private Document documentoSelecionado;
+	private Document documentSelected;
 	private LazyDataModel<Document> documentosProcedimentos;
 	private LazyDataModel<Document> documentosPoliticas;
 	private LazyDataModel<Document> documentosTreinamentos;
@@ -176,17 +176,17 @@ public class DocumentController {
 		return false;
 	}
 	
-	public void visualizarDocumentoPDF(Document documentoSelecionado) {
-		this.documentoSelecionado = documentoSelecionado;
+	public void viewDocumentPDF(Document documentSelected) {
+		this.documentSelected = documentSelected;
 		RequestContext.getCurrentInstance().update("modalDocumentoPDF");
-        stream = new ByteArrayInputStream(documentoSelecionado.getConteudo());
+        stream = new ByteArrayInputStream(documentSelected.getConteudo());
         stream.mark(0); //remember to this position!
         streamedContent = new DefaultStreamedContent(stream, "application/pdf");
         RequestContext.getCurrentInstance().execute("PF('modalDocumentoPDF').show();");
 	}
 	
 	public void visualizarDocumentoDOC(Document documentoSelecionado) {
-		this.documentoSelecionado = documentoSelecionado;
+		this.documentSelected = documentoSelecionado;
 		RequestContext.getCurrentInstance().update("modalDocumentoPDF");
         stream = new ByteArrayInputStream(documentoSelecionado.getConteudo());
         stream.mark(0); //remember to this position!
@@ -291,11 +291,11 @@ public class DocumentController {
 		this.stream = stream;
 	}
 
-	public Document getDocumentoSelecionado() {
-		return documentoSelecionado;
+	public Document getDocumentSelected() {
+		return documentSelected;
 	}
 
-	public void setDocumentoSelecionado(Document documentoSelecionado) {
-		this.documentoSelecionado = documentoSelecionado;
+	public void setDocumentSelected(Document documentSelected) {
+		this.documentSelected = documentSelected;
 	}
 }
