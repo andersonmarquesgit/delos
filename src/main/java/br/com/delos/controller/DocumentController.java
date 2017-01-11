@@ -33,12 +33,12 @@ public class DocumentController {
 
 	private Document document;
 	private Document documentSelected;
-	private LazyDataModel<Document> documentosProcedimentos;
+	private LazyDataModel<Document> docProcedureList;
 	private LazyDataModel<Document> documentosPoliticas;
 	private LazyDataModel<Document> documentosTreinamentos;
 	private LazyDataModel<Document> documentosDesignacoes;
 	private LazyDataModel<Document> docExternalList;
-	private List<DocumentType> tiposDeDocumentos;
+	private List<DocumentType> documentoTypeInternalList;
 	private List<DocumentType> documentoTypeExternalList;
 	private List<Factor> elementList;
 	private StreamedContent streamedContent;
@@ -75,8 +75,8 @@ public class DocumentController {
 	}
 
 	private void inicializarDocumentosInternos() {
-		tiposDeDocumentos = tipoDocumentoService.list();
-		documentosProcedimentos = new DocumentLazyList(DocumentTypeEnum.PROCEDIMENTO.getId(), documentoService);
+		documentoTypeInternalList = tipoDocumentoService.list();
+		docProcedureList = new DocumentLazyList(DocumentTypeEnum.PROCEDIMENTO.getId(), documentoService);
 		documentosPoliticas = new DocumentLazyList(DocumentTypeEnum.POLITICA_TRATAMENTO_RECLAMACAO.getId(), documentoService);
 		documentosTreinamentos = new DocumentLazyList(DocumentTypeEnum.TREINAMENTO.getId(), documentoService);
 		documentosDesignacoes = new DocumentLazyList(DocumentTypeEnum.DESIGNACAO.getId(), documentoService);
@@ -113,11 +113,11 @@ public class DocumentController {
 		RequestContext.getCurrentInstance().execute("PF('modalAddDocumento').hide();");
 	}
 	
-	public void adicionarDocInterno() {
+	public void addDocInternal() {
 		RequestContext.getCurrentInstance().execute("PF('modalAddDocumentoInterno').show();");
 	}
 	
-	public void cancelarEnvioDocInterno() {
+	public void cancelSendDocInternal() {
 		this.inicializarDocumentosInternos();
 		this.inicializarElementosENovoDoc();
 		RequestContext.getCurrentInstance().update("formAddDocumentoInterno");
@@ -138,7 +138,7 @@ public class DocumentController {
 	}
 	
 	public void confirmAddDocExternal(){
-		if(camposObrigatoriosPreenchidos()) {
+		if(validateDocumentRequiredFields()) {
 			documentoService.salvar(document);
 			this.inicializarDocumentosExternos();
 			this.inicializarElementosENovoDoc();
@@ -151,8 +151,8 @@ public class DocumentController {
 		}
 	}
 	
-	public void confirmarInclusaoDocInterno(){
-		if(camposObrigatoriosPreenchidos()) {
+	public void confirmAddDocInternal(){
+		if(validateDocumentRequiredFields()) {
 			documentoService.salvar(document);
 			this.inicializarDocumentosInternos();
 			this.inicializarElementosENovoDoc();
@@ -165,7 +165,7 @@ public class DocumentController {
 		}
 	}
 	
-	public boolean camposObrigatoriosPreenchidos() {
+	public boolean validateDocumentRequiredFields() {
 		if(document.getConteudo() != null
 				&& !document.getDescription().isEmpty() && document.getDescription() != null
 				&& !document.getTitle().isEmpty() && document.getTitle() != null
@@ -205,12 +205,12 @@ public class DocumentController {
 	}
 
 
-	public List<DocumentType> getTiposDeDocumentos() {
-		return tiposDeDocumentos;
+	public List<DocumentType> getdocumentoTypeInternalList() {
+		return documentoTypeInternalList;
 	}
 
-	public void setTiposDeDocumentos(List<DocumentType> tiposDeDocumentos) {
-		this.tiposDeDocumentos = tiposDeDocumentos;
+	public void setdocumentoTypeInternalList(List<DocumentType> documentoTypeInternalList) {
+		this.documentoTypeInternalList = documentoTypeInternalList;
 	}
 
 	public List<Factor> getElementList() {
@@ -221,13 +221,13 @@ public class DocumentController {
 		this.elementList = elementList;
 	}
 
-	public LazyDataModel<Document> getDocumentosProcedimentos() {
-		return documentosProcedimentos;
+	public LazyDataModel<Document> getDocProcedureList() {
+		return docProcedureList;
 	}
 
-	public void setDocumentosProcedimentos(
-			LazyDataModel<Document> documentosProcedimentos) {
-		this.documentosProcedimentos = documentosProcedimentos;
+	public void setDocProcedureList(
+			LazyDataModel<Document> docProcedureList) {
+		this.docProcedureList = docProcedureList;
 	}
 
 	public LazyDataModel<Document> getDocumentosPoliticas() {
