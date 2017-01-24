@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+	
+	<ui:composition template="/template/principal.xhtml">
+		<ui:define name="conteudo">
+			<div class="container-fluid">
+			<h:form id="formNewCriticalAnalisys">
+				<!-- Page Heading -->
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="page-header">#{labels.analise_critica} <small>#{labels.nova_analise_critica}</small></h1>
+						<ol class="breadcrumb">
+							<li><i class="fa fa-dashboard"></i> <a href="#{request.contextPath}/pages/index.jsf?faces-redirect=true">#{labels.dashboard}</a></li>
+							<li><i class="fa fa-line-chart"></i> <a href="#{request.contextPath}/pages/criticalanalisys/criticalAnalisys.jsf?faces-redirect=true">#{labels.analise_critica}</a></li>
+							<li class="active"><i class="fa fa-line-chart"></i> #{labels.nova_analise_critica}</li>
+						</ol>
+					</div>
+						
+					<div class="col-lg-12">
+					    <p:dataGrid  id="dataGridSecaoAnaliseCritica"
+					    	var="sectionCriticalAnalisys" value="#{criticalAnalisysController.criticalAnalisys.sectionCriticalAnalisysList}" columns="1" layout="grid"
+					        rows="12" paginator="false"
+					        rowsPerPageTemplate="6,12,16">
+					 
+					        <p:panel header="#{sectionCriticalAnalisys.section.description}" style="text-align:left">
+					            <h:panelGrid columns="1" style="width:100%">
+					 				<p:dataTable var="itemCriticalAnalisys" value="#{sectionCriticalAnalisys.itemsCriticalAnalisys}">
+									    <p:column headerText="Item" >
+									        <h:outputText value="#{itemCriticalAnalisys.item.description}" />
+									    </p:column>
+									    <p:column headerText="Resultado" width="12%" styleClass="form-required" >
+									        <h:selectOneMenu converter="GenericConverter" id="resultList"
+									        	styleClass="width-full form-control" 
+												value="#{itemCriticalAnalisys.result}">
+									 		  	<f:selectItem itemLabel=""/>
+									 		  	<f:selectItems value="#{criticalAnalisysController.resultList}"
+												            	var="result"
+												            	itemLabel="#{result.description}" 	
+												            	itemValue="#{result}"/>
+											</h:selectOneMenu>	
+									    </p:column>
+									</p:dataTable>
+									<br />
+
+									<h:outputText styleClass="form-required" value="Conclusão:"/>
+									<h:selectOneMenu converter="GenericConverter" id="conclusionList" 
+										style="margin-top:5px;width:150px"
+							        	styleClass="width-full form-control" 
+										value="#{sectionCriticalAnalisys.conclusion}">
+							 		  	<f:selectItem itemLabel=""/>
+							 		  	<f:selectItems value="#{criticalAnalisysController.conclusionList}" 
+										            	var="conclusion"
+										            	itemLabel="#{conclusion.description}" 	
+										            	itemValue="#{conclusion}"/>
+									</h:selectOneMenu>	
+											
+									<h:outputText styleClass="form-required" value="Documentos e indicadores de referência:"/>
+    								<h:inputTextarea styleClass="form-control"
+    									style="margin-top:5px;"
+										rows="3" value="#{sectionCriticalAnalisys.references}" />
+    								
+    								<h:outputText value="Comentários:"/>
+    								<h:inputTextarea styleClass="form-control"
+    									style="margin-top:5px;"
+										rows="3" value="#{sectionCriticalAnalisys.comments}" />
+										
+					            </h:panelGrid>
+					        </p:panel>
+					    </p:dataGrid>
+					    <div id="conclusaoGeralPanel" class="panel panel-default" style="margin-top:3px;">
+							<div class="panel-heading">Finalização da reunião de análise crítica da direção</div>
+							<div class="panel-body">
+								<h:outputText styleClass="form-required" value="Conclusao geral da reunião:"/>
+   								<h:inputTextarea styleClass="form-control"
+   									style="margin-top:5px;"
+									rows="3" value="#{criticalAnalisysController.criticalAnalisys.conclusion}" />
+									
+								<h:outputText styleClass="form-required" value="Participantes:"/>
+   								<h:inputTextarea styleClass="form-control"
+   									style="margin-top:5px;"
+									rows="3" value="#{criticalAnalisysController.criticalAnalisys.participants}" />
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div class="btn-group">
+								<p:commandButton id="btnSalvar" value="#{labels.salvar}" styleClass="btn btn-primary btn-modal"
+										actionListener="#{criticalAnalisysController.addCriticalAnalisys}" />
+								<p:commandButton styleClass="btn btn-default btn-modal"
+									value="#{labels.cancelar}"
+									action="#{criticalAnalisysController.cancelNewCriticalAnalisys}" />
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- DIALOGOS DE CONFIRMAÇÃO -->
+				<p:confirmDialog id="confirmInclusaoAnaliseCritica"
+					message="#{criticalAnalisysController.criticalAnalisys.id == null ? mensagens.sgq_confirmar_inclusao : mensagens.sgq_confirmar_edicao}"
+					widgetVar="confirmInclusaoAnaliseCritica" resizable="false"
+					closable="false" draggable="false">
+					<div class="pull-right">
+						<p:commandButton styleClass="btn btn-primary"
+								value="#{labels.sim}"
+								action="#{criticalAnalisysController.confirmSaveCriticalAnalisys}" />
+						<p:commandButton styleClass="btn btn-default"
+								value="#{labels.nao}"
+								onclick="PF('confirmInclusaoAnaliseCritica').hide();"/>
+					</div>
+				</p:confirmDialog>
+				
+			</h:form>	
+			</div>
+		</ui:define>
+	</ui:composition>
+</html>

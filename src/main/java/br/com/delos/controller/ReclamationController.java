@@ -360,11 +360,11 @@ public class ReclamationController {
 	}
 
 	public String redirectNovaReclamacao() {
-		return FacesUtil.sendRedirect("/paginas/sac/reclamacao/novaReclamacao");
+		return FacesUtil.sendRedirect("/pages/sac/reclamation/newReclamation");
 	}
 
 	public String redirectSac() {
-		return FacesUtil.sendRedirect("/paginas/sac/sac");
+		return FacesUtil.sendRedirect("/pages/sac/sac");
 	}
 
 	public void listarCidadesPorEstado() {

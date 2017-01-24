@@ -72,11 +72,11 @@ public class ProfileController {
 	}
 	
 	public String redirectPerfil() {
-		return FacesUtil.sendRedirect("/paginas/usuario/perfil");
+		return FacesUtil.sendRedirect("/pages/user/profile");
 	}
 	
 	public String redirectDashboard() {
-		return FacesUtil.sendRedirect("/paginas/index");
+		return FacesUtil.sendRedirect("/pages/index");
 	}
 
 	private boolean validarCamposObrigatorios() {

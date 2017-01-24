@@ -74,7 +74,7 @@ public class CriticalAnalisysController {
 	}
 	
 	public String redirectNewCriticalAnalisys() {
-		return FacesUtil.sendRedirect("/paginas/analisecritica/novaAnaliseCritica");
+		return FacesUtil.sendRedirect("/pages/criticalAnalisys/newCriticalAnalisys");
 	}
 
 	public void addCriticalAnalisys() {
@@ -121,7 +121,7 @@ public class CriticalAnalisysController {
 	}
 	
 	public String redirectAnaliseCritica() {
-		return FacesUtil.sendRedirect("/paginas/analisecritica/analiseCritica");
+		return FacesUtil.sendRedirect("/pages/criticalanalisys/criticalAnalisys");
 	}
 	
 	public String cancelNewCriticalAnalisys() {

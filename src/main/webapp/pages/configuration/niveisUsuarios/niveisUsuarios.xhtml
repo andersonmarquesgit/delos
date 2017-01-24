@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition>
+	<h:form id="formNiveisUsuarios">
+	<p:commandButton id="btIncluirNivel" styleClass="btn btn-labeled btn-primary" 
+		value="#{labels.configuracoes_novo_nivel_de_usuario}"
+		oncomplete="PF('modalNivelUsuario').show();" icon="fa fa-plus" />	
+	
+	<div class="table-responsive">
+	   <p:dataTable tableStyleClass="table table-striped table-hover small table-bordered table-hover" value="#{userLevelController.userLevelList}"
+	   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" var="userLevel"
+	   		pageLinks="10" rows="10" rowsPerPageTemplate="10,20,50" paginatorPosition="bottom" style="text-align: center;"
+	   		emptyMessage="#{labels.empty_message_niveis}" reflow="true">
+	      	<p:column headerText="#{labels.configuracoes_nome}" sortBy="#{userLevel.name}" width="25%">
+	         	<h:outputText value="#{userLevel.name}"/>
+	      	</p:column>
+	      	<p:column headerText="#{labels.documentos}">
+	         	<p:selectBooleanCheckbox value="#{userLevel.docPermission}" disabled="true"/>
+	      	</p:column>
+	      	<p:column headerText="#{labels.configuracoes_sac}">
+	         	<p:selectBooleanCheckbox value="#{userLevel.sacPermission}" disabled="true"/>
+	      	</p:column>
+	      	<p:column headerText="#{labels.analise_critica}">
+	         	<p:selectBooleanCheckbox value="#{userLevel.criticalAnalisysPermission}" disabled="true"/>
+	      	</p:column>
+	      	<p:column headerText="#{labels.configuracoes}">
+	         	<p:selectBooleanCheckbox value="#{userLevel.configurarionPermission}" disabled="true"/>
+	      	</p:column>
+	      	<p:column headerText="#{labels.opcoes}" width="20%">
+		      	<p:commandButton icon="fa fa-pencil" title="Editar" process="@this" update="@none"
+		      			styleClass="btn btn-primary"
+                        actionListener="#{userLevelController.editUserLevel(userLevel)}" />
+		      	<p:commandButton icon="fa fa-trash" title="Excluir" process="@this" update="@none"
+		      			styleClass="btn btn-danger"
+                        actionListener="#{userLevelController.confirmDeleteUserLevel(userLevel)}" />
+			</p:column>
+	   </p:dataTable>
+	   
+	   <!-- DIALOGOS DE CONFIRMAÇÃO -->
+	   <p:confirmDialog id="confirmExclusaoNivelUsuario"  message="#{mensagens.sgq_confirmar_exclusao}"
+			widgetVar="confirmExclusaoNivelUsuario" resizable="false" closable="false"
+			draggable="false">
+			<div class="pull-right">
+				<p:commandButton styleClass="btn btn-primary" value="#{labels.sim}" 
+					onclick="PF('confirmExclusaoNivelUsuario').hide();"
+					actionListener="#{userLevelController.deleteUserLevel}" />
+				<p:commandButton styleClass="btn btn-default" value="#{labels.nao}" actionListener="#{userLevelController.cancelDeleteUserLevel}"/>
+			</div>
+	   </p:confirmDialog>
+			
+	</div>
+	
+		<!-- Modal Adicionar Nível de Usuario -->
+		<h:panelGroup id="modalIncluirExperiencias">
+			<ui:include src="/pages/configuration/niveisUsuarios/modalNivelUsuario.xhtml" />
+		</h:panelGroup>	   
+	</h:form>
+</ui:composition>
+</html>
