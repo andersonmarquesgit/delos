@@ -103,25 +103,25 @@ public class DocumentController {
 	}
 	
 	public void addDocExternal() {
-		RequestContext.getCurrentInstance().execute("PF('modalAddDocumento').show();");
+		RequestContext.getCurrentInstance().execute("PF('modalAddDocument').show();");
 	}
 	
 	public void cancelSendDocExternal() {
 		this.inicializarDocumentosExternos();
 		this.inicializarElementosENovoDoc();
-		RequestContext.getCurrentInstance().update("modalAddDocumento");
-		RequestContext.getCurrentInstance().execute("PF('modalAddDocumento').hide();");
+		RequestContext.getCurrentInstance().update("modalAddDocument");
+		RequestContext.getCurrentInstance().execute("PF('modalAddDocument').hide();");
 	}
 	
 	public void addDocInternal() {
-		RequestContext.getCurrentInstance().execute("PF('modalAddDocumentoInterno').show();");
+		RequestContext.getCurrentInstance().execute("PF('modalAddDocumentInternal').show();");
 	}
 	
 	public void cancelSendDocInternal() {
 		this.inicializarDocumentosInternos();
 		this.inicializarElementosENovoDoc();
 		RequestContext.getCurrentInstance().update("formAddDocumentoInterno");
-		RequestContext.getCurrentInstance().execute("PF('modalAddDocumentoInterno').hide();");
+		RequestContext.getCurrentInstance().execute("PF('modalAddDocumentInternal').hide();");
 	}
 	
 	public void visualizarDocumento(Document documentoSelecionado) {
@@ -142,9 +142,9 @@ public class DocumentController {
 			documentoService.salvar(document);
 			this.inicializarDocumentosExternos();
 			this.inicializarElementosENovoDoc();
-			RequestContext.getCurrentInstance().update("modalAddDocumento");
+			RequestContext.getCurrentInstance().update("modalAddDocument");
 			RequestContext.getCurrentInstance().update("formDocumentosExternos");
-			RequestContext.getCurrentInstance().execute("PF('modalAddDocumento').hide();");
+			RequestContext.getCurrentInstance().execute("PF('modalAddDocument').hide();");
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_DOCUMENTO_EXTERNO);
 		}else {
 			FacesUtil.adicionarErro(MsgConstantes.VALIDACAO_CAMPOS_OBRIGATORIOS);
@@ -156,9 +156,9 @@ public class DocumentController {
 			documentoService.salvar(document);
 			this.inicializarDocumentosInternos();
 			this.inicializarElementosENovoDoc();
-			RequestContext.getCurrentInstance().update("modalAddDocumentoInterno");
+			RequestContext.getCurrentInstance().update("modalAddDocumentInternal");
 			RequestContext.getCurrentInstance().update("formDocumentosInternos");
-			RequestContext.getCurrentInstance().execute("PF('modalAddDocumentoInterno').hide();");
+			RequestContext.getCurrentInstance().execute("PF('modalAddDocumentInternal').hide();");
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_DOCUMENTO_INTERNO);
 		}else {
 			FacesUtil.adicionarErro(MsgConstantes.VALIDACAO_CAMPOS_OBRIGATORIOS);
