@@ -51,7 +51,7 @@ public class UserLevelController implements Serializable{
 	}
 	
 	public void confirmAddUserLevel() {
-		RequestContext.getCurrentInstance().execute("PF('modalNivelUsuario').hide();");
+		RequestContext.getCurrentInstance().execute("PF('modalUserLevel').hide();");
 		userLevel.setDateInclusion(new Date());
 		Boolean ehEdicao = (this.userLevel.getId() != null);
 		nivelUsuarioService.salvar(userLevel);
@@ -61,19 +61,19 @@ public class UserLevelController implements Serializable{
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO);
 		}
 		this.initObjects();
-		RequestContext.getCurrentInstance().update("formNiveisUsuarios");
+		RequestContext.getCurrentInstance().update("formUserLevel");
 	}
 	
 	public void cancelAddUserLevel() {
 		this.initObjects();
-		RequestContext.getCurrentInstance().update("formNiveisUsuarios");
-		RequestContext.getCurrentInstance().execute("PF('modalNivelUsuario').hide();");
+		RequestContext.getCurrentInstance().update("formUserLevel");
+		RequestContext.getCurrentInstance().execute("PF('modalUserLevel').hide();");
 	}
 	
 	public void deleteUserLevel() {
 		nivelUsuarioService.remover(this.userLevelSelected);
 		this.initObjects();
-		RequestContext.getCurrentInstance().update("formNiveisUsuarios");
+		RequestContext.getCurrentInstance().update("formUserLevel");
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_EXCLUSAO);
 	}
 	
@@ -88,8 +88,8 @@ public class UserLevelController implements Serializable{
 	
 	public void editUserLevel(UserLevel userLevelSelected) {
 		this.userLevel = userLevelSelected;
-		RequestContext.getCurrentInstance().update("formNiveisUsuarios");
-		RequestContext.getCurrentInstance().execute("PF('modalNivelUsuario').show();");
+		RequestContext.getCurrentInstance().update("formUserLevel");
+		RequestContext.getCurrentInstance().execute("PF('modalUserLevel').show();");
 	}
 	
 	//Gets e Sets ==============================================================================================

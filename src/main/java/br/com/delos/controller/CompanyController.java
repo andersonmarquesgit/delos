@@ -62,7 +62,7 @@ public class CompanyController {
 	}
 	
 	public void confirmSaveCompany() {
-		RequestContext.getCurrentInstance().execute("PF('modalEmpresa').hide();");
+		RequestContext.getCurrentInstance().execute("PF('modalCompany').hide();");
 		Boolean ehEdicao = (this.company.getId() == null);
 		companyService.salvar(company);
 		if(ehEdicao) {
@@ -71,20 +71,20 @@ public class CompanyController {
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_EDICAO);
 		}
 		this.inicializarObjetosDaTela();
-		RequestContext.getCurrentInstance().update("formEmpresas");
+		RequestContext.getCurrentInstance().update("formCompany");
 	}
 	
 	public void cancelAddCompany() {
 		this.inicializarObjetosDaTela();
-		RequestContext.getCurrentInstance().update("formEmpresas");
-		RequestContext.getCurrentInstance().execute("PF('modalEmpresa').hide();");
+		RequestContext.getCurrentInstance().update("formCompany");
+		RequestContext.getCurrentInstance().execute("PF('modalCompany').hide();");
 	}
 	
 	public void deleteCompany() {
 		try {
 			companyService.remover(this.companySelected);
 			this.inicializarObjetosDaTela();
-			RequestContext.getCurrentInstance().update("formEmpresas");
+			RequestContext.getCurrentInstance().update("formCompany");
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_EXCLUSAO);
 		} catch (Exception e) {
 			logger.error(FacesUtil.obterTexto(MsgConstantes.ERRO_EXCLUSAO), e);
@@ -104,8 +104,8 @@ public class CompanyController {
 	
 	public void editCompany(Company companySelected) {
 		this.company = companySelected;
-		RequestContext.getCurrentInstance().update("formEmpresas");
-		RequestContext.getCurrentInstance().execute("PF('modalEmpresa').show();");
+		RequestContext.getCurrentInstance().update("formCompany");
+		RequestContext.getCurrentInstance().execute("PF('modalCompany').show();");
 	}
 
 	//Gets e Sets ==============================================================================================

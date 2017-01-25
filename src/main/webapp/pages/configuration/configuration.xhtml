@@ -27,22 +27,22 @@
 						<div>
 							<!-- Abas -->
 							<ul class="nav nav-tabs" role="tablist">
-								<li role="presentation" class="active"><a href="#empresas" 
-									aria-controls="empresas" role="tab" data-toggle="tab"><i class="fa fa-university"></i> #{labels.configuracoes_empresas}</a></li>
+								<li role="presentation" class="active"><a href="#company" 
+									aria-controls="company" role="tab" data-toggle="tab"><i class="fa fa-university"></i> #{labels.configuration_company}</a></li>
 								<li role="presentation"><a href="#unidades" 
 									aria-controls="unidades" role="tab" data-toggle="tab"><i class="fa fa-cubes"></i> #{labels.configuracoes_unidades}</a></li>
 								<li role="presentation"><a href="#niveisDeUsuarios"
-									aria-controls="niveisDeUsuarios" role="tab" data-toggle="tab"><i class="fa fa-users"></i> #{labels.configuracoes_niveis_de_usuarios}</a></li>
+									aria-controls="niveisDeUsuarios" role="tab" data-toggle="tab"><i class="fa fa-users"></i> #{labels.configuration_user_level}</a></li>
 								<li role="presentation"><a href="#usuarios"
 									aria-controls="usuarios" role="tab" data-toggle="tab"><i class="fa fa-user-plus"></i> #{labels.configuracoes_usuarios}</a></li>
 							</ul>
 		
 							<!-- Tab panes -->
 							<div class="tab-content">
-								<div role="tabpanel" class="tab-pane active" id="empresas">
+								<div role="tabpanel" class="tab-pane active" id="company">
 								<br />
 									<!-- Empresas -->
-									<ui:include src="empresas/empresas.xhtml" />
+									<ui:include src="company/company.xhtml" />
 								</div>
 								<div role="tabpanel" class="tab-pane" id="unidades">
 								<br />
@@ -52,7 +52,7 @@
 								<div role="tabpanel" class="tab-pane" id="niveisDeUsuarios">
 								<br />
 									<!-- Níveis de Usuários -->
-									<ui:include src="niveisUsuarios/niveisUsuarios.xhtml" />
+									<ui:include src="userLevel/userLevel.xhtml" />
 								</div>
 								<div role="tabpanel" class="tab-pane" id="usuarios">
 								<br />

@@ -9,14 +9,14 @@
 <ui:composition>
 	<p:commandButton id="btIncluirUsuario" styleClass="btn btn-labeled btn-primary" 
 			value="#{labels.configuracoes_nova_empresa}"
-			oncomplete="PF('modalEmpresa').show();" icon="fa fa-plus" />
+			oncomplete="PF('modalCompany').show();" icon="fa fa-plus" />
 
 	<div class="table-responsive">
-	<h:form id="formEmpresas">
+	<h:form id="formCompany">
 	   <p:dataTable tableStyleClass="table table-striped table-hover small table-bordered table-hover" value="#{companyController.companyList}"
 	   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" var="company"
 	   		pageLinks="10" rows="20" rowsPerPageTemplate="10,20,50" paginatorPosition="bottom" 
-	   		style="text-align: center;" emptyMessage="#{labels.empty_message_empresas}" reflow="true">
+	   		style="text-align: center;" emptyMessage="#{labels.empty_message_company}" reflow="true">
 	      	<p:column headerText="#{labels.configuracoes_nome}">
 	         	<h:outputText value="#{company.name}"/>
 	      	</p:column>
@@ -47,7 +47,7 @@
 	   
 	   <!-- Modal Adicionar Nível de Usuario -->
 		<h:panelGroup id="modalIncluirEmpresa">
-			<ui:include src="/pages/configuration/empresas/modalEmpresa.xhtml" />
+			<ui:include src="/pages/configuration/company/modalCompany.xhtml" />
 		</h:panelGroup>	  
 	</h:form>   
 	</div>

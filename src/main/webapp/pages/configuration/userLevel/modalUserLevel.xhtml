@@ -7,10 +7,10 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <ui:composition>
-		<p:dialog id="modalNivelUsuario" header="#{labels.configuracoes_modal_dados_nivel}"
-			widgetVar="modalNivelUsuario"
+		<p:dialog id="modalUserLevel" header="#{labels.configuracoes_modal_dados_nivel}"
+			widgetVar="modalUserLevel"
 			closable="true" resizable="false" draggable="false" width="600" modal="true">
-			<p:ajax event="close" update="modalNivelUsuario" 
+			<p:ajax event="close" update="modalUserLevel" 
 				listener="#{userLevelController.cancelDeleteUserLevel}" />
 				
 				<div id="dadosNivelUsuarioPanel" class="panel panel-default">
@@ -46,7 +46,7 @@
 							actionListener="#{userLevelController.addUserLevel}" />
 						<p:commandButton styleClass="btn btn-default btn-modal"
 							value="#{labels.cancelar}"
-							onclick="PF('modalNivelUsuario').hide();"
+							onclick="PF('modalUserLevel').hide();"
 							actionListener="#{userLevelController.cancelAddUserLevel}"/>
 					</div>
 				</div>	

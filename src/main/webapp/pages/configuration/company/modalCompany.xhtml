@@ -7,10 +7,10 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <ui:composition>
-	<p:dialog id="modalEmpresa" header="#{labels.configuracoes_modal_dados_empresa}"
-	widgetVar="modalEmpresa"
+	<p:dialog id="modalCompany" header="#{labels.configuracoes_modal_dados_empresa}"
+	widgetVar="modalCompany"
 	closable="true" resizable="false" draggable="false" width="600" modal="true">
-	<p:ajax event="close" update="modalEmpresa" 
+	<p:ajax event="close" update="modalCompany" 
 		listener="#{companyController.cancelAddCompany}" />
 		
 		<div id="dadosEmpresaPanel" class="panel panel-default">
@@ -38,7 +38,7 @@
 					actionListener="#{companyController.addCompany}" />
 				<p:commandButton styleClass="btn btn-default btn-modal"
 					value="#{labels.cancelar}"
-					onclick="PF('modalEmpresa').hide();"
+					onclick="PF('modalCompany').hide();"
 					actionListener="#{companyController.cancelAddCompany}"/>
 			</div>
 		</div>	

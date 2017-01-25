@@ -7,10 +7,10 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <ui:composition>
-	<h:form id="formNiveisUsuarios">
+	<h:form id="formUserLevel">
 	<p:commandButton id="btIncluirNivel" styleClass="btn btn-labeled btn-primary" 
 		value="#{labels.configuracoes_novo_nivel_de_usuario}"
-		oncomplete="PF('modalNivelUsuario').show();" icon="fa fa-plus" />	
+		oncomplete="PF('modalUserLevel').show();" icon="fa fa-plus" />	
 	
 	<div class="table-responsive">
 	   <p:dataTable tableStyleClass="table table-striped table-hover small table-bordered table-hover" value="#{userLevelController.userLevelList}"
@@ -58,7 +58,7 @@
 	
 		<!-- Modal Adicionar Nível de Usuario -->
 		<h:panelGroup id="modalIncluirExperiencias">
-			<ui:include src="/pages/configuration/niveisUsuarios/modalNivelUsuario.xhtml" />
+			<ui:include src="/pages/configuration/userLevel/modalUserLevel.xhtml" />
 		</h:panelGroup>	   
 	</h:form>
 </ui:composition>
