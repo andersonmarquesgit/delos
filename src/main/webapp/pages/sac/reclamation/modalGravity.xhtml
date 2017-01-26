@@ -8,8 +8,8 @@
 	xmlns:b="http://bootsfaces.net/ui">
 
 <ui:composition>
-<p:dialog id="modalGravidade" header="#{labels.sac_reclamacao}"
-		widgetVar="modalGravidade"  responsive="true"
+<p:dialog id="modalGravity" header="#{labels.sac_reclamacao}"
+		widgetVar="modalGravity"  responsive="true"
 		closable="true" resizable="false" draggable="false" modal="true">
 		<p:ajax event="close" listener="#{reclamationController.cancelGravityAnalisys}" />
 		<div id="dadosGravidade" class="panel panel-default">
@@ -58,18 +58,18 @@
 </p:dialog>
 
 <!-- DIALOGOS DE CONFIRMAÇÃO -->
-<p:confirmDialog id="confirmGravidadeReclamacao"
+<p:confirmDialog id="confirmGravityReclamation"
 	message="#{labels.sac_reclamacao_conf_analisar_gravidade}"
-	widgetVar="confirmGravidadeReclamacao" resizable="false"
+	widgetVar="confirmGravityReclamation" resizable="false"
 	closable="false" draggable="false">
 	<div class="pull-right">
 		<p:commandButton styleClass="btn btn-primary"
 				value="#{labels.sim}"
-				onclick="PF('confirmGravidadeReclamacao').hide();"
-				actionListener="#{reclamationController.confirmGravidadeReclamacao}" />
+				onclick="PF('confirmGravityReclamation').hide();"
+				actionListener="#{reclamationController.confirmGravityReclamation}" />
 		<p:commandButton styleClass="btn btn-default"
 				value="#{labels.nao}"
-				onclick="PF('confirmGravidadeReclamacao').hide();"/>
+				onclick="PF('confirmGravityReclamation').hide();"/>
 	</div>
 </p:confirmDialog>
 </ui:composition>

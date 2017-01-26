@@ -118,7 +118,7 @@ public class ReclamationController {
 					.adicionarErro(MsgConstantes.VALIDACAO_CAMPOS_OBRIGATORIOS);
 		} else {
 			RequestContext.getCurrentInstance().execute(
-					"PF('confirmInclusaoReclamacao').show();");
+					"PF('confirmAddReclamation').show();");
 		}
 	}
 
@@ -151,13 +151,13 @@ public class ReclamationController {
 	public String confirmSaveReclamation() {
 		this.firstStepRegisterReclamation();
 		RequestContext.getCurrentInstance().execute(
-				"PF('confirmInclusaoReclamacao').hide();");
+				"PF('confirmAddReclamation').hide();");
 		reclamationService.save(reclamation);
 		reclamationService.sendEmail(this.reclamation);
 		this.initObjects();
 		this.initReclamationList();
-		RequestContext.getCurrentInstance().update("formNovaReclamacao");
-		RequestContext.getCurrentInstance().update("formReclamacoes");
+		RequestContext.getCurrentInstance().update("formNewReclamation");
+		RequestContext.getCurrentInstance().update("formReclamation");
 		FacesUtil.obterFlashScope().setKeepMessages(true);
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO);
 		this.refreshDashboard();
@@ -172,7 +172,7 @@ public class ReclamationController {
 
 	public String cancelNewReclamation() {
 		this.initObjects();
-		RequestContext.getCurrentInstance().update("formNovaReclamacao");
+		RequestContext.getCurrentInstance().update("formNewReclamation");
 		return this.redirectSac();
 	}
 
@@ -195,7 +195,7 @@ public class ReclamationController {
 	public void addGravity(Reclamation reclamacao) {
 		this.reclamation = reclamacao;
 		RequestContext.getCurrentInstance().execute(
-				"PF('modalGravidade').show();");
+				"PF('modalGravity').show();");
 	}
 
 	public void saveGravityAnalisys() {
@@ -204,7 +204,7 @@ public class ReclamationController {
 					.adicionarErro(MsgConstantes.VALIDACAO_CAMPOS_OBRIGATORIOS);
 		} else {
 			RequestContext.getCurrentInstance().execute(
-					"PF('confirmGravidadeReclamacao').show();");
+					"PF('confirmGravityReclamation').show();");
 		}
 	}
 
@@ -212,9 +212,9 @@ public class ReclamationController {
 	 * Método responsável pela segunda etapa da Reclamação {@link Reclamation},
 	 * ou seja, a realização da análise da gravidade {@link Gravity}
 	 */
-	public void confirmGravidadeReclamacao() {
+	public void confirmGravityReclamation() {
 		RequestContext.getCurrentInstance().execute(
-				"PF('modalGravidade').hide();");
+				"PF('modalGravity').hide();");
 		this.secondStepRegisterReclamation();
 		Object[] params = new Object[1];
 		params[0] = this.gravity.getDescription();
@@ -223,16 +223,16 @@ public class ReclamationController {
 				params);
 		this.initObjects();
 		this.initReclamationList();
-		RequestContext.getCurrentInstance().update("formReclamacoes");
-		RequestContext.getCurrentInstance().update("modalGravidade");
+		RequestContext.getCurrentInstance().update("formReclamation");
+		RequestContext.getCurrentInstance().update("modalGravity");
 	}
 
 	public void cancelGravityAnalisys() {
 		this.initObjects();
 		this.initReclamationList();
-		RequestContext.getCurrentInstance().update("modalGravidade");
+		RequestContext.getCurrentInstance().update("modalGravity");
 		RequestContext.getCurrentInstance().execute(
-				"PF('modalGravidade').hide();");
+				"PF('modalGravity').hide();");
 
 	}
 
@@ -251,7 +251,7 @@ public class ReclamationController {
 	public void analyzeAction(Reclamation reclamation) {
 		this.reclamation = reclamation;
 		RequestContext.getCurrentInstance().execute(
-				"PF('modalAcaoTomada').show();");
+				"PF('modalAction').show();");
 		RequestContext.getCurrentInstance().update("numeroReclamacao");
 	}
 
@@ -261,7 +261,7 @@ public class ReclamationController {
 					.adicionarErro(MsgConstantes.VALIDACAO_CAMPOS_OBRIGATORIOS);
 		} else {
 			RequestContext.getCurrentInstance().execute(
-					"PF('confirmAcaoReclamacao').show();");
+					"PF('confirmActionReclamation').show();");
 		}
 
 	}
@@ -276,24 +276,24 @@ public class ReclamationController {
 	 * Método responsável pela terceira etapa da Reclamação {@link Reclamation},
 	 * ou seja, a realização da análise da ação a ser tomada {@link Gravity}
 	 */
-	public void confirmAcaoReclamacao() {
+	public void confirmActionReclamation() {
 		RequestContext.getCurrentInstance().execute(
-				"PF('modalAcaoTomada').hide();");
+				"PF('modalAction').hide();");
 		this.terceiraEtapaDaReclamacao();
 		reclamationService.save(reclamation);
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_ANALISE_ACAO);
 		this.initObjects();
 		this.initReclamationList();
-		RequestContext.getCurrentInstance().update("formReclamacoes");
-		RequestContext.getCurrentInstance().update("modalAcaoTomada");
+		RequestContext.getCurrentInstance().update("formReclamation");
+		RequestContext.getCurrentInstance().update("modalAction");
 	}
 
 	public void cancelarAnaliseDeAcao() {
 		this.initObjects();
 		this.initReclamationList();
-		RequestContext.getCurrentInstance().update("modalAcaoTomada");
+		RequestContext.getCurrentInstance().update("modalAction");
 		RequestContext.getCurrentInstance().execute(
-				"PF('modalAcaoTomada').hide();");
+				"PF('modalAction').hide();");
 	}
 
 	public void terceiraEtapaDaReclamacao() {
@@ -306,7 +306,7 @@ public class ReclamationController {
 	public void analisarAceite(Reclamation reclamacao) {
 		this.reclamation = reclamacao;
 		RequestContext.getCurrentInstance().execute(
-				"PF('modalAceiteCliente').show();");
+				"PF('modalCustomerAcceptance').show();");
 	}
 
 	public void salvarAnaliseDeAceite() {
@@ -315,7 +315,7 @@ public class ReclamationController {
 					.adicionarErro(MsgConstantes.VALIDACAO_CAMPOS_OBRIGATORIOS);
 		} else {
 			RequestContext.getCurrentInstance().execute(
-					"PF('confirmAceiteReclamacao').show();");
+					"PF('confirmAcceptanceReclamation').show();");
 		}
 
 	}
@@ -334,22 +334,22 @@ public class ReclamationController {
 	 * Método responsável pela quarta etapa da Reclamação {@link Reclamation}, ou
 	 * seja, a realização da análise do aceite do cliente {@link CustomerAcceptance}
 	 */
-	public void confirmAceiteReclamacao() {
-		RequestContext.getCurrentInstance().execute("PF('modalAceiteCliente').hide();");
+	public void confirmAcceptanceReclamation() {
+		RequestContext.getCurrentInstance().execute("PF('modalCustomerAcceptance').hide();");
 		this.quartaEtapaDaReclamacao();
 		reclamationService.save(reclamation);
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_ANALISE_ACEITE);
 		this.initObjects();
-		RequestContext.getCurrentInstance().update("formReclamacoes");
-		RequestContext.getCurrentInstance().update("modalAceiteCliente");
+		RequestContext.getCurrentInstance().update("formReclamation");
+		RequestContext.getCurrentInstance().update("modalCustomerAcceptance");
 	}
 
 	public void cancelarAnaliseDeAceite() {
 		this.initObjects();
 		this.initReclamationList();
-		RequestContext.getCurrentInstance().update("modalAceiteCliente");
+		RequestContext.getCurrentInstance().update("modalCustomerAcceptance");
 		RequestContext.getCurrentInstance().execute(
-				"PF('modalAceiteCliente').hide();");
+				"PF('modalCustomerAcceptance').hide();");
 	}
 
 	public void quartaEtapaDaReclamacao() {

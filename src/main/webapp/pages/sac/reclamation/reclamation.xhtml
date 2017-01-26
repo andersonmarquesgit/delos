@@ -8,7 +8,7 @@
 	xmlns:b="http://bootsfaces.net/ui">
 
 <ui:composition>
-	<h:form id="formReclamacoes">
+	<h:form id="formReclamation">
 	<p:commandButton id="btAddReclamation" styleClass="btn btn-labeled btn-primary" 
 		value="#{labels.sac_nova_reclamacao}" 
 		action="#{reclamationController.redirectNovaReclamacao}"
@@ -96,17 +96,17 @@
 
 	<!-- Modal Adicionar Gravidade -->
 	<h:panelGroup id="modalAnalisarGravidade">
-		<ui:include src="/pages/sac/reclamation/modalGravidade.xhtml" />
+		<ui:include src="/pages/sac/reclamation/modalGravity.xhtml" />
 	</h:panelGroup>	
 	
 	<!-- Modal Analisar Ação -->
 	<h:panelGroup id="modalAnalisarAcao">
-		<ui:include src="/pages/sac/reclamation/modalAcaoTomada.xhtml" />
+		<ui:include src="/pages/sac/reclamation/modalAction.xhtml" />
 	</h:panelGroup>	
 	
 	<!-- Modal Analisar Aceite -->
 	<h:panelGroup id="modalAnalisarAceite">
-		<ui:include src="/pages/sac/reclamation/modalAceiteCliente.xhtml" />
+		<ui:include src="/pages/sac/reclamation/modalCustomerAcceptance.xhtml" />
 	</h:panelGroup>	
 	</h:form>
 </ui:composition>

@@ -8,8 +8,8 @@
 	xmlns:b="http://bootsfaces.net/ui">
 
 <ui:composition>
-	<p:dialog id="modalAceiteCliente" header="#{labels.sac_reclamacao}"
-		widgetVar="modalAceiteCliente"  responsive="true" width="440px" 
+	<p:dialog id="modalCustomerAcceptance" header="#{labels.sac_reclamacao}"
+		widgetVar="modalCustomerAcceptance"  responsive="true" width="440px" 
 		closable="true" resizable="false" draggable="false" modal="true">
 		<p:ajax event="close"
 			listener="#{reclamationController.cancelarAnaliseDeAceite}" />
@@ -56,18 +56,18 @@
 	</p:dialog>
 
 	<!-- DIALOGOS DE CONFIRMAÇÃO -->
-	<p:confirmDialog id="confirmAceiteReclamacao"
+	<p:confirmDialog id="confirmAcceptanceReclamation"
 		message="#{labels.sac_reclamacao_conf_aceite}"
-		widgetVar="confirmAceiteReclamacao" resizable="false" closable="false"
+		widgetVar="confirmAcceptanceReclamation" resizable="false" closable="false"
 		draggable="false">
 		<div class="pull-right">
 			<p:commandButton styleClass="btn btn-primary" 
 				value="#{labels.sim}"
-				onclick="PF('confirmAceiteReclamacao').hide();"
-				actionListener="#{reclamationController.confirmAceiteReclamacao}" />
+				onclick="PF('confirmAcceptanceReclamation').hide();"
+				actionListener="#{reclamationController.confirmAcceptanceReclamation}" />
 			<p:commandButton styleClass="btn btn-default" 
 				value="#{labels.nao}"
-				onclick="PF('confirmAceiteReclamacao').hide();" />
+				onclick="PF('confirmAcceptanceReclamation').hide();" />
 		</div>
 	</p:confirmDialog>
 </ui:composition>
