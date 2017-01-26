@@ -4,15 +4,14 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <ui:composition>
-<h:form id="formUnidades">
+<h:form id="formUnit">
 	<p:commandButton id="btIncluirUsuario" styleClass="btn btn-labeled btn-primary" 
 			value="#{labels.configuracoes_nova_unidade}" actionListener="#{companyController.initCompanyList}"
-			update="formUnidades"
-			oncomplete="PF('modalUnidade').show();" icon="fa fa-plus" />
+			update="formUnit"
+			oncomplete="PF('modalUnit').show();" icon="fa fa-plus" />
 			
 	<div class="table-responsive">
 	   <p:dataTable tableStyleClass="table table-striped table-hover small table-bordered table-hover" 
@@ -20,7 +19,7 @@
 	   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" 
 	   		pageLinks="10" rows="20" rowsPerPageTemplate="10,20,50" 
 	   		paginatorPosition="bottom" style="text-align: center;"
-	   		emptyMessage="#{labels.empty_message_unidades}" reflow="true">
+	   		emptyMessage="#{labels.empty_message_unit}" reflow="true">
 	      	<p:column headerText="#{labels.configuracoes_nome}">
 	         	<h:outputText value="#{unit.name}"/>
 	      	</p:column>
@@ -51,7 +50,7 @@
 	   
 	   <!-- Modal Adicionar Nível de Usuario -->
 		<h:panelGroup id="modalIncluirUnidade">
-			<ui:include src="/pages/configuration/unidades/modalUnidade.xhtml" />
+			<ui:include src="/pages/configuration/unit/modalUnit.xhtml" />
 		</h:panelGroup>	  
 	</div>
 </h:form>   

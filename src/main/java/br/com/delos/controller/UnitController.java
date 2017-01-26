@@ -53,7 +53,7 @@ public class UnitController {
 	}
 	
 	public void confirmAddUnit() {
-		RequestContext.getCurrentInstance().execute("PF('modalUnidade').hide();");
+		RequestContext.getCurrentInstance().execute("PF('modalUnit').hide();");
 		Boolean ehEdicao = (this.unit.getId() == null);
 		unidadeService.salvar(unit);
 		if(ehEdicao) {
@@ -62,19 +62,19 @@ public class UnitController {
 			FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_EDICAO);
 		}
 		this.initObjects();
-		RequestContext.getCurrentInstance().update("formUnidades");
+		RequestContext.getCurrentInstance().update("formUnit");
 	}
 	
 	public void cancelAddUnit() {
 		this.initObjects();
-		RequestContext.getCurrentInstance().update("formUnidades");
-		RequestContext.getCurrentInstance().execute("PF('modalUnidade').hide();");
+		RequestContext.getCurrentInstance().update("formUnit");
+		RequestContext.getCurrentInstance().execute("PF('modalUnit').hide();");
 	}
 	
 	public void deleteUnit() {
 		unidadeService.remover(this.unitSelected);
 		this.initObjects();
-		RequestContext.getCurrentInstance().update("formUnidades");
+		RequestContext.getCurrentInstance().update("formUnit");
 		FacesUtil.adicionarMensagem(MsgConstantes.SUCESSO_EXCLUSAO);
 	}
 	
@@ -89,9 +89,9 @@ public class UnitController {
 	
 	public void editUnit(Unit unitSelected) {
 		this.unit = unitSelected;
-		RequestContext.getCurrentInstance().update("formUnidades");
+		RequestContext.getCurrentInstance().update("formUnit");
 		RequestContext.getCurrentInstance().update("selectEmpresa");
-		RequestContext.getCurrentInstance().execute("PF('modalUnidade').show();");
+		RequestContext.getCurrentInstance().execute("PF('modalUnit').show();");
 	}
 
 	//Gets e Sets ==============================================================================================

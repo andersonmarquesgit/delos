@@ -8,10 +8,10 @@
 	xmlns:b="http://bootsfaces.net/ui">
 
 <ui:composition>
-	<p:dialog id="modalUnidade" header="#{labels.configuracoes_modal_dados_unidade}"
-	widgetVar="modalUnidade"
+	<p:dialog id="modalUnit" header="#{labels.configuracoes_modal_dados_unidade}"
+	widgetVar="modalUnit"
 	closable="true" resizable="false" draggable="false" width="600" modal="true">
-	<p:ajax event="close" update="modalUnidade" 
+	<p:ajax event="close" update="modalUnit" 
 		listener="#{unitController.cancelAddUnit}" />
 		
 		<div id="dadosUnidadePanel" class="panel panel-default">
@@ -46,7 +46,7 @@
 					actionListener="#{unitController.addUnit}" />
 				<p:commandButton styleClass="btn btn-default btn-modal"
 					value="#{labels.cancelar}"
-					onclick="PF('modalUnidade').hide();"
+					onclick="PF('modalUnit').hide();"
 					actionListener="#{unitController.cancelAddUnit}"/>
 			</div>
 		</div>	

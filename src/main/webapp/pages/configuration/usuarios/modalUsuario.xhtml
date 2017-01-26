@@ -27,8 +27,8 @@
 						</div>
 						<div class="row">
 							<div class="col-lg-6">
-								<h:outputText styleClass="form-required" value="#{labels.configuracoes_unidades}"/>
-					        	<h:selectOneMenu converter="GenericConverter" id="unidades" styleClass="width-full form-control" 
+								<h:outputText styleClass="form-required" value="#{labels.configuration_unit}"/>
+					        	<h:selectOneMenu converter="GenericConverter" id="unit" styleClass="width-full form-control" 
 									value="#{userController.user.unit}">
 						 		  	<f:selectItem itemLabel=""/>
 						 		  	<f:selectItems value="#{unitController.unitList}" 
