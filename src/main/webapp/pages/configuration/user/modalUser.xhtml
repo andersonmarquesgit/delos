@@ -7,10 +7,10 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <ui:composition>
-	<p:dialog id="modalUsuario" header="#{labels.configuracoes_modal_dados_usuario}"
-	widgetVar="modalUsuario"
+	<p:dialog id="modalUser" header="#{labels.configuracoes_modal_dados_usuario}"
+	widgetVar="modalUser"
 	closable="true" resizable="false" draggable="false" width="600" modal="true">
-	<p:ajax event="close" update="modalUsuario" 
+	<p:ajax event="close" update="modalUser" 
 				listener="#{userController.cancelAddUser}" />
 				
 			<div id="dadosUsuarioPanel" class="panel panel-default">
@@ -39,7 +39,7 @@
 								</h:selectOneMenu>	
 							</div>
 							<div class="col-lg-6">
-								<h:outputText styleClass="form-required" value="#{labels.configuracoes_niveis_de_usuarios}"/>
+								<h:outputText styleClass="form-required" value="#{labels.configuration_user_level}"/>
 					        	<h:selectOneMenu converter="GenericConverter" id="niveis" styleClass="width-full form-control" 
 									value="#{userController.user.userLevel}">
 						 		  	<f:selectItem itemLabel=""/>
@@ -89,7 +89,7 @@
 						actionListener="#{userController.addUser}" />
 					<p:commandButton styleClass="btn btn-default btn-modal"
 						value="#{labels.cancelar}"
-						onclick="PF('modalUsuario').hide();"
+						onclick="PF('modalUser').hide();"
 						actionListener="#{userController.cancelAddUser}"/>
 				</div>
 			</div>	

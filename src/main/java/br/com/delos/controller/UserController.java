@@ -46,8 +46,8 @@ public class UserController {
 	}
 	
 	public void confirmAddUser() {
-		RequestContext.getCurrentInstance().update("formUsuarios");
-		RequestContext.getCurrentInstance().execute("PF('modalUsuario').hide();");
+		RequestContext.getCurrentInstance().update("formUser");
+		RequestContext.getCurrentInstance().execute("PF('modalUser').hide();");
 //		usuario.setRole(Role.ROLE_USER);
 		user.setRoles(null);
 		user.setLogin(user.getEmail());
@@ -63,8 +63,8 @@ public class UserController {
 	
 	public void cancelAddUser() {
 		this.initObjects();
-		RequestContext.getCurrentInstance().update("formUsuarios");
-		RequestContext.getCurrentInstance().execute("PF('modalUsuario').hide();");
+		RequestContext.getCurrentInstance().update("formUser");
+		RequestContext.getCurrentInstance().execute("PF('modalUser').hide();");
 	}
 	
 	public boolean validateUserRequiredFields(){

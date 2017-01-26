@@ -8,17 +8,17 @@
 	xmlns:b="http://bootsfaces.net/ui">
 
 <ui:composition>
-	<h:form id="formUsuarios">
+	<h:form id="formUser">
 	<p:commandButton id="btIncluirUsuario" styleClass="btn btn-labeled btn-primary" 
 			value="#{labels.configuracoes_novo_usuario}" actionListener="#{unitController.initUnitList}"
-			update="formUsuarios"
-			oncomplete="PF('modalUsuario').show();" icon="fa fa-plus" />	
+			update="formUser"
+			oncomplete="PF('modalUser').show();" icon="fa fa-plus" />	
 		
 	<div class="table-responsive">
 	  	<p:dataTable tableStyleClass="table table-striped table-hover small table-bordered table-hover" value="#{userController.userList}"
 	   		rowStyleClass="ui-state-never-highlight" paginator="true" paginatorAlwaysVisible="false" var="user"
 	   		pageLinks="10" rows="20" rowsPerPageTemplate="10,20,50" paginatorPosition="bottom" style="text-align: center;"
-	   		emptyMessage="#{labels.empty_message_usuarios}" reflow="true">
+	   		emptyMessage="#{labels.empty_message_user}" reflow="true">
 	      	<p:column headerText="#{labels.configuracoes_nome}" width="30%">
 	         	<h:outputText value="#{user.name}"/>
 	      	</p:column>
@@ -43,7 +43,7 @@
 	</div>
 	
 	<!-- Modal Adicionar Usuario -->
-	<ui:include src="modalUsuario.xhtml" />
+	<ui:include src="modalUser.xhtml" />
 	</h:form>   	
 </ui:composition>
 </html>

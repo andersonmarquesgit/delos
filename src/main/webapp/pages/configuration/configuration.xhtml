@@ -31,10 +31,10 @@
 									aria-controls="company" role="tab" data-toggle="tab"><i class="fa fa-university"></i> #{labels.configuration_company}</a></li>
 								<li role="presentation"><a href="#unit" 
 									aria-controls="unit" role="tab" data-toggle="tab"><i class="fa fa-cubes"></i> #{labels.configuration_unit}</a></li>
-								<li role="presentation"><a href="#niveisDeUsuarios"
-									aria-controls="niveisDeUsuarios" role="tab" data-toggle="tab"><i class="fa fa-users"></i> #{labels.configuration_user_level}</a></li>
-								<li role="presentation"><a href="#usuarios"
-									aria-controls="usuarios" role="tab" data-toggle="tab"><i class="fa fa-user-plus"></i> #{labels.configuracoes_usuarios}</a></li>
+								<li role="presentation"><a href="#userLevel"
+									aria-controls="userLevel" role="tab" data-toggle="tab"><i class="fa fa-users"></i> #{labels.configuration_user_level}</a></li>
+								<li role="presentation"><a href="#user"
+									aria-controls="user" role="tab" data-toggle="tab"><i class="fa fa-user-plus"></i> #{labels.configuration_user}</a></li>
 							</ul>
 		
 							<!-- Tab panes -->
@@ -49,15 +49,15 @@
 									<!-- Unidades -->
 									<ui:include src="unit/unit.xhtml" />
 								</div>
-								<div role="tabpanel" class="tab-pane" id="niveisDeUsuarios">
+								<div role="tabpanel" class="tab-pane" id="userLevel">
 								<br />
 									<!-- Níveis de Usuários -->
 									<ui:include src="userLevel/userLevel.xhtml" />
 								</div>
-								<div role="tabpanel" class="tab-pane" id="usuarios">
+								<div role="tabpanel" class="tab-pane" id="user">
 								<br />
 									<!-- Usuários -->
-									<ui:include src="usuarios/usuarios.xhtml" />
+									<ui:include src="user/user.xhtml" />
 								</div>
 							</div>
 						</div>
